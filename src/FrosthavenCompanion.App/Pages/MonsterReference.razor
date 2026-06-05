@@ -1,0 +1,123 @@
+@page "/monsters"
+@inject MonsterCatalog Monsters
+@inject NavigationManager Nav
+
+<PageTitle>Monsters — Frosthaven Companion</PageTitle>
+
+<h1>Monsters</h1>
+<p class="text-muted small">
+    Stats by scenario level (Normal / Elite). Range and many attack effects live on each monster's
+    ability cards, so they only show here when the base stat card lists them.
+    Hover a condition for what it does — see also the <a href="conditions">Conditions</a> page.
+</p>
+
+<div class="row">
+    <div class="col-12 col-md-4 mb-3">
+        <input class="form-control form-control-sm mb-2" placeholder="Search monsters…"
+               @bind="search" @bind:event="oninput" />
+        <div class="list-group" style="max-height:70vh; overflow:auto">
+            @foreach (var m in Filtered)
+            {
+                <button class="list-group-item list-group-item-action py-1 @(Selected?.Name == m.Name ? "active" : "")"
+                        @onclick="() => Select(m)">@m.DisplayName</button>
+            }
+            @if (!Filtered.Any())
+            {
+                <div class="text-muted small p-2">No monsters match.</div>
+            }
+        </div>
+    </div>
+
+    <div class="col-12 col-md-8">
+        @if (Selected is null)
+        {
+            <p class="text-muted">Pick a monster to see its stats.</p>
+        }
+        else
+        {
+            <h2 class="h4">@Selected.DisplayName</h2>
+
+            @if (Selected.Immunities.Count > 0)
+            {
+                <div class="mb-2">
+                    <span class="text-muted small me-1">Immune to:</span>
+                    @foreach (var c in Selected.Immunities)
+                    {
+                        @CondBadge(c)
+                    }
+                </div>
+            }
+
+            <div class="btn-group btn-group-sm mb-3" role="group" aria-label="Scenario level">
+                <span class="align-self-center text-muted small me-2">Level</span>
+                @for (var i = 0; i <= 7; i++)
+                {
+                    var lvl = i;
+                    <button type="button" class="btn @(level == lvl ? "btn-primary" : "btn-outline-primary")"
+                            @onclick="() => level = lvl">@i</button>
+                }
+            </div>
+
+            <table class="table table-sm align-middle" style="max-width:32rem">
+                <thead>
+                    <tr><th></th><th>Normal</th><th>Elite</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th class="text-muted">Health</th><td>@Cell(CurrentLevel?.Normal?.Health)</td><td>@Cell(CurrentLevel?.Elite?.Health)</td></tr>
+                    <tr><th class="text-muted">Move</th><td>@Cell(CurrentLevel?.Normal?.Move)</td><td>@Cell(CurrentLevel?.Elite?.Move)</td></tr>
+                    <tr><th class="text-muted">Attack</th><td>@Cell(CurrentLevel?.Normal?.Attack)</td><td>@Cell(CurrentLevel?.Elite?.Attack)</td></tr>
+                    <tr><th class="text-muted">Range</th><td>@Cell(CurrentLevel?.Normal?.Range)</td><td>@Cell(CurrentLevel?.Elite?.Range)</td></tr>
+                    <tr><th class="text-muted">Special</th><td>@SpecialCell(CurrentLevel?.Normal)</td><td>@SpecialCell(CurrentLevel?.Elite)</td></tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter, SupplyParameterFromQuery(Name = "m")]
+    public string? M { get; set; }
+
+    private string search = "";
+    private int level = 1;
+
+    private MonsterStats? Selected => string.IsNullOrEmpty(M) ? null : Monsters.Find(M);
+
+    private MonsterLevel? CurrentLevel => Selected?.Levels.FirstOrDefault(l => l.Level == level);
+
+    private IEnumerable<MonsterStats> Filtered => string.IsNullOrWhiteSpace(search)
+        ? Monsters.Monsters
+        : Monsters.Monsters.Where(m => m.DisplayName.Contains(search.Trim(), StringComparison.OrdinalIgnoreCase));
+
+    private void Select(MonsterStats m) =>
+        Nav.NavigateTo($"monsters?m={Uri.EscapeDataString(m.Name)}");
+
+    private static string Cap(string c) =>
+        Conditions.Find(c)?.Name ?? (string.IsNullOrEmpty(c) ? c : char.ToUpper(c[0]) + c[1..]);
+
+    private RenderFragment Cell(string? value) => string.IsNullOrEmpty(value)
+        ? @<span class="text-muted">—</span>
+        : @<text>@value</text>;
+
+    private RenderFragment CondBadge(string cond) =>
+        @<span class="badge text-bg-light border me-1" title="@(Conditions.Find(cond)?.Description)">@Cap(cond)</span>;
+
+    private RenderFragment SpecialCell(MonsterStatBlock? b) => __builder =>
+    {
+        if (b is null || (b.Abilities.Count == 0 && b.Conditions.Count == 0))
+        {
+            <span class="text-muted">—</span>
+        }
+        else
+        {
+            @if (b.Abilities.Count > 0)
+            {
+                <div>@string.Join(", ", b.Abilities)</div>
+            }
+            @foreach (var c in b.Conditions)
+            {
+                @CondBadge(c)
+            }
+        }
+    };
+}

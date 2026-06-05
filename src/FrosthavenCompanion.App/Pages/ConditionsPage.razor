@@ -1,0 +1,33 @@
+@page "/conditions"
+
+<PageTitle>Conditions — Frosthaven Companion</PageTitle>
+
+<h1>Conditions</h1>
+<p class="text-muted">Quick reference for the standard status conditions.</p>
+
+<div class="row">
+    <div class="col-12 col-lg-6 mb-3">
+        <h2 class="h5">Negative</h2>
+        <ul class="list-group">
+            @foreach (var c in Conditions.All.Where(c => !c.Positive))
+            {
+                <li class="list-group-item">
+                    <span class="badge text-bg-danger me-1">@c.Name</span>
+                    <span class="small">@c.Description</span>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-12 col-lg-6 mb-3">
+        <h2 class="h5">Positive</h2>
+        <ul class="list-group">
+            @foreach (var c in Conditions.All.Where(c => c.Positive))
+            {
+                <li class="list-group-item">
+                    <span class="badge text-bg-success me-1">@c.Name</span>
+                    <span class="small">@c.Description</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

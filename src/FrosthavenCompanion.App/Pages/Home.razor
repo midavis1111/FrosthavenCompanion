@@ -1,6 +1,7 @@
 @page "/"
 @inject CampaignStore Store
 @inject IJSRuntime JS
+@inject MonsterCatalog Monsters
 
 <PageTitle>Frosthaven Companion</PageTitle>
 
@@ -149,7 +150,23 @@ else
                             {
                                 <details class="small mb-2">
                                     <summary class="text-muted" style="cursor:pointer">Enemies</summary>
-                                    <div class="mt-1">@string.Join(", ", v.Definition.Monsters)</div>
+                                    <div class="mt-1">
+                                        @foreach (var (mon, i) in v.Definition.Monsters.Select((m, i) => (m, i)))
+                                        {
+                                            @if (i > 0)
+                                            {
+                                                <text>, </text>
+                                            }
+                                            @if (Monsters.Find(mon) is not null)
+                                            {
+                                                <a href="monsters?m=@Uri.EscapeDataString(mon)">@mon</a>
+                                            }
+                                            else
+                                            {
+                                                @mon
+                                            }
+                                        }
+                                    </div>
                                 </details>
                             }
                             <button class="btn btn-success mt-auto" @onclick="() => CompleteAsync(v.Index)">
