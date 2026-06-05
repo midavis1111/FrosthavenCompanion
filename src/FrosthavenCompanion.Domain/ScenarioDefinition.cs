@@ -15,6 +15,18 @@ public sealed record ScenarioDefinition
     /// <summary>True if this scenario is available from the start of the campaign.</summary>
     public bool Initial { get; init; }
 
+    /// <summary>The game's complexity/difficulty rating (1–5), when known.</summary>
+    public int? Complexity { get; init; }
+
+    /// <summary>The monster/enemy types present, as display names.</summary>
+    public IReadOnlyList<string> Monsters { get; init; } = [];
+
+    /// <summary>
+    /// A short, original recap of the scenario's premise (our own words, not the
+    /// book text). Loaded from the separate descriptions file; null if not written yet.
+    /// </summary>
+    public string? Description { get; init; }
+
     /// <summary>Scenarios revealed when this one is completed.</summary>
     public IReadOnlyList<string> Unlocks { get; init; } = [];
 
@@ -26,6 +38,9 @@ public sealed record ScenarioDefinition
 
     /// <summary>Scenarios linked to this one (played in immediate succession).</summary>
     public IReadOnlyList<string> Links { get; init; } = [];
+
+    /// <summary>Human-readable reward lines for completing the scenario (may be empty).</summary>
+    public IReadOnlyList<string> Rewards { get; init; } = [];
 
     /// <summary>Flow-chart grouping label, e.g. "intro".</summary>
     public string? Group { get; init; }

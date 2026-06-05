@@ -3,10 +3,19 @@
     "index": "0",
     "name": "Howling in the Snow",
     "initial": true,
+    "complexity": 1,
+    "monsters": [
+      "Hound"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Ignored bonus: inspiration",
+      "Calendar ignore: True",
+      "You should now be ready to take on scenario 1 on the following page in the Scenario Book. Do not perform an Outpost Phase until you have completed scenario 1."
+    ],
     "group": "intro",
     "hex": null,
     "x": 803.5,
@@ -16,6 +25,13 @@
     "index": "1",
     "name": "A Town in Flames",
     "initial": true,
+    "complexity": 1,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Priest",
+      "City Guard"
+    ],
     "unlocks": [
       "2",
       "3"
@@ -23,6 +39,9 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "(Gain 2+X morale, where X is the number of City Guards still on the map.)"
+    ],
     "group": "intro",
     "hex": null,
     "x": 961.25,
@@ -32,6 +51,11 @@
     "index": "2",
     "name": "Algox Scouting",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard"
+    ],
     "unlocks": [
       "4B"
     ],
@@ -41,6 +65,9 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 1"
+    ],
     "group": "intro",
     "hex": null,
     "x": 1078.5,
@@ -50,6 +77,13 @@
     "index": "3",
     "name": "Algox Offensive",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Priest",
+      "Hound"
+    ],
     "unlocks": [
       "4A"
     ],
@@ -59,6 +93,9 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 1"
+    ],
     "group": "intro",
     "hex": null,
     "x": 1049.5,
@@ -68,12 +105,21 @@
     "index": "4A",
     "name": "Heart of Ice A",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Guard",
+      "Algox Scout"
+    ],
     "unlocks": [],
     "blocks": [
       "4B"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1",
+      "Calendar entry: 156.1-4"
+    ],
     "group": "intro",
     "hex": null,
     "x": 903.5,
@@ -83,12 +129,21 @@
     "index": "4B",
     "name": "Heart of Ice B",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard"
+    ],
     "unlocks": [],
     "blocks": [
       "4A"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1",
+      "Calendar entry: 156.1-4"
+    ],
     "group": "intro",
     "hex": null,
     "x": 903.5,
@@ -98,6 +153,10 @@
     "index": "5",
     "name": "Frozen Crypt",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ice Wraith"
+    ],
     "unlocks": [
       "9",
       "10"
@@ -107,6 +166,9 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1293.5,
@@ -116,6 +178,11 @@
     "index": "6",
     "name": "Avalanche",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Frost Demon",
+      "Snow Imp"
+    ],
     "unlocks": [
       "11",
       "12"
@@ -125,6 +192,9 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Metal"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 989,
@@ -134,6 +204,11 @@
     "index": "7",
     "name": "Edge of the World",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Lurker Clawcrusher",
+      "Lurker Soldier"
+    ],
     "unlocks": [
       "13",
       "14"
@@ -141,6 +216,10 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Campaign sticker: Coral Shard"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1154.5,
@@ -150,6 +229,11 @@
     "index": "8",
     "name": "Crystal Trench",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Polar Bear",
+      "Snow Imp"
+    ],
     "unlocks": [
       "15",
       "16"
@@ -157,6 +241,10 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 1 Lumber",
+      "Collective: 2 Hide"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1570.25,
@@ -166,10 +254,20 @@
     "index": "9",
     "name": "Glowing Catacombs",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Ice Wraith",
+      "Living Doom",
+      "Living Spirit",
+      "Ooze"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Corpsecap"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1265.5,
@@ -179,12 +277,20 @@
     "index": "10",
     "name": "Crystal Enclosure",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Guard",
+      "Algox Priest"
+    ],
     "unlocks": [
       "18"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: 1"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1637.5,
@@ -194,12 +300,21 @@
     "index": "11",
     "name": "Snowscorn Peak",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Stormcaller",
+      "Frost Demon",
+      "Wind Demon"
+    ],
     "unlocks": [
       "19"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: 1"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 886,
@@ -209,12 +324,19 @@
     "index": "12",
     "name": "Temple Entrance",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Ancient Artillery"
+    ],
     "unlocks": [
       "20"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 15"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1105.5,
@@ -224,6 +346,10 @@
     "index": "13",
     "name": "Frozen Fjord",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Shrike Fiend"
+    ],
     "unlocks": [
       "21",
       "32"
@@ -231,6 +357,9 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #233"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 728,
@@ -240,12 +369,23 @@
     "index": "14",
     "name": "Jagged Shoals",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Abael Herder",
+      "Lightning Eel",
+      "Piranha Pig"
+    ],
     "unlocks": [
       "22"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Add event(s): winter-outpost:WO-81",
+      "Campaign sticker: Coral Shard, Shard Seeker",
+      "Unlock a class (choose one): Coral, Kelp"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1006.5,
@@ -255,6 +395,12 @@
     "index": "15",
     "name": "Ancient Spire",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Chaos Lieutenant",
+      "Robotic Boltshooter",
+      "Ruined Machine"
+    ],
     "unlocks": [
       "23",
       "24"
@@ -264,6 +410,11 @@
     "links": [
       "23",
       "24"
+    ],
+    "rewards": [
+      "Collective: 1 Lumber",
+      "Collective: 1 Metal",
+      "Collective: 1 Hide"
     ],
     "group": "unfettered",
     "hex": null,
@@ -274,6 +425,11 @@
     "index": "16",
     "name": "Derelict Elevator",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Ancient Artillery",
+      "Ruined Machine"
+    ],
     "unlocks": [
       "25",
       "26"
@@ -283,6 +439,10 @@
     "links": [
       "25",
       "26"
+    ],
+    "rewards": [
+      "XP: 5",
+      "Inspiration: 1"
     ],
     "group": "unfettered",
     "hex": null,
@@ -293,6 +453,8 @@
     "index": "17",
     "name": "Haunted Vault",
     "initial": false,
+    "complexity": 3,
+    "monsters": [],
     "unlocks": [
       "27"
     ],
@@ -301,6 +463,9 @@
       "9"
     ],
     "links": [],
+    "rewards": [
+      "Battle goals: 2"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1376,
@@ -310,10 +475,18 @@
     "index": "18",
     "name": "Crystal Fields",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Frozen Corpse"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Random item blueprint: 1",
+      "Calendar entry: 122.3-4"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1755.5,
@@ -323,10 +496,20 @@
     "index": "19",
     "name": "Skyhall",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Earth Demon",
+      "Flame Demon",
+      "Ice Wraith"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Random item blueprint: 1",
+      "Calendar entry: 54.3-4"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 819.125,
@@ -336,10 +519,19 @@
     "index": "20",
     "name": "Temple of Liberation",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Ruined Machine",
+      "Steel Automaton"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 15"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1045.25,
@@ -349,10 +541,18 @@
     "index": "21",
     "name": "Realm of Endless Frost",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Frost Demon",
+      "Living Spirit"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +2"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 788.25,
@@ -360,12 +560,22 @@
   },
   {
     "index": "22",
-    "name": "Ice Floes",
+    "name": "Ice Flows",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lurker Clawcrusher",
+      "Lurker Wavethrower"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 15",
+      "Calendar entry: 62.2-2",
+      "Lose 1 collective lumber for each set of five hexes with water tiles on tile 7-G"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1360.75,
@@ -375,6 +585,11 @@
     "index": "23",
     "name": "Spire Basement",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Living Bones",
+      "Living Spirit"
+    ],
     "unlocks": [
       "34"
     ],
@@ -382,6 +597,9 @@
     "requires": [],
     "links": [
       "34"
+    ],
+    "rewards": [
+      "Random item blueprint: 1"
     ],
     "group": "unfettered",
     "hex": null,
@@ -392,6 +610,11 @@
     "index": "24",
     "name": "Upper Spire",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Chaos Demon",
+      "Living Bones"
+    ],
     "unlocks": [
       "34"
     ],
@@ -399,6 +622,9 @@
     "requires": [],
     "links": [
       "34"
+    ],
+    "rewards": [
+      "Random item blueprint: 1"
     ],
     "group": "unfettered",
     "hex": null,
@@ -409,12 +635,22 @@
     "index": "25",
     "name": "Rusted Tunnels",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Robotic Boltshooter"
+    ],
     "unlocks": [],
     "blocks": [
       "26"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber",
+      "Collective: 2 Metal",
+      "Calendar entry: 128.2-4"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1770,
@@ -424,12 +660,22 @@
     "index": "26",
     "name": "Quatryl Library",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ancient Artillery",
+      "Ruined Machine",
+      "Steel Automaton"
+    ],
     "unlocks": [],
     "blocks": [
       "25"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Calendar entry: 169.3-4"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1761.5,
@@ -439,10 +685,21 @@
     "index": "27",
     "name": "Depths of Delirium",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Deep Terror",
+      "Living Bones",
+      "Ooze"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Battle goals: 1",
+      "Campaign sticker: Coral Shard"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1416.75,
@@ -452,6 +709,13 @@
     "index": "28",
     "name": "Summit Meeting",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Icespeaker",
+      "Algox Snowspeaker"
+    ],
     "unlocks": [
       "38"
     ],
@@ -461,6 +725,7 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "algox-3",
     "hex": null,
     "x": 1264.75,
@@ -470,12 +735,24 @@
     "index": "29",
     "name": "War of the Spire A",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Icespeaker",
+      "Algox Priest",
+      "Algox Scout"
+    ],
     "unlocks": [],
     "blocks": [
       "28"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Add event(s): winter-outpost:WO-68",
+      "Campaign sticker: Destroyer Of The Icespeakers",
+      "Calendar entry: 46.3-5",
+      "Remove all fh algox events from all outpost event decks"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 1679.75,
@@ -485,12 +762,26 @@
     "index": "30",
     "name": "War of the Spire B",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Icespeaker",
+      "Algox Scout",
+      "Algox Snowspeaker"
+    ],
     "unlocks": [],
     "blocks": [
       "28"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Add event(s): winter-outpost:WO-69",
+      "Campaign sticker: Destroyer Of The Snowspeakers",
+      "Calendar entry: 34.2-5",
+      "Remove all fh algox events from all outpost event decks"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1801,
@@ -500,6 +791,11 @@
     "index": "31",
     "name": "Crackling Tunnel",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Steel Automaton"
+    ],
     "unlocks": [
       "41"
     ],
@@ -508,6 +804,10 @@
       "20"
     ],
     "links": [],
+    "rewards": [
+      "Gold: 10",
+      "XP: 5"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1478.25,
@@ -517,10 +817,18 @@
     "index": "32",
     "name": "Ravens' Roost",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Frozen Corpse Scenario 32"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item blueprints: 69",
+      "Campaign sticker: Into The Forest"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 512.75,
@@ -530,10 +838,20 @@
     "index": "33",
     "name": "Thawed Wood",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Black Imp",
+      "Shrike Fiend"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #244",
+      "Calendar entry: 135.1-3",
+      "Gain 5 experience for each unrevealed dowsing rune"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 312,
@@ -543,10 +861,18 @@
     "index": "34",
     "name": "Top of the Spire",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Chaos Spark",
+      "Lord Of Chaos"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Campaign sticker: Coral Shard"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1918,
@@ -556,12 +882,23 @@
     "index": "35",
     "name": "Scrap Pit",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Living Bones",
+      "Ruined Machine",
+      "Spitting Drake"
+    ],
     "unlocks": [
       "43"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber",
+      "Collective: 2 Metal",
+      "Collective: 2 Hide"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1876.25,
@@ -571,6 +908,12 @@
     "index": "36",
     "name": "Buried Ducts",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Robotic Boltshooter",
+      "Ruined Machine"
+    ],
     "unlocks": [
       "44"
     ],
@@ -579,6 +922,11 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item blueprints: 67",
+      "Collective: 3 Lumber",
+      "Collective: 3 Metal"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1960,
@@ -588,6 +936,11 @@
     "index": "37",
     "name": "The Dead Mile",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Living Bones",
+      "Living Spirit"
+    ],
     "unlocks": [
       "44"
     ],
@@ -596,6 +949,11 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item blueprints: 67",
+      "Collective: 3 Lumber",
+      "Collective: 3 Hide"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1955.25,
@@ -605,6 +963,11 @@
     "index": "38",
     "name": "The Way Forward",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Hound",
+      "Polar Bear"
+    ],
     "unlocks": [
       "45",
       "46"
@@ -612,6 +975,11 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Battle goals: 1",
+      "Inspiration: 1"
+    ],
     "group": "algox-3",
     "hex": null,
     "x": 1510.25,
@@ -621,12 +989,23 @@
     "index": "39",
     "name": "Corrupted Camp",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Algox Guard",
+      "Algox Scout",
+      "Black Imp",
+      "Frozen Corpse"
+    ],
     "unlocks": [
       "47"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: -1",
+      "Gain 2 additional loot cards each"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 456.5,
@@ -636,12 +1015,22 @@
     "index": "40",
     "name": "Relief Effort",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Guard",
+      "Ruined Machine",
+      "Steel Automaton"
+    ],
     "unlocks": [
       "48"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: -1",
+      "Gain 2 additional loot cards each"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1378,
@@ -651,10 +1040,22 @@
     "index": "41",
     "name": "Unfettered Shard",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Deep Terror",
+      "Living Doom",
+      "Living Spirit"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 15",
+      "Campaign sticker: Coral Shard",
+      "Collective: 2 Axenut",
+      "Read %data.section:36.7% now"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1678.25,
@@ -664,10 +1065,21 @@
     "index": "42",
     "name": "Sunless Trench",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Deep Terror",
+      "Ooze"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 2",
+      "Add event(s): boat:B-16",
+      "Campaign sticker: Coral Shard",
+      "Calendar entry: 114.2-3"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1211.75,
@@ -677,12 +1089,21 @@
     "index": "43",
     "name": "Overrun Barricade",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Robotic Boltshooter",
+      "Ruined Machine",
+      "Steel Automaton"
+    ],
     "unlocks": [
       "51"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 1918,
@@ -692,6 +1113,10 @@
     "index": "44",
     "name": "Nerve Center",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Flaming Bladespinner"
+    ],
     "unlocks": [
       "58",
       "59"
@@ -699,6 +1124,11 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 5",
+      "Choose location: 58, 59",
+      "Item blueprints: 73"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 2027.25,
@@ -708,12 +1138,22 @@
     "index": "45",
     "name": "Living Glacier",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Abael Herder",
+      "Abael Scout",
+      "Lightning Eel",
+      "Piranha Pig"
+    ],
     "unlocks": [
       "52"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 1"
+    ],
     "group": "algox-3",
     "hex": null,
     "x": 2004.25,
@@ -723,12 +1163,20 @@
     "index": "46",
     "name": "Dead Pass",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Burrowing Blade",
+      "Shrike Fiend"
+    ],
     "unlocks": [
       "52"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10"
+    ],
     "group": "algox-3",
     "hex": null,
     "x": 2025.5,
@@ -738,6 +1186,11 @@
     "index": "47",
     "name": "Carrion Ridge",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Algox Icespeaker",
+      "Shrike Fiend"
+    ],
     "unlocks": [
       "56"
     ],
@@ -745,6 +1198,10 @@
     "requires": [],
     "links": [
       "56"
+    ],
+    "rewards": [
+      "Gold: 10",
+      "Collective: 2 Lumber"
     ],
     "group": "algox-1",
     "hex": null,
@@ -755,6 +1212,11 @@
     "index": "48",
     "name": "Blizzard Island",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Abael Scout",
+      "Wind Demon"
+    ],
     "unlocks": [
       "57"
     ],
@@ -762,6 +1224,10 @@
     "requires": [],
     "links": [
       "57"
+    ],
+    "rewards": [
+      "XP: 10",
+      "Collective: 2 Metal"
     ],
     "group": "algox-2",
     "hex": null,
@@ -772,12 +1238,20 @@
     "index": "49",
     "name": "Beneath Sea and Stone",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Deep Terror"
+    ],
     "unlocks": [
       "53"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 5",
+      "Inspiration: 1"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1492.5,
@@ -787,12 +1261,24 @@
     "index": "50",
     "name": "Explosive Descent",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lightning Eel",
+      "Lurker Clawcrusher",
+      "Lurker Mindsnipper",
+      "Lurker Wavethrower"
+    ],
     "unlocks": [
       "54"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: -2",
+      "Collective: 4 Lumber",
+      "Collective: 4 Metal"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1531.75,
@@ -802,6 +1288,11 @@
     "index": "51",
     "name": "Orphan's Halls",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Ancient Artillery",
+      "Steel Automaton"
+    ],
     "unlocks": [
       "58",
       "59"
@@ -809,6 +1300,11 @@
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Choose location: 58, 59",
+      "Item blueprints: 74"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 2056.5,
@@ -818,6 +1314,11 @@
     "index": "52",
     "name": "Fleeting Permanence",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Frost Demon",
+      "Snow Imp"
+    ],
     "unlocks": [
       "55"
     ],
@@ -827,6 +1328,9 @@
       "46"
     ],
     "links": [],
+    "rewards": [
+      "Inspiration: 1"
+    ],
     "group": "algox-3",
     "hex": null,
     "x": 1501.5,
@@ -836,12 +1340,23 @@
     "index": "53",
     "name": "Underwater Throne",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lurker Clawcrusher",
+      "Lurker Mindsnipper",
+      "Lurker Soldier",
+      "Seeker Of The Abyss"
+    ],
     "unlocks": [
       "60"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 2",
+      "Campaign sticker: Coral Shard"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1671.25,
@@ -851,12 +1366,24 @@
     "index": "54",
     "name": "Among the Wreckage",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lightning Eel",
+      "Lurker Clawcrusher",
+      "Lurker Mindsnipper",
+      "Lurker Soldier",
+      "Lurker Wavethrower"
+    ],
     "unlocks": [
       "60"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 2",
+      "Campaign sticker: Coral Shard"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1666.5,
@@ -866,10 +1393,24 @@
     "index": "55",
     "name": "Change of Heart",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Priest"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +2",
+      "Add event(s): winter-outpost:WO-66, winter-outpost:WO-67",
+      "Campaign sticker: Friend Of The Frostspeakers",
+      "Unlock a class (choose one): Fist, Snowflake",
+      "Town guard am: fh-tg-add-plus50-algox",
+      "Remove all fh algox events from all outpost event decks"
+    ],
     "group": "algox-3",
     "hex": null,
     "x": 1004,
@@ -879,10 +1420,23 @@
     "index": "56",
     "name": "Call of the Harbinger",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Black Imp",
+      "Harbinger Of Shadow 2",
+      "Harrower Infester"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Add event(s): summer-outpost:SO-51",
+      "Inspiration: 1",
+      "Campaign sticker: Friend Of The Icespeakers",
+      "Unlock class: Fist",
+      "Town guard am: fh-tg-add-plus50"
+    ],
     "group": "algox-1",
     "hex": null,
     "x": 321.25,
@@ -892,10 +1446,22 @@
     "index": "57",
     "name": "Sanctuary of Snow",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Render",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Add event(s): winter-outpost:WO-68",
+      "Inspiration: 1",
+      "Campaign sticker: Friend Of The Snowspeakers",
+      "Unlock class: Snowflake",
+      "Town guard am: fh-tg-add-plus50"
+    ],
     "group": "algox-2",
     "hex": null,
     "x": 1816,
@@ -905,12 +1471,29 @@
     "index": "58",
     "name": "Orphan's Core",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Orphan",
+      "Steel Automaton"
+    ],
     "unlocks": [],
     "blocks": [
       "59"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #246",
+      "Add event(s): winter-outpost:WO-64, winter-outpost:WO-65",
+      "Collective: 3 Lumber",
+      "Collective: 3 Metal",
+      "Collective: 3 Hide",
+      "Campaign sticker: Unfettered Deactivated",
+      "Unlock class: Prism",
+      "Town guard am: fh-tg-add-plus50-unfettered",
+      "Remove all fh unfettered events from all outpost event decks"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 2128.25,
@@ -920,12 +1503,27 @@
     "index": "59",
     "name": "Automaton Uprising",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Robotic Boltshooter",
+      "Ruined Machine"
+    ],
     "unlocks": [],
     "blocks": [
       "58"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +2",
+      "Item(s): #246",
+      "Add event(s): summer-outpost:SO-49, winter-outpost:WO-63",
+      "Campaign sticker: Unfettered Allies",
+      "Unlock class: Prism",
+      "Town guard am: fh-tg-add-plus50-unfettered",
+      "Remove all fh unfettered events from all outpost event decks"
+    ],
     "group": "unfettered",
     "hex": null,
     "x": 2048.75,
@@ -935,10 +1533,28 @@
     "index": "60",
     "name": "Uniting the Crown",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Fracture Of The Deep",
+      "Lightning Eel",
+      "Lurker Clawcrusher Scenario 60",
+      "Lurker Mindsnipper Scenario 60",
+      "Lurker Wavethrower Scenario 60"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 30",
+      "Prosperity +1",
+      "Item(s): #224",
+      "Add event(s): summer-outpost:SO-48, boat:B-17",
+      "Campaign sticker: Crown United",
+      "Unlock a class (choose one): Coral, Kelp",
+      "Town guard am: fh-tg-add-plus50-lurkers",
+      "Remove all fh lurkers events from all outpost event decks"
+    ],
     "group": "lurker",
     "hex": null,
     "x": 1559,
@@ -948,10 +1564,19 @@
     "index": "61",
     "name": "Life and Death",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Deep Terror",
+      "Harrower Infester"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Unlock class: Shards",
+      "Calendar entry: 140.3-1"
+    ],
     "group": "puzzle-book",
     "hex": null,
     "x": 1363,
@@ -961,12 +1586,21 @@
     "index": "62",
     "name": "The Unfettered Seal",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Black Imp",
+      "Chaos Demon",
+      "Harrower Infester"
+    ],
     "unlocks": [
       "63"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1"
+    ],
     "group": "puzzle-book",
     "hex": null,
     "x": 2108.5,
@@ -976,12 +1610,24 @@
     "index": "63",
     "name": "The Savvas Seal",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Earth Demon",
+      "Flame Demon",
+      "Frost Demon",
+      "Savvas Icestorm",
+      "Savvas Lavaflow",
+      "Wind Demon"
+    ],
     "unlocks": [
       "64"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +2"
+    ],
     "group": "puzzle-book",
     "hex": null,
     "x": 1496.5,
@@ -991,10 +1637,22 @@
     "index": "64",
     "name": "The Frosthaven Seal",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Burrowing Blade",
+      "Guard Captain",
+      "Living Doom",
+      "Living Spirit",
+      "Shrike Fiend"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +3",
+      "Battle goals: 3"
+    ],
     "group": "puzzle-book",
     "hex": null,
     "x": 872,
@@ -1004,10 +1662,21 @@
     "index": "65",
     "name": "A Strong Foundation",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Frozen Corpse",
+      "Living Bones",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber",
+      "Collective: 2 Metal",
+      "Calendar entry: 95.4-6"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 996.5,
@@ -1017,10 +1686,17 @@
     "index": "66",
     "name": "Elemental Cores",
     "initial": false,
+    "complexity": 2,
+    "monsters": [],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #212",
+      "Calendar entry: 29.3-6",
+      "Note the corresponding elements of the four doors that were opened"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 915,
@@ -1030,12 +1706,25 @@
     "index": "67",
     "name": "Core Attunement",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Chaos Demon",
+      "Earth Demon",
+      "Flame Demon",
+      "Frost Demon",
+      "Night Demon",
+      "Sun Demon",
+      "Wind Demon"
+    ],
     "unlocks": [
       "68"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 1046,
@@ -1045,10 +1734,25 @@
     "index": "68",
     "name": "The Face of Torment",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Chaos Demon",
+      "Earth Demon",
+      "Flame Demon",
+      "Frost Demon",
+      "Night Demon",
+      "Sun Demon",
+      "Tormentor",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Calendar entry: 133.1-2",
+      "\"Aesther Outpost\" quest complete"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 1042,
@@ -1058,10 +1762,22 @@
     "index": "69",
     "name": "Sacred Soil",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Earth Demon",
+      "Forest Imp",
+      "Rending Drake"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 1 Arrowvine",
+      "Collective: 1 Axenut",
+      "Collective: 1 Flamefruit",
+      "Calendar entry: 15.4-3"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 558.25,
@@ -1071,10 +1787,19 @@
     "index": "70",
     "name": "The True Oak",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "City Guard",
+      "Hound"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1",
+      "\"The True Oak\" quest complete"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 446.75,
@@ -1084,10 +1809,20 @@
     "index": "71",
     "name": "Invasion of the Dock",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Abael Scout",
+      "Piranha Pig"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Calendar entry: 149.5-5",
+      "Damage any one even building between 71 and 89"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 1958.5,
@@ -1097,12 +1832,19 @@
     "index": "72",
     "name": "A Giant Block of Ice",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ice Wraith"
+    ],
     "unlocks": [
       "73"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 1"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 2147.25,
@@ -1112,10 +1854,15 @@
     "index": "73",
     "name": "Flotsam",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lightning Eel"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "personal-quests",
     "hex": null,
     "x": 1892.5,
@@ -1125,6 +1872,11 @@
     "index": "74A",
     "name": "Gaps in the Road A",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Piranha Pig"
+    ],
     "unlocks": [
       "76"
     ],
@@ -1133,6 +1885,9 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Random item blueprint: 1"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 1533.5,
@@ -1142,6 +1897,10 @@
     "index": "74B",
     "name": "Gaps in the Road B",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer"
+    ],
     "unlocks": [
       "75"
     ],
@@ -1150,6 +1909,9 @@
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Random item blueprint: 1"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 1533.5,
@@ -1159,12 +1921,21 @@
     "index": "75",
     "name": "Infiltrating the Lair",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Abael Herder",
+      "Lightning Eel",
+      "Piranha Pig"
+    ],
     "unlocks": [
       "77"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 10"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 1937,
@@ -1174,10 +1945,19 @@
     "index": "76",
     "name": "Apotheosis",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Fish King",
+      "Lurker Mindsnipper",
+      "Piranha Pig"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "personal-quests",
     "hex": null,
     "x": 2045.75,
@@ -1187,10 +1967,20 @@
     "index": "77",
     "name": "Fish King's Ascension",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Fish King",
+      "Piranha Pig"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #201",
+      "Add event(s): boat:B-19",
+      "\"Threat from the Deep\" quest complete"
+    ],
     "group": "personal-quests",
     "hex": null,
     "x": 2033,
@@ -1200,10 +1990,19 @@
     "index": "78",
     "name": "The Lurker Problem",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lurker Soldier",
+      "Lurker Wavethrower",
+      "Piranha Pig"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1410,
@@ -1213,10 +2012,18 @@
     "index": "79",
     "name": "Relic",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Ice Wraith",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Calendar entry: 45.2-3"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 2036.5,
@@ -1226,10 +2033,22 @@
     "index": "80",
     "name": "Relic Renewed",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Robotic Boltshooter",
+      "Ruined Machine",
+      "Steel Automaton",
+      "The Relic"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber",
+      "Collective: 2 Metal",
+      "Collective: 2 Hide"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 493.5,
@@ -1239,10 +2058,22 @@
     "index": "81",
     "name": "Ruinous Research Lab",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Aesther Ashblade",
+      "Aesther Scout",
+      "Ancient Artillery",
+      "Ruined Machine",
+      "Steel Automaton"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1",
+      "Item blueprints: 70"
+    ],
     "group": "other",
     "hex": null,
     "x": 2122.75,
@@ -1252,10 +2083,20 @@
     "index": "82",
     "name": "Expedition North",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Frost Demon",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +2",
+      "Item design(s): #153:fc, #159:fc, #161:fc",
+      "Add the following Forgotten Circles items to the Frosthaven supply: 153, 159, and 161"
+    ],
     "group": "other",
     "hex": null,
     "x": 553.5,
@@ -1265,10 +2106,21 @@
     "index": "83",
     "name": "Rising Brine",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ancient Artillery",
+      "Giant Piranha Pig",
+      "Giant Piranha Pig Boss",
+      "Lurker Mindsnipper",
+      "Piranha Pig"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #202"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1721.25,
@@ -1278,10 +2130,19 @@
     "index": "84",
     "name": "Here There Be Oozes",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Elder Ooze",
+      "Ooze"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #234",
+      "Campaign sticker: Brummix"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 325.25,
@@ -1291,10 +2152,19 @@
     "index": "85",
     "name": "Deadly Pastimes",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Burrowing Blade",
+      "Polar Bear"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 15",
+      "Battle goals: 1"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 642.75,
@@ -1304,10 +2174,17 @@
     "index": "86",
     "name": "The Lady in White",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Black Imp",
+      "Earth Demon",
+      "Ice Wraith"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "job-postings",
     "hex": null,
     "x": 1816,
@@ -1317,12 +2194,21 @@
     "index": "87",
     "name": "The Collection",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard"
+    ],
     "unlocks": [
       "88"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: 1",
+      "Or 2 inspiration if both brothers survived"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1203.25,
@@ -1332,10 +2218,20 @@
     "index": "88",
     "name": "Collection's Capstone",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Earth Demon",
+      "Flame Demon",
+      "Frost Demon",
+      "Savvas Icestorm",
+      "Savvas Lavaflow",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "job-postings",
     "hex": null,
     "x": 1333.5,
@@ -1345,10 +2241,18 @@
     "index": "89",
     "name": "A Contained Fire",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Guard"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Rockroot",
+      "Collective: 2 Lumber"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1568.5,
@@ -1358,10 +2262,18 @@
     "index": "90",
     "name": "Frozen Treasure",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Frozen Corpse",
+      "Ice Wraith",
+      "Polar Bear",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "job-postings",
     "hex": null,
     "x": 1272,
@@ -1371,10 +2283,20 @@
     "index": "91",
     "name": "Shoreline Scramble",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lightning Eel",
+      "Lurker Clawcrusher",
+      "Lurker Mindsnipper",
+      "Lurker Wavethrower"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1169,
@@ -1384,10 +2306,21 @@
     "index": "92",
     "name": "Sinking Ship",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Lurker Clawcrusher",
+      "Lurker Mindsnipper",
+      "Lurker Soldier",
+      "Lurker Wavethrower"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Calendar entry: 181.2-1",
+      "Collectively lose 5xC/2 loot tokens (rounded down), first taken from HE-RO-IC-S' pile, then taken as evenly as possible from the characters' collected loot tokens. If any loot tokens remain in the HE-RO-IC-S pile, distribute them as evenly as possible to all characters. Loot tokens are then traded in for loot cards"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1307,
@@ -1397,12 +2330,23 @@
     "index": "93A",
     "name": "Midwinter Brawl A",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Scout",
+      "Scabwit",
+      "Yoglang"
+    ],
     "unlocks": [],
     "blocks": [
       "93B"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #235"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1415.75,
@@ -1412,12 +2356,23 @@
     "index": "93B",
     "name": "Midwinter Brawl B",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Hound",
+      "Polar Bear",
+      "Scabwit",
+      "Vermling Scout",
+      "Yoglang"
+    ],
     "unlocks": [],
     "blocks": [
       "93A"
     ],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item blueprints: 79"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1415.75,
@@ -1427,10 +2382,18 @@
     "index": "94",
     "name": "A Grand View",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Ancient Artillery",
+      "Ruined Machine"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 2057.5,
@@ -1440,10 +2403,17 @@
     "index": "95",
     "name": "To Bury the Dead",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ice Wraith"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 10"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 624,
@@ -1453,12 +2423,20 @@
     "index": "96",
     "name": "Underground Station",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ancient Artillery",
+      "Rending Drake"
+    ],
     "unlocks": [
       "97"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 5"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1792.5,
@@ -1468,12 +2446,23 @@
     "index": "97",
     "name": "Program Control Nexus",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Program Director",
+      "Robotic Boltshooter",
+      "Ruined Machine",
+      "Steel Automaton"
+    ],
     "unlocks": [
       "98"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 5 Metal"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1811.75,
@@ -1483,10 +2472,19 @@
     "index": "98",
     "name": "Collapsing Vent",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Ancient Artillery",
+      "Black Imp",
+      "Spitting Drake"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +1"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 1707.5,
@@ -1496,12 +2494,20 @@
     "index": "99",
     "name": "Prison Break",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Frozen Corpse",
+      "Robotic Boltshooter"
+    ],
     "unlocks": [
       "100"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 10"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 2125.75,
@@ -1511,12 +2517,21 @@
     "index": "100",
     "name": "Inside the Swarm",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Lurker Mindsnipper",
+      "Shrike Fiend"
+    ],
     "unlocks": [
       "101"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 5",
+      "XP: 10"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 2140.25,
@@ -1526,12 +2541,21 @@
     "index": "101",
     "name": "Harrower Library",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard"
+    ],
     "unlocks": [
       "102"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Battle goals: 1"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 651.25,
@@ -1541,10 +2565,22 @@
     "index": "102",
     "name": "Into the Black",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Chaos Demon",
+      "Frost Demon",
+      "Living Spirit",
+      "Night Demon",
+      "Savvas Icestorm",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 20"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 422.75,
@@ -1554,10 +2590,22 @@
     "index": "103",
     "name": "The Lead Door",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Living Doom",
+      "Living Spirit",
+      "Lurker Clawcrusher",
+      "Shrike Fiend"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 10",
+      "XP: 30",
+      "Battle goals: 1"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 370.75,
@@ -1567,10 +2615,20 @@
     "index": "104",
     "name": "Ruins of the Solstice",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Earth Demon",
+      "Frost Demon",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Add event(s): winter-road:WR-49",
+      "Collective: 2 Snowthistle"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 1789.5,
@@ -1580,10 +2638,21 @@
     "index": "105",
     "name": "Ruins of the Equinox",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Earth Demon",
+      "Flame Demon",
+      "Savvas Lavaflow",
+      "Wind Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Flamefruit",
+      "Calendar entry: 159.4-4"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 1484.25,
@@ -1593,10 +2662,15 @@
     "index": "106",
     "name": "The Tempus Forge",
     "initial": false,
+    "complexity": 2,
+    "monsters": [],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #213"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 951.5,
@@ -1606,10 +2680,13 @@
     "index": "107",
     "name": "My Private Empire",
     "initial": false,
+    "complexity": 2,
+    "monsters": [],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "random-scenarios",
     "hex": null,
     "x": 1179.5,
@@ -1619,10 +2696,18 @@
     "index": "108",
     "name": "Lustrous Pit",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ice Wraith",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: 2"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 1931.5,
@@ -1632,10 +2717,17 @@
     "index": "109",
     "name": "Furious Factory",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Ancient Artillery"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 5 Metal"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 1837,
@@ -1645,10 +2737,19 @@
     "index": "110",
     "name": "Guardian's Temple",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Living Spirit",
+      "Ruined Machine",
+      "Shrike Fiend"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item blueprints: 75"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 364.25,
@@ -1658,10 +2759,18 @@
     "index": "111",
     "name": "Ice Cave",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Frost Demon",
+      "Hound"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #236"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 655,
@@ -1671,10 +2780,19 @@
     "index": "112",
     "name": "Raised by Wolves",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Burrowing Blade",
+      "Earth Demon",
+      "Hound"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 15"
+    ],
     "group": "random-scenarios",
     "hex": null,
     "x": 1696,
@@ -1684,10 +2802,18 @@
     "index": "113",
     "name": "Lush Grotto",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Chaos Demon",
+      "Forest Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gain any 4 collective herb resources"
+    ],
     "group": "other",
     "hex": null,
     "x": 1496.75,
@@ -1697,10 +2823,20 @@
     "index": "114",
     "name": "Work Freeze",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Hound",
+      "Polar Bear",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 5 Hide",
+      "Calendar entry: 86.1-4"
+    ],
     "group": "other",
     "hex": null,
     "x": 660.75,
@@ -1710,10 +2846,19 @@
     "index": "115",
     "name": "Pylon Problems",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Guard",
+      "Algox Snowspeaker",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 15"
+    ],
     "group": "other",
     "hex": null,
     "x": 708.25,
@@ -1723,10 +2868,18 @@
     "index": "116",
     "name": "Caravan Guards",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Algox Archer",
+      "Algox Guard",
+      "Algox Icespeaker",
+      "Algox Scout"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "other",
     "hex": null,
     "x": 648.25,
@@ -1736,10 +2889,21 @@
     "index": "117",
     "name": "A Waiting Game",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Hound",
+      "Polar Bear",
+      "Vermling Priest",
+      "Vermling Scout"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 10",
+      "Collective: 4 Hide"
+    ],
     "group": "other",
     "hex": null,
     "x": 1646,
@@ -1749,10 +2913,21 @@
     "index": "118",
     "name": "Lurker Necromancy",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Frozen Corpse",
+      "Frozen Corpse Scenario 118",
+      "Living Bones",
+      "Living Bones Scenario 118"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item blueprints: 66",
+      "Trade all numbered and lettered tokens in for loot cards"
+    ],
     "group": "other",
     "hex": null,
     "x": 1620,
@@ -1762,10 +2937,19 @@
     "index": "119",
     "name": "Radiant Dust",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Burrowing Blade",
+      "Rending Drake",
+      "Spitting Drake"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Spend any remaining dust to gain the following: <br><br> Spend seven (once only): Scepter of Control Item #203 <br>Spend one: Any 1 material resource <br>Spend two: Any 1 herb resource"
+    ],
     "group": "other",
     "hex": null,
     "x": 428.5,
@@ -1775,10 +2959,19 @@
     "index": "120",
     "name": "Under the Influence",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "City Guard",
+      "Hound"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Collective: 2 Lumber",
+      "Calendar entry: 76.3-10"
+    ],
     "group": "other",
     "hex": null,
     "x": 308.25,
@@ -1788,10 +2981,16 @@
     "index": "121",
     "name": "Black Memories",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Vermling Priest",
+      "Vermling Scout"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "other",
     "hex": null,
     "x": 1930.75,
@@ -1801,10 +3000,13 @@
     "index": "122",
     "name": "The Eternal Crave",
     "initial": false,
+    "complexity": 2,
+    "monsters": [],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "other",
     "hex": null,
     "x": 1348.25,
@@ -1814,10 +3016,17 @@
     "index": "123",
     "name": "The Titan",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Ancient Artillery"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: 1"
+    ],
     "group": "other",
     "hex": null,
     "x": 1116.25,
@@ -1827,12 +3036,20 @@
     "index": "124",
     "name": "A Growing Problem",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Living Bones",
+      "Living Spirit"
+    ],
     "unlocks": [
       "125"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 15"
+    ],
     "group": "other",
     "hex": null,
     "x": 1894.5,
@@ -1842,10 +3059,18 @@
     "index": "125",
     "name": "The Longest Second",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Robotic Boltshooter",
+      "Ruined Machine"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #194"
+    ],
     "group": "other",
     "hex": null,
     "x": 1998.5,
@@ -1855,10 +3080,19 @@
     "index": "126",
     "name": "Joseph the Lion",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ice Wraith",
+      "Living Spirit",
+      "Snow Imp"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 10"
+    ],
     "group": "other",
     "hex": null,
     "x": 2042.75,
@@ -1868,10 +3102,16 @@
     "index": "127",
     "name": "Derelict Freighter",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Ancient Artillery",
+      "Ice Wraith"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "other",
     "hex": null,
     "x": 1557.25,
@@ -1881,10 +3121,17 @@
     "index": "128",
     "name": "A Tall Drunken Tale",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Abael Scout",
+      "Lurker Wavethrower",
+      "Steel Automaton"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "other",
     "hex": null,
     "x": 1416,
@@ -1894,12 +3141,20 @@
     "index": "129",
     "name": "How to Lay an Ambush",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "City Guard"
+    ],
     "unlocks": [
       "130"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Battle goals: 1",
+      "Note the amount of remaining sun agates"
+    ],
     "group": "other",
     "hex": null,
     "x": 1267.5,
@@ -1909,10 +3164,17 @@
     "index": "130",
     "name": "And Then, a Stream",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Frozen Corpse",
+      "Lightning Eel",
+      "Shrike Fiend"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [],
     "group": "other",
     "hex": null,
     "x": 1393.5,
@@ -1922,10 +3184,19 @@
     "index": "131",
     "name": "The Dancing Iceberg",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Lurker Mindsnipper",
+      "Lurker Soldier"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "XP: 10",
+      "Item(s): #237"
+    ],
     "group": "other",
     "hex": null,
     "x": 1138.5,
@@ -1935,12 +3206,20 @@
     "index": "132",
     "name": "Temple of Feline Power",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Ice Wraith",
+      "Snow Imp"
+    ],
     "unlocks": [
       "133"
     ],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Inspiration: 1"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 524.5,
@@ -1950,10 +3229,19 @@
     "index": "133",
     "name": "Bolt",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Forest Imp",
+      "Rending Drake",
+      "Spitting Drake"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #238"
+    ],
     "group": "job-postings",
     "hex": null,
     "x": 551.25,
@@ -1963,10 +3251,19 @@
     "index": "134",
     "name": "Tower of Knowledge",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Flaming Bladespinner",
+      "Robotic Boltshooter",
+      "Ruined Machine"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Item(s): #219"
+    ],
     "group": "other",
     "hex": null,
     "x": 333.5,
@@ -1976,10 +3273,22 @@
     "index": "135",
     "name": "Belara's Keep",
     "initial": false,
+    "complexity": 3,
+    "monsters": [
+      "Earth Demon",
+      "Flame Demon",
+      "Rending Drake",
+      "Sun Demon"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Prosperity +2",
+      "Item(s): #220",
+      "Inspiration: 1"
+    ],
     "group": "other",
     "hex": null,
     "x": 641.75,
@@ -1989,10 +3298,19 @@
     "index": "136",
     "name": "Abandoned Hideout",
     "initial": false,
+    "complexity": 2,
+    "monsters": [
+      "Lightning Eel",
+      "Lurker Wavethrower"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 20",
+      "Item(s): #245"
+    ],
     "group": "other",
     "hex": null,
     "x": 1206,
@@ -2002,10 +3320,21 @@
     "index": "137",
     "name": "Pirate Queen's Haul",
     "initial": false,
+    "complexity": 1,
+    "monsters": [
+      "Forest Imp",
+      "Piranha Pig",
+      "Polar Bear"
+    ],
     "unlocks": [],
     "blocks": [],
     "requires": [],
     "links": [],
+    "rewards": [
+      "Gold: 30",
+      "Prosperity +2",
+      "Add one +1 sticker to a money loot card (the card gives one extra money token when resolved)"
+    ],
     "group": "other",
     "hex": null,
     "x": 1829.25,

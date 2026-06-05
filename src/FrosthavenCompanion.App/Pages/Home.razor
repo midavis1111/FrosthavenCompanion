@@ -79,19 +79,34 @@ else
                     <div class="card h-100 border-primary">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">#@v.Index — @v.Name</h5>
-                            <p class="card-subtitle text-muted small mb-3">
-                                @(v.Definition.Hex is not null ? $"Hex {v.Definition.Hex}" : v.Definition.Group)
+                            <p class="card-subtitle text-muted small mb-2">
+                                @(v.Definition.Hex is not null ? $"Hex {v.Definition.Hex}" : v.Definition.Group)@(v.Definition.Complexity is int cx ? $" · Complexity {cx}/5" : "")
                             </p>
-                            @if (Store.IsManualUnlock(v.Index))
+                            @if (!string.IsNullOrWhiteSpace(v.Definition.Description))
                             {
-                                <div class="mb-3">
-                                    <span class="badge text-bg-info">
-                                        unlocked@(Store.ManualUnlockSource(v.Index) is { } src ? $": {src}" : "")
-                                    </span>
-                                    <a href="#" class="small ms-1"
-                                       @onclick="() => RemoveManualUnlockAsync(v.Index)"
-                                       @onclick:preventDefault="true">remove</a>
-                                </div>
+                                <details class="small mb-2">
+                                    <summary class="text-muted" style="cursor:pointer">Description</summary>
+                                    <div class="mt-1 fst-italic">@v.Definition.Description</div>
+                                </details>
+                            }
+                            @if (Store.UnlockExplanation(v.Index) is { } how)
+                            {
+                                <p class="text-muted small mb-2">
+                                    @how
+                                    @if (Store.IsManualUnlock(v.Index))
+                                    {
+                                        <a href="#" class="ms-1"
+                                           @onclick="() => RemoveManualUnlockAsync(v.Index)"
+                                           @onclick:preventDefault="true">remove</a>
+                                    }
+                                </p>
+                            }
+                            @if (v.Definition.Monsters.Count > 0)
+                            {
+                                <details class="small mb-2">
+                                    <summary class="text-muted" style="cursor:pointer">Enemies</summary>
+                                    <div class="mt-1">@string.Join(", ", v.Definition.Monsters)</div>
+                                </details>
                             }
                             <button class="btn btn-success mt-auto" @onclick="() => CompleteAsync(v.Index)">
                                 Mark completed
@@ -127,10 +142,32 @@ else
                 @foreach (var v in Completed)
                 {
                     <tr>
-                        <td class="text-nowrap"><span class="badge text-bg-success">✓</span> #@v.Index</td>
-                        <td class="w-100">@v.Name</td>
-                        <td class="text-muted small text-nowrap">@v.CompletedOn?.ToString("yyyy-MM-dd")</td>
-                        <td class="text-end">
+                        <td class="text-nowrap align-top"><span class="badge text-bg-success">✓</span> #@v.Index</td>
+                        <td class="w-100">
+                            @v.Name
+                            @if (!string.IsNullOrWhiteSpace(v.Definition.Description))
+                            {
+                                <details class="small">
+                                    <summary class="text-muted" style="cursor:pointer">Description</summary>
+                                    <div class="mt-1 fst-italic">@v.Definition.Description</div>
+                                </details>
+                            }
+                            @if (v.Definition.Rewards.Count > 0)
+                            {
+                                <ul class="small mb-1 mt-1 ps-3">
+                                    @foreach (var r in v.Definition.Rewards)
+                                    {
+                                        <li>@r</li>
+                                    }
+                                </ul>
+                            }
+                            @if (Store.UnlockExplanation(v.Index) is { } how)
+                            {
+                                <div class="small text-muted">@how</div>
+                            }
+                        </td>
+                        <td class="text-muted small text-nowrap align-top">@v.CompletedOn?.ToString("yyyy-MM-dd")</td>
+                        <td class="text-end align-top">
                             <button class="btn btn-outline-secondary btn-sm" @onclick="() => UncompleteAsync(v.Index)">
                                 Undo
                             </button>

@@ -124,6 +124,9 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
 
     public string? ManualUnlockSource(string index) => CampaignEngine.ManualUnlockSource(Progress, index);
 
+    /// <summary>Explains how a scenario became known (start / manual / completed-by).</summary>
+    public string? UnlockExplanation(string index) => engine.UnlockExplanation(Progress, index);
+
     public async Task ImportAsync(string json)
     {
         Progress = CampaignSerializer.Deserialize(json);

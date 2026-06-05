@@ -145,6 +145,22 @@ public class CampaignEngineTests
 
         Assert.Equal(ScenarioStatus.Completed, StatusOf(engine, progress, "4A"));
     }
+
+    [Fact]
+    public void UnlockExplanation_describes_how_a_scenario_became_known()
+    {
+        var engine = BuildEngine();
+        var progress = new CampaignProgress();
+
+        Assert.Equal("Available from the start", engine.UnlockExplanation(progress, "1"));
+        Assert.Null(engine.UnlockExplanation(progress, "2")); // still hidden
+
+        engine.Complete(progress, "1", Day);
+        Assert.Equal("Unlocked by completing #1 Start", engine.UnlockExplanation(progress, "2"));
+
+        engine.ManuallyUnlock(progress, "4A", "Blinkblade personal quest");
+        Assert.Equal("Unlocked: Blinkblade personal quest", engine.UnlockExplanation(progress, "4A"));
+    }
 }
 
 public class ScenarioCatalogTests
@@ -164,6 +180,19 @@ public class ScenarioCatalogTests
 
         // The intro branch: scenario 2 blocks 3.
         Assert.Contains("3", catalog.Find("2")!.Blocks);
+
+        // Reward text is baked into the catalog for most scenarios.
+        Assert.NotEmpty(catalog.Find("21")!.Rewards); // "Prosperity +2"
+
+        // Local name override is applied.
+        Assert.Equal("Ice Flows", catalog.Find("22")!.Name);
+
+        // Factual "about" metadata is present.
+        Assert.Equal(1, catalog.Find("1")!.Complexity);
+        Assert.Contains("City Guard", catalog.Find("1")!.Monsters);
+
+        // Authored description is merged in from the separate descriptions file.
+        Assert.False(string.IsNullOrWhiteSpace(catalog.Find("1")!.Description));
     }
 
     [Fact]

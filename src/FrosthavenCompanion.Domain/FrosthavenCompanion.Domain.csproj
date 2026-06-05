@@ -9,6 +9,8 @@
   <ItemGroup>
     <!-- The Frosthaven scenario unlock graph, embedded so the catalog ships with the domain. -->
     <EmbeddedResource Include="Data/scenarios.json" />
+    <!-- Authored scenario recaps, kept separate so regenerating the catalog never wipes them. -->
+    <EmbeddedResource Include="Data/descriptions.json" />
   </ItemGroup>
 
 </Project>

@@ -117,4 +117,29 @@ public sealed class CampaignEngine(ScenarioCatalog catalog)
     /// <summary>The source note recorded for a manual unlock, if any.</summary>
     public static string? ManualUnlockSource(CampaignProgress progress, string index) =>
         progress.ManualUnlocks.TryGetValue(index, out var s) && !string.IsNullOrWhiteSpace(s) ? s : null;
+
+    /// <summary>
+    /// Explains how a scenario became known: "from the start", a manual unlock
+    /// (with its source), or the completed scenario(s) that unlocked it. Returns
+    /// null if the scenario is still hidden / not yet revealed by anything.
+    /// </summary>
+    public string? UnlockExplanation(CampaignProgress progress, string index)
+    {
+        var def = catalog.Find(index);
+        if (def is null) return null;
+
+        if (def.Initial)
+            return "Available from the start";
+
+        if (progress.ManualUnlocks.TryGetValue(index, out var source))
+            return string.IsNullOrWhiteSpace(source) ? "Unlocked manually" : $"Unlocked: {source}";
+
+        var sources = catalog.Scenarios
+            .Where(s => progress.Completed.ContainsKey(s.Index)
+                && (s.Unlocks.Contains(index) || s.Links.Contains(index)))
+            .Select(s => $"#{s.Index} {s.Name}")
+            .ToList();
+
+        return sources.Count > 0 ? $"Unlocked by completing {string.Join(", ", sources)}" : null;
+    }
 }

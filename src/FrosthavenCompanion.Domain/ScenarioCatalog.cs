@@ -29,18 +29,30 @@ public sealed class ScenarioCatalog
         Converters = { new JsonStringEnumConverter() },
     };
 
-    /// <summary>Loads the catalog from the JSON embedded in this assembly.</summary>
+    /// <summary>Loads the catalog from the JSON embedded in this assembly,
+    /// merging in authored scenario descriptions from the separate file.</summary>
     public static ScenarioCatalog LoadEmbedded()
     {
         var assembly = typeof(ScenarioCatalog).Assembly;
-        const string resourceName = "FrosthavenCompanion.Domain.Data.scenarios.json";
 
-        using var stream = assembly.GetManifestResourceStream(resourceName)
-            ?? throw new InvalidOperationException($"Embedded catalog '{resourceName}' was not found.");
-
-        var scenarios = JsonSerializer.Deserialize<List<ScenarioDefinition>>(stream, Options)
+        var scenarios = ReadEmbedded<List<ScenarioDefinition>>(assembly, "FrosthavenCompanion.Domain.Data.scenarios.json")
             ?? throw new InvalidOperationException("The embedded scenario catalog could not be read.");
 
-        return new ScenarioCatalog(scenarios);
+        // Descriptions live in a separate file so regenerating the catalog never loses them.
+        var descriptions = ReadEmbedded<Dictionary<string, string>>(assembly, "FrosthavenCompanion.Domain.Data.descriptions.json")
+            ?? [];
+
+        var merged = scenarios
+            .Select(s => descriptions.TryGetValue(s.Index, out var d) ? s with { Description = d } : s)
+            .ToList();
+
+        return new ScenarioCatalog(merged);
+    }
+
+    private static T? ReadEmbedded<T>(System.Reflection.Assembly assembly, string resourceName)
+    {
+        using var stream = assembly.GetManifestResourceStream(resourceName)
+            ?? throw new InvalidOperationException($"Embedded resource '{resourceName}' was not found.");
+        return JsonSerializer.Deserialize<T>(stream, Options);
     }
 }
