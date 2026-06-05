@@ -11,8 +11,22 @@ public sealed class CampaignProgress
 {
     public string PartyName { get; set; } = "New Party";
 
+    /// <summary>
+    /// When this save was last changed (UTC). Used to reconcile to the newest
+    /// copy when syncing the same campaign across devices.
+    /// </summary>
+    public DateTimeOffset UpdatedAt { get; set; }
+
     /// <summary>Completed scenario index -> date completed.</summary>
     public Dictionary<string, DateOnly> Completed { get; set; } = [];
+
+    /// <summary>
+    /// Scenarios unlocked by something outside the scenario graph (a class
+    /// personal quest, town/outpost event, item, section book, ...), keyed by
+    /// scenario index with an optional note describing the source. These are made
+    /// available directly, since the engine cannot derive them.
+    /// </summary>
+    public Dictionary<string, string> ManualUnlocks { get; set; } = [];
 
     /// <summary>Optional per-scenario notes, keyed by scenario index.</summary>
     public Dictionary<string, string> Notes { get; set; } = [];

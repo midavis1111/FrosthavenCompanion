@@ -42,7 +42,7 @@ public sealed class CampaignEngine(ScenarioCatalog catalog)
         return catalog.Scenarios
             .Select(def => new ScenarioView(
                 def,
-                Status(def, completed, revealed, lockedOut),
+                Status(def, completed, revealed, lockedOut, progress.ManualUnlocks),
                 completed.TryGetValue(def.Index, out var d) ? d : null))
             .ToList();
     }
@@ -51,10 +51,15 @@ public sealed class CampaignEngine(ScenarioCatalog catalog)
         ScenarioDefinition def,
         IReadOnlyDictionary<string, DateOnly> completed,
         IReadOnlySet<string> revealed,
-        IReadOnlySet<string> lockedOut)
+        IReadOnlySet<string> lockedOut,
+        IReadOnlyDictionary<string, string> manualUnlocks)
     {
         if (completed.ContainsKey(def.Index))
             return ScenarioStatus.Completed;
+        // An explicit manual unlock (e.g. a personal quest) makes a scenario
+        // playable regardless of the graph.
+        if (manualUnlocks.ContainsKey(def.Index))
+            return ScenarioStatus.Available;
         if (lockedOut.Contains(def.Index))
             return ScenarioStatus.LockedOut;
         if (!revealed.Contains(def.Index))
@@ -91,4 +96,25 @@ public sealed class CampaignEngine(ScenarioCatalog catalog)
     /// <summary>Reverses a completion (undo).</summary>
     public void Uncomplete(CampaignProgress progress, string index) =>
         progress.Completed.Remove(index);
+
+    /// <summary>
+    /// Marks a scenario as unlocked by an external source (personal quest, event,
+    /// item, ...). Returns the matching definition. Throws if the index is not a
+    /// real Frosthaven scenario, so typos are caught.
+    /// </summary>
+    public ScenarioDefinition ManuallyUnlock(CampaignProgress progress, string index, string? source)
+    {
+        var def = catalog.Find(index)
+            ?? throw new InvalidOperationException($"There is no scenario #{index}.");
+        progress.ManualUnlocks[def.Index] = source?.Trim() ?? "";
+        return def;
+    }
+
+    /// <summary>Removes a manual unlock (e.g. entered by mistake).</summary>
+    public void RemoveManualUnlock(CampaignProgress progress, string index) =>
+        progress.ManualUnlocks.Remove(index);
+
+    /// <summary>The source note recorded for a manual unlock, if any.</summary>
+    public static string? ManualUnlockSource(CampaignProgress progress, string index) =>
+        progress.ManualUnlocks.TryGetValue(index, out var s) && !string.IsNullOrWhiteSpace(s) ? s : null;
 }

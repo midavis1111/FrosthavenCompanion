@@ -24,6 +24,33 @@ else
         <input class="form-control" value="@Store.Progress.PartyName" @onchange="OnPartyNameChanged" />
     </div>
 
+    <details class="card mb-4" open="@(unlockError is not null)">
+        <summary class="card-header" style="cursor: pointer">
+            Unlock a scenario
+            <span class="text-muted small">— from a personal quest, event, item, etc.</span>
+        </summary>
+        <div class="card-body">
+            <div class="row g-2 align-items-end">
+                <div class="col-6 col-md-3">
+                    <label class="form-label">Scenario #</label>
+                    <input class="form-control" @bind="unlockIndex" placeholder="94" />
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Source (optional)</label>
+                    <input class="form-control" @bind="unlockSource" placeholder="Blinkblade personal quest" />
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-primary w-100" @onclick="ManualUnlockAsync"
+                            disabled="@string.IsNullOrWhiteSpace(unlockIndex)">Unlock</button>
+                </div>
+            </div>
+            @if (unlockError is not null)
+            {
+                <div class="text-danger mt-2">@unlockError</div>
+            }
+        </div>
+    </details>
+
     @if (lastUnlockMessage is not null)
     {
         <div class="alert alert-info d-flex justify-content-between align-items-center">
@@ -55,6 +82,17 @@ else
                             <p class="card-subtitle text-muted small mb-3">
                                 @(v.Definition.Hex is not null ? $"Hex {v.Definition.Hex}" : v.Definition.Group)
                             </p>
+                            @if (Store.IsManualUnlock(v.Index))
+                            {
+                                <div class="mb-3">
+                                    <span class="badge text-bg-info">
+                                        unlocked@(Store.ManualUnlockSource(v.Index) is { } src ? $": {src}" : "")
+                                    </span>
+                                    <a href="#" class="small ms-1"
+                                       @onclick="() => RemoveManualUnlockAsync(v.Index)"
+                                       @onclick:preventDefault="true">remove</a>
+                                </div>
+                            }
                             <button class="btn btn-success mt-auto" @onclick="() => CompleteAsync(v.Index)">
                                 Mark completed
                             </button>
@@ -122,6 +160,9 @@ else
     private bool loaded;
     private string? lastUnlockMessage;
     private string? importError;
+    private string unlockIndex = "";
+    private string unlockSource = "";
+    private string? unlockError;
 
     private IReadOnlyList<ScenarioView> Views => Store.Views;
     private List<ScenarioView> Available => Filter(ScenarioStatus.Available);
@@ -162,6 +203,28 @@ else
     {
         await Store.UncompleteAsync(index);
         lastUnlockMessage = null;
+    }
+
+    private async Task ManualUnlockAsync()
+    {
+        unlockError = null;
+        var index = unlockIndex.Trim().ToUpperInvariant();
+        try
+        {
+            var def = await Store.ManuallyUnlockAsync(index, unlockSource);
+            lastUnlockMessage = $"Unlocked #{def.Index} {def.Name}.";
+            unlockIndex = "";
+            unlockSource = "";
+        }
+        catch (Exception ex)
+        {
+            unlockError = ex.Message;
+        }
+    }
+
+    private async Task RemoveManualUnlockAsync(string index)
+    {
+        await Store.RemoveManualUnlockAsync(index);
     }
 
     private async Task ExportAsync()

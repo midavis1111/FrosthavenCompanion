@@ -1,0 +1,110 @@
+@page "/sync"
+@inject CampaignStore Store
+
+<PageTitle>Sync — Frosthaven Companion</PageTitle>
+
+<h1>Cloud sync</h1>
+<p class="text-muted" style="max-width: 40rem">
+    Keep the same campaign on your phone and computer by storing your save in a
+    private GitHub <a href="https://gist.github.com" target="_blank" rel="noopener">gist</a>.
+    Set this up once per device.
+</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else if (Store.Sync.Connected)
+{
+    <div class="alert alert-success" style="max-width: 40rem">
+        <strong>Connected.</strong> Your campaign syncs automatically on every change.
+        <div class="small mt-1">
+            Gist:
+            <a href="https://gist.github.com/@Store.Sync.GistId" target="_blank" rel="noopener">@Store.Sync.GistId</a>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button class="btn btn-primary" @onclick="SyncNowAsync" disabled="@busy">Sync now</button>
+        <button class="btn btn-outline-danger" @onclick="DisconnectAsync" disabled="@busy">Disconnect this device</button>
+    </div>
+}
+else
+{
+    <div class="card" style="max-width: 40rem">
+        <div class="card-body">
+            <ol class="small text-muted">
+                <li>On GitHub: <em>Settings → Developer settings → Personal access tokens → Tokens (classic)</em>.</li>
+                <li>Generate a token with only the <strong>gist</strong> scope and copy it.</li>
+                <li>Paste it below. Use the same token on each of your devices.</li>
+            </ol>
+            <label class="form-label">GitHub token (classic, <code>gist</code> scope)</label>
+            <input class="form-control" type="password" @bind="token" placeholder="ghp_…" autocomplete="off" />
+            <button class="btn btn-primary mt-3" @onclick="ConnectAsync" disabled="@(busy || string.IsNullOrWhiteSpace(token))">
+                @(busy ? "Connecting…" : "Connect")
+            </button>
+        </div>
+    </div>
+    <p class="text-muted small mt-2" style="max-width: 40rem">
+        The token is stored only in this browser, scoped to gists. Anyone with the
+        token could read/write your gists, so don't share it.
+    </p>
+}
+
+@if (Store.SyncStatus is not null)
+{
+    <div class="alert @(Store.SyncStatus.StartsWith("Sync failed") ? "alert-danger" : "alert-info") mt-3" style="max-width: 40rem">
+        @Store.SyncStatus
+    </div>
+}
+
+@if (error is not null)
+{
+    <div class="alert alert-danger mt-3" style="max-width: 40rem">@error</div>
+}
+
+@code {
+    private bool loaded;
+    private bool busy;
+    private string token = "";
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private async Task ConnectAsync()
+    {
+        error = null;
+        busy = true;
+        try
+        {
+            await Store.ConnectSyncAsync(token);
+            token = "";
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            busy = false;
+        }
+    }
+
+    private async Task SyncNowAsync()
+    {
+        busy = true;
+        await Store.SyncNowAsync();
+        busy = false;
+    }
+
+    private async Task DisconnectAsync()
+    {
+        busy = true;
+        await Store.DisconnectSyncAsync();
+        busy = false;
+    }
+}

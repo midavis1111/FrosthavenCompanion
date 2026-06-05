@@ -100,6 +100,51 @@ public class CampaignEngineTests
         Assert.True(engine.CanComplete(progress, "1"));
         Assert.False(engine.CanComplete(progress, "2")); // still hidden
     }
+
+    [Fact]
+    public void Manual_unlock_makes_a_hidden_scenario_available()
+    {
+        var engine = BuildEngine();
+        var progress = new CampaignProgress();
+
+        var def = engine.ManuallyUnlock(progress, "4A", "Blinkblade personal quest");
+
+        Assert.Equal("4A", def.Index);
+        Assert.Equal(ScenarioStatus.Available, StatusOf(engine, progress, "4A"));
+        Assert.True(engine.CanComplete(progress, "4A"));
+        Assert.Equal("Blinkblade personal quest", CampaignEngine.ManualUnlockSource(progress, "4A"));
+    }
+
+    [Fact]
+    public void Manual_unlock_of_an_unknown_scenario_throws()
+    {
+        var engine = BuildEngine();
+        Assert.Throws<InvalidOperationException>(() => engine.ManuallyUnlock(new CampaignProgress(), "999", null));
+    }
+
+    [Fact]
+    public void Removing_a_manual_unlock_hides_the_scenario_again()
+    {
+        var engine = BuildEngine();
+        var progress = new CampaignProgress();
+        engine.ManuallyUnlock(progress, "4A", null);
+
+        engine.RemoveManualUnlock(progress, "4A");
+
+        Assert.Equal(ScenarioStatus.Hidden, StatusOf(engine, progress, "4A"));
+    }
+
+    [Fact]
+    public void Completing_a_manually_unlocked_scenario_marks_it_completed()
+    {
+        var engine = BuildEngine();
+        var progress = new CampaignProgress();
+        engine.ManuallyUnlock(progress, "4A", null);
+
+        engine.Complete(progress, "4A", Day);
+
+        Assert.Equal(ScenarioStatus.Completed, StatusOf(engine, progress, "4A"));
+    }
 }
 
 public class ScenarioCatalogTests
