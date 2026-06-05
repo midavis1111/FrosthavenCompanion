@@ -120,6 +120,18 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>The remembered play level for a scenario, or the campaign default.</summary>
+    public int ScenarioLevelFor(string index) =>
+        Progress.ScenarioLevels.GetValueOrDefault(index, Progress.ScenarioLevel);
+
+    /// <summary>Stores a scenario's chosen level and makes it the new campaign default.</summary>
+    public async Task SetScenarioLevelAsync(string index, int level)
+    {
+        Progress.ScenarioLevels[index] = level;
+        Progress.ScenarioLevel = level;
+        await SaveAsync();
+    }
+
     public bool IsManualUnlock(string index) => Progress.ManualUnlocks.ContainsKey(index);
 
     public string? ManualUnlockSource(string index) => CampaignEngine.ManualUnlockSource(Progress, index);

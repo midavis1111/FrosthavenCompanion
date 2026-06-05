@@ -33,7 +33,7 @@ else
             {
                 var lvl = i;
                 <button type="button" class="btn @(level == lvl ? "btn-primary" : "btn-outline-primary")"
-                        style="width:2.1rem" @onclick="() => level = lvl">@i</button>
+                        style="width:2.1rem" @onclick="() => SetLevelAsync(lvl)">@i</button>
             }
         </div>
     </div>
@@ -80,14 +80,27 @@ else
         await Store.LoadAsync();
         await Cards.EnsureLoadedAsync();
         loaded = true;
+        Resolve();
     }
 
-    // Resolve once the route param and views are available.
+    // Re-resolve when the route's scenario index changes.
     protected override void OnParametersSet()
+    {
+        if (loaded) Resolve();
+    }
+
+    private void Resolve()
     {
         view = Store.Views.FirstOrDefault(v => string.Equals(v.Index, Index, StringComparison.OrdinalIgnoreCase));
         enemies = view is null
             ? []
             : view.Definition.Monsters.Select(n => (n, Monsters.Find(n))).ToList();
+        level = Store.ScenarioLevelFor(Index);
+    }
+
+    private async Task SetLevelAsync(int lvl)
+    {
+        level = lvl;
+        await Store.SetScenarioLevelAsync(Index, lvl);
     }
 }

@@ -52,4 +52,33 @@ public class CampaignStatusTests
         Assert.Contains("Lumber", CampaignStatus.ResourceNames);
         Assert.Contains("Snowthistle", CampaignStatus.ResourceNames);
     }
+
+    [Fact]
+    public void Scenario_levels_default_to_one_and_round_trip()
+    {
+        var progress = new CampaignProgress();
+        Assert.Equal(1, progress.ScenarioLevel);
+        Assert.Empty(progress.ScenarioLevels);
+
+        progress.ScenarioLevel = 3;
+        progress.ScenarioLevels["1"] = 0;
+        progress.ScenarioLevels["25"] = 5;
+
+        var restored = CampaignSerializer.Deserialize(CampaignSerializer.Serialize(progress));
+
+        Assert.Equal(3, restored.ScenarioLevel);
+        Assert.Equal(0, restored.ScenarioLevels["1"]);
+        Assert.Equal(5, restored.ScenarioLevels["25"]);
+    }
+
+    [Fact]
+    public void Saves_written_before_scenario_levels_existed_default_to_one()
+    {
+        const string legacy = """{"partyName":"Old Party","completed":{}}""";
+
+        var progress = CampaignSerializer.Deserialize(legacy);
+
+        Assert.Equal(1, progress.ScenarioLevel);
+        Assert.Empty(progress.ScenarioLevels);
+    }
 }

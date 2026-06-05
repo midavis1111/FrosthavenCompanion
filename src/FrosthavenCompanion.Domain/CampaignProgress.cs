@@ -32,6 +32,19 @@ public sealed class CampaignProgress
     public Dictionary<string, string> Notes { get; set; } = [];
 
     /// <summary>
+    /// The chosen play level per scenario (index → 0–7), remembered for the
+    /// scenario-setup view. Scenarios with no entry fall back to
+    /// <see cref="ScenarioLevel"/>.
+    /// </summary>
+    public Dictionary<string, int> ScenarioLevels { get; set; } = [];
+
+    /// <summary>
+    /// The campaign's default scenario level — the last level chosen anywhere,
+    /// used to seed scenarios not yet in <see cref="ScenarioLevels"/>.
+    /// </summary>
+    public int ScenarioLevel { get; set; } = 1;
+
+    /// <summary>
     /// The campaign-wide outpost/town status (week, prosperity, resources, …).
     /// Defaults to a fresh status so saves written before this existed still load.
     /// </summary>
