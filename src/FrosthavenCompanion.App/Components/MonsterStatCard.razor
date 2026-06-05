@@ -47,6 +47,7 @@ else
         {
             <div class="col-auto">
                 <img class="monster-statcard" src="@img" alt="@Monster.DisplayName stat card"
+                     style="transform: rotate(@(Cards.CardRotation(Monster.Name, Level))deg); transition: transform .2s;"
                      onerror="this.style.display='none'" loading="lazy" />
             </div>
         }

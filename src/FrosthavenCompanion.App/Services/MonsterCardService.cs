@@ -44,6 +44,27 @@ public sealed partial class MonsterCardService(HttpClient http)
         return $"icons/monster-cards/{slug}-{band}.png";
     }
 
+    /// <summary>
+    /// Degrees to rotate the stat card so <paramref name="level"/> reads upright
+    /// (the card prints its band's four levels one per edge). Returns 0 when the
+    /// monster has no card, or for bosses whose cards aren't the standard
+    /// four-levels-per-card layout (left upright).
+    /// </summary>
+    public int CardRotation(string monsterSlug, int level)
+    {
+        if (_bands is null) return 0;
+        var slug = BaseSlug(monsterSlug);
+        if (!_bands.TryGetValue(slug, out var bands) || bands.Length == 0) return 0;
+
+        var band = bands.Where(b => b <= level).DefaultIfEmpty(bands[0]).Max();
+        var idx = Array.IndexOf(bands, band);
+        var next = idx + 1 < bands.Length ? bands[idx + 1] : band + 4;
+        if (next - band < 4) return 0; // boss cards span fewer levels — don't rotate.
+
+        // Level b is upright at top; each step clockwise round the card is −90°.
+        return (-90 * (level - band) + 360) % 360;
+    }
+
     // Scenario/section variants ("frozen-corpse-scenario-118") reuse the base card.
     private static string BaseSlug(string name) => VariantSuffix().Replace(name, "");
 

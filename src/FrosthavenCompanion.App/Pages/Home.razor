@@ -170,7 +170,16 @@ else
                                 </details>
                                 <a class="small d-inline-block mb-2" href="scenario/@v.Index">View stat cards →</a>
                             }
-                            <button class="btn btn-success mt-auto" @onclick="() => CompleteAsync(v.Index)">
+                            <div class="d-flex align-items-center gap-2 mb-2 small mt-auto">
+                                <span class="text-muted">Losses</span>
+                                <button class="btn btn-outline-secondary btn-sm py-0 px-2"
+                                        @onclick="() => AdjustLossesAsync(v.Index, -1)"
+                                        disabled="@(Store.ScenarioLossesOf(v.Index) == 0)">−</button>
+                                <span class="fw-bold" style="min-width:1rem; text-align:center">@Store.ScenarioLossesOf(v.Index)</span>
+                                <button class="btn btn-outline-secondary btn-sm py-0 px-2"
+                                        @onclick="() => AdjustLossesAsync(v.Index, 1)">+</button>
+                            </div>
+                            <button class="btn btn-success" @onclick="() => CompleteAsync(v.Index)">
                                 Mark completed
                             </button>
                         </div>
@@ -207,6 +216,10 @@ else
                         <td class="text-nowrap align-top"><span class="badge text-bg-success">✓</span> #@v.Index</td>
                         <td class="w-100">
                             @v.Name
+                            @if (Store.ScenarioLossesOf(v.Index) is var losses && losses > 0)
+                            {
+                                <span class="badge text-bg-light border text-muted ms-1" title="Losses before completing">@losses @(losses == 1 ? "loss" : "losses")</span>
+                            }
                             @if (!string.IsNullOrWhiteSpace(v.Definition.Description))
                             {
                                 <details class="small">
@@ -342,6 +355,9 @@ else
         await Store.UncompleteAsync(index);
         lastUnlockMessage = null;
     }
+
+    private Task AdjustLossesAsync(string index, int delta) =>
+        Store.SetScenarioLossesAsync(index, Store.ScenarioLossesOf(index) + delta);
 
     private async Task ManualUnlockAsync()
     {

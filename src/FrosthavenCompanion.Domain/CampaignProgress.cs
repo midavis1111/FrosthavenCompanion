@@ -44,6 +44,9 @@ public sealed class CampaignProgress
     /// </summary>
     public int ScenarioLevel { get; set; } = 1;
 
+    /// <summary>How many times each scenario has been lost/retried, keyed by index.</summary>
+    public Dictionary<string, int> ScenarioLosses { get; set; } = [];
+
     /// <summary>
     /// The campaign-wide outpost/town status (week, prosperity, resources, …).
     /// Defaults to a fresh status so saves written before this existed still load.

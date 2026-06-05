@@ -170,6 +170,20 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>How many times a scenario has been lost/retried.</summary>
+    public int ScenarioLossesOf(string index) => Progress.ScenarioLosses.GetValueOrDefault(index);
+
+    /// <summary>Sets a scenario's loss count (clamped at 0; 0 forgets it).</summary>
+    public async Task SetScenarioLossesAsync(string index, int losses)
+    {
+        losses = Math.Max(0, losses);
+        if (losses == 0)
+            Progress.ScenarioLosses.Remove(index);
+        else
+            Progress.ScenarioLosses[index] = losses;
+        await SaveAsync();
+    }
+
     public bool IsManualUnlock(string index) => Progress.ManualUnlocks.ContainsKey(index);
 
     public string? ManualUnlockSource(string index) => CampaignEngine.ManualUnlockSource(Progress, index);

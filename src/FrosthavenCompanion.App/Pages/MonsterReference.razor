@@ -19,8 +19,13 @@
         <div class="list-group" style="max-height:70vh; overflow:auto">
             @foreach (var m in Filtered)
             {
-                <button class="list-group-item list-group-item-action py-1 @(Selected?.Name == m.Name ? "active" : "")"
-                        @onclick="() => Select(m)">@m.DisplayName</button>
+                <button class="list-group-item list-group-item-action py-1 d-flex align-items-center gap-2 @(Selected?.Name == m.Name ? "active" : "")"
+                        @onclick="() => Select(m)">
+                    <img src="icons/monsters/@(PortraitSlug(m.Name)).png" alt="" loading="lazy"
+                         onerror="this.style.visibility='hidden'"
+                         style="height:1.7rem; width:1.7rem; object-fit:cover; border-radius:.25rem; flex-shrink:0;" />
+                    <span>@m.DisplayName</span>
+                </button>
             }
             @if (!Filtered.Any())
             {

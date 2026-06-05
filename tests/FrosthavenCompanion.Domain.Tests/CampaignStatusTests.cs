@@ -81,4 +81,16 @@ public class CampaignStatusTests
         Assert.Equal(1, progress.ScenarioLevel);
         Assert.Empty(progress.ScenarioLevels);
     }
+
+    [Fact]
+    public void Scenario_losses_round_trip_and_default_empty()
+    {
+        var progress = new CampaignProgress();
+        Assert.Empty(progress.ScenarioLosses);
+
+        progress.ScenarioLosses["52"] = 3;
+        var restored = CampaignSerializer.Deserialize(CampaignSerializer.Serialize(progress));
+
+        Assert.Equal(3, restored.ScenarioLosses["52"]);
+    }
 }
