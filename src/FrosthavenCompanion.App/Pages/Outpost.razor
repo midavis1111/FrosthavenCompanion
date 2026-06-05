@@ -1,0 +1,139 @@
+@page "/outpost"
+@inject CampaignStore Store
+
+<PageTitle>Outpost — Frosthaven Companion</PageTitle>
+
+<h1>Outpost</h1>
+<p class="text-muted" style="max-width: 42rem">
+    Work the outpost-phase checklist and track your buildings. Week, prosperity and
+    the resource stockpile live on the <a href="status">Campaign status</a> page.
+</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else
+{
+    <!-- Outpost phase checklist -->
+    <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+        <h2 class="h4 mb-0 me-auto">Outpost phase checklist</h2>
+        <span class="badge text-bg-secondary">@DoneCount / @OutpostPhase.Steps.Count</span>
+        <button class="btn btn-outline-secondary btn-sm" @onclick="ResetChecklistAsync"
+                disabled="@(DoneCount == 0)">Start new phase</button>
+    </div>
+
+    <div class="row g-3 mb-5">
+        @foreach (var group in OutpostPhase.Groups)
+        {
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card h-100">
+                    <div class="card-header py-2 fw-semibold">@group</div>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var step in OutpostPhase.Steps.Where(s => s.Group == group))
+                        {
+                            var done = Store.IsOutpostStepDone(step.Key);
+                            <li class="list-group-item py-2">
+                                <label class="d-flex align-items-start gap-2 mb-0" style="cursor:pointer">
+                                    <input type="checkbox" class="form-check-input mt-1 flex-shrink-0"
+                                           checked="@done" @onchange="() => ToggleStepAsync(step.Key)" />
+                                    <span class="@(done ? "text-muted text-decoration-line-through" : "")">@step.Label</span>
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Buildings -->
+    <h2 class="h4 mb-1">Buildings</h2>
+    <p class="text-muted small">Track each building's level and condition. The card shows its cost and effects.</p>
+    <div class="row g-3">
+        @foreach (var b in BuildingCatalog.All)
+        {
+            var s = Store.BuildingOf(b.Slug);
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="building-card h-100">
+                    @if (CardImage(b, s) is { } img)
+                    {
+                        <img class="building-art" src="@img" alt="@b.Name level @s.Level"
+                             onerror="this.style.display='none'" loading="lazy" />
+                    }
+                    else
+                    {
+                        <div class="building-art-empty">Not built</div>
+                    }
+                    <div class="building-body">
+                        <div class="d-flex align-items-baseline gap-2">
+                            <span class="text-muted small">#@b.Number</span>
+                            <span class="fw-semibold">@b.Name</span>
+                        </div>
+
+                        @if (s.Level <= 0)
+                        {
+                            <button class="btn btn-success btn-sm mt-2 w-100" @onclick="() => SetAsync(b, 1, BuildingCondition.Operational)">
+                                Build (Level 1)
+                            </button>
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center gap-2 mt-2">
+                                <span class="text-muted small">Level</span>
+                                <button class="btn btn-outline-secondary btn-sm" style="width:2rem"
+                                        @onclick="() => SetAsync(b, s.Level - 1, s.Condition)">−</button>
+                                <span class="fw-bold">@s.Level<span class="text-muted small">/@b.MaxLevel</span></span>
+                                <button class="btn btn-outline-secondary btn-sm" style="width:2rem"
+                                        @onclick="() => SetAsync(b, s.Level + 1, s.Condition)"
+                                        disabled="@(s.Level >= b.MaxLevel)">+</button>
+                            </div>
+
+                            <div class="btn-group btn-group-sm mt-2 w-100" role="group" aria-label="Condition">
+                                @foreach (var c in Conditions3)
+                                {
+                                    <button type="button"
+                                            class="btn @(s.Condition == c ? ConditionActive(c) : "btn-outline-secondary")"
+                                            @onclick="() => SetAsync(b, s.Level, c)">@c</button>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private bool loaded;
+
+    private static readonly BuildingCondition[] Conditions3 =
+        [BuildingCondition.Operational, BuildingCondition.Damaged, BuildingCondition.Wrecked];
+
+    private int DoneCount => OutpostPhase.Steps.Count(s => Store.IsOutpostStepDone(s.Key));
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private static string? CardImage(Building b, BuildingProgress s) =>
+        s.Level <= 0 ? null
+        : $"icons/buildings/{b.Number}-{b.Slug}-{s.Level}{(s.Condition == BuildingCondition.Operational ? "" : "-back")}.png";
+
+    private static string ConditionActive(BuildingCondition c) => c switch
+    {
+        BuildingCondition.Operational => "btn-success",
+        BuildingCondition.Damaged => "btn-warning",
+        _ => "btn-danger",
+    };
+
+    private Task ToggleStepAsync(string key) => Store.ToggleOutpostStepAsync(key);
+
+    private async Task ResetChecklistAsync() => await Store.ResetOutpostChecklistAsync();
+
+    private Task SetAsync(Building b, int level, BuildingCondition condition) =>
+        Store.SetBuildingAsync(b.Slug, Math.Clamp(level, 0, b.MaxLevel), condition);
+}

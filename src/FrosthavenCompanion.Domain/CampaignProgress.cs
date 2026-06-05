@@ -50,5 +50,11 @@ public sealed class CampaignProgress
     /// </summary>
     public CampaignStatus Status { get; set; } = new();
 
+    /// <summary>Outpost buildings the party has interacted with, keyed by art slug.</summary>
+    public Dictionary<string, BuildingProgress> Buildings { get; set; } = [];
+
+    /// <summary>Keys of the outpost-phase checklist steps ticked this phase.</summary>
+    public HashSet<string> OutpostChecklist { get; set; } = [];
+
     public bool IsCompleted(string index) => Completed.ContainsKey(index);
 }

@@ -132,6 +132,44 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>The stored state for a building (a fresh not-built default if untouched).</summary>
+    public BuildingProgress BuildingOf(string slug) =>
+        Progress.Buildings.GetValueOrDefault(slug) ?? new BuildingProgress();
+
+    /// <summary>Records a building's level and condition. Level ≤ 0 forgets it (not built).</summary>
+    public async Task SetBuildingAsync(string slug, int level, BuildingCondition condition)
+    {
+        if (level <= 0)
+        {
+            Progress.Buildings.Remove(slug);
+        }
+        else
+        {
+            var b = Progress.Buildings.TryGetValue(slug, out var existing) ? existing : new BuildingProgress();
+            b.Level = level;
+            b.Condition = condition;
+            Progress.Buildings[slug] = b;
+        }
+        await SaveAsync();
+    }
+
+    public bool IsOutpostStepDone(string key) => Progress.OutpostChecklist.Contains(key);
+
+    /// <summary>Toggles an outpost-phase checklist step.</summary>
+    public async Task ToggleOutpostStepAsync(string key)
+    {
+        if (!Progress.OutpostChecklist.Add(key))
+            Progress.OutpostChecklist.Remove(key);
+        await SaveAsync();
+    }
+
+    /// <summary>Clears every checklist tick to start a new outpost phase.</summary>
+    public async Task ResetOutpostChecklistAsync()
+    {
+        Progress.OutpostChecklist.Clear();
+        await SaveAsync();
+    }
+
     public bool IsManualUnlock(string index) => Progress.ManualUnlocks.ContainsKey(index);
 
     public string? ManualUnlockSource(string index) => CampaignEngine.ManualUnlockSource(Progress, index);
