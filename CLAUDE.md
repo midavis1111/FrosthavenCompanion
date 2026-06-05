@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A **personal, single-user** companion app for the Frosthaven board game. It's a .NET 10 **Blazor WebAssembly (standalone) PWA**, hosted free on GitHub Pages, with browser-local storage and optional cross-device sync. There is no server/backend — everything runs in the browser.
 
-Features so far: campaign **scenario-progress tracking** that mirrors the game's spoiler-free flow chart (list view with filter/search + a pan/zoom visual flow chart), per-scenario **rewards / descriptions / complexity / enemies / unlock-source**, **manual unlocks**, **cross-device sync** via a private gist, a **monster stat reference** (`/monsters`), and a **conditions glossary** (`/conditions`) with official condition icons. Not built yet (see project memory `backlog`): per-scenario notes & loss/retry tracking, a campaign status panel (week/prosperity), characters, monster ability-card decks.
+Features so far: campaign **scenario-progress tracking** that mirrors the game's spoiler-free flow chart (list view with filter/search + a pan/zoom visual flow chart), per-scenario **rewards / descriptions / complexity / enemies / unlock-source**, **manual unlocks**, a **campaign status panel** (`/status`: week, prosperity, morale, inspiration, defense, reputation, and the town resource stockpile), **cross-device sync** via a private gist, a **monster stat reference** (`/monsters`), and a **conditions glossary** (`/conditions`) with official condition icons. Not built yet (see project memory `backlog`): per-scenario notes & loss/retry tracking, characters, monster ability-card decks.
 
 ## Commands
 

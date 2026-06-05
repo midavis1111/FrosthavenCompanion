@@ -1,0 +1,88 @@
+@page "/status"
+@inject CampaignStore Store
+
+<PageTitle>Campaign status — Frosthaven Companion</PageTitle>
+
+<h1>Campaign status</h1>
+<p class="text-muted" style="max-width: 40rem">
+    The outpost totals you'd otherwise track on the campaign sheet. Changes save
+    automatically (and sync, if connected).
+</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else
+{
+    <div class="row g-2 mb-4" style="max-width: 60rem">
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Week" Min="1" Value="Status.Week"
+                     ValueChanged="v => SaveAsync(() => Status.Week = v)" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Prosperity" Hint="Item-shop level (1–9)" Min="1" Max="9" Value="Status.Prosperity"
+                     ValueChanged="v => SaveAsync(() => Status.Prosperity = v)" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Prosperity checks" Hint="Toward the next level" Min="0" Value="Status.ProsperityTicks"
+                     ValueChanged="v => SaveAsync(() => Status.ProsperityTicks = v)" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Morale" Min="0" Value="Status.Morale"
+                     ValueChanged="v => SaveAsync(() => Status.Morale = v)" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Inspiration" Hint="Spent on buildings" Min="0" Value="Status.Inspiration"
+                     ValueChanged="v => SaveAsync(() => Status.Inspiration = v)" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Defense" Min="0" Value="Status.Defense"
+                     ValueChanged="v => SaveAsync(() => Status.Defense = v)" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <Stepper Label="Reputation" Hint="Shop prices (−20…+20)" Min="-20" Max="20" Value="Status.Reputation"
+                     ValueChanged="v => SaveAsync(() => Status.Reputation = v)" />
+        </div>
+    </div>
+
+    <h2 class="h4">Town resources</h2>
+    <p class="text-muted small">The town's shared supply, used to construct and upgrade buildings.</p>
+    <div class="row g-2" style="max-width: 60rem">
+        @foreach (var name in CampaignStatus.ResourceNames)
+        {
+            <div class="col-6 col-sm-4 col-lg-3">
+                <Stepper Label="@name" Min="0" Value="Resource(name)"
+                         ValueChanged="v => SaveAsync(() => SetResource(name, v))" />
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private bool loaded;
+
+    private CampaignStatus Status => Store.Progress.Status;
+
+    private int Resource(string name) => Status.Resources.GetValueOrDefault(name);
+
+    private void SetResource(string name, int value)
+    {
+        if (value <= 0)
+            Status.Resources.Remove(name);
+        else
+            Status.Resources[name] = value;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private async Task SaveAsync(Action change)
+    {
+        change();
+        await Store.SaveAsync();
+    }
+}

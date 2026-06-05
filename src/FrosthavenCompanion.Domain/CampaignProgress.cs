@@ -31,5 +31,11 @@ public sealed class CampaignProgress
     /// <summary>Optional per-scenario notes, keyed by scenario index.</summary>
     public Dictionary<string, string> Notes { get; set; } = [];
 
+    /// <summary>
+    /// The campaign-wide outpost/town status (week, prosperity, resources, …).
+    /// Defaults to a fresh status so saves written before this existed still load.
+    /// </summary>
+    public CampaignStatus Status { get; set; } = new();
+
     public bool IsCompleted(string index) => Completed.ContainsKey(index);
 }

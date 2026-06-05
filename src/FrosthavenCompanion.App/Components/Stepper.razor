@@ -1,0 +1,44 @@
+@namespace FrosthavenCompanion.App.Components
+
+@*
+    A small −/value/+ control for editing a single integer stat. Notifies the
+    parent through ValueChanged; it does not persist anything itself.
+*@
+
+<div class="d-flex align-items-center justify-content-between border rounded p-2 h-100">
+    <div class="me-2">
+        <div class="fw-semibold">@Label</div>
+        @if (!string.IsNullOrEmpty(Hint))
+        {
+            <div class="small text-muted">@Hint</div>
+        }
+    </div>
+    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <button type="button" class="btn btn-outline-secondary btn-sm" style="width:2rem"
+                @onclick="Decrement" disabled="@(Value <= Min)" aria-label="Decrease @Label">−</button>
+        <span class="fs-5 fw-bold text-center" style="min-width:2.5rem">@Value</span>
+        <button type="button" class="btn btn-outline-secondary btn-sm" style="width:2rem"
+                @onclick="Increment" disabled="@(Max is int max && Value >= max)" aria-label="Increase @Label">+</button>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = "";
+    [Parameter] public string? Hint { get; set; }
+    [Parameter] public int Value { get; set; }
+    [Parameter] public int Min { get; set; }
+    [Parameter] public int? Max { get; set; }
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+
+    private async Task Increment()
+    {
+        if (Max is null || Value < Max)
+            await ValueChanged.InvokeAsync(Value + 1);
+    }
+
+    private async Task Decrement()
+    {
+        if (Value > Min)
+            await ValueChanged.InvokeAsync(Value - 1);
+    }
+}
