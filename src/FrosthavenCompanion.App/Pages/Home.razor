@@ -76,9 +76,18 @@ else
             @foreach (var v in Available)
             {
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100 border-primary">
+                    <div class="card h-100 border-primary position-relative">
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">#@v.Index — @v.Name</h5>
+                            @if (Store.IsManualUnlock(v.Index))
+                            {
+                                <button type="button"
+                                        class="btn-close position-absolute top-0 end-0 m-2"
+                                        style="font-size:.6rem"
+                                        title="Remove this manual unlock"
+                                        aria-label="Remove this manual unlock"
+                                        @onclick="() => RemoveManualUnlockAsync(v.Index)"></button>
+                            }
+                            <h5 class="card-title pe-4">#@v.Index — @v.Name</h5>
                             <p class="card-subtitle text-muted small mb-2">
                                 @(v.Definition.Hex is not null ? $"Hex {v.Definition.Hex}" : v.Definition.Group)@(v.Definition.Complexity is int cx ? $" · Complexity {cx}/5" : "")
                             </p>
@@ -91,15 +100,7 @@ else
                             }
                             @if (Store.UnlockExplanation(v.Index) is { } how)
                             {
-                                <p class="text-muted small mb-2">
-                                    @how
-                                    @if (Store.IsManualUnlock(v.Index))
-                                    {
-                                        <a href="#" class="ms-1"
-                                           @onclick="() => RemoveManualUnlockAsync(v.Index)"
-                                           @onclick:preventDefault="true">remove</a>
-                                    }
-                                </p>
+                                <p class="text-muted small mb-2">@how</p>
                             }
                             @if (v.Definition.Monsters.Count > 0)
                             {
@@ -278,7 +279,12 @@ else
 
     private async Task RemoveManualUnlockAsync(string index)
     {
-        await Store.RemoveManualUnlockAsync(index);
+        var name = Views.FirstOrDefault(v => v.Index == index)?.Name;
+        var label = name is null ? $"#{index}" : $"#{index} {name}";
+        if (await JS.InvokeAsync<bool>("confirm", $"Remove the manual unlock for {label}?"))
+        {
+            await Store.RemoveManualUnlockAsync(index);
+        }
     }
 
     private async Task ExportAsync()
