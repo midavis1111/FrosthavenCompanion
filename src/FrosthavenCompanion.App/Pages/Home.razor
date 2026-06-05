@@ -32,8 +32,8 @@ else
         <div class="card-body">
             <div class="row g-2 align-items-end">
                 <div class="col-6 col-md-3">
-                    <label class="form-label">Scenario #</label>
-                    <input class="form-control" @bind="unlockIndex" placeholder="94" />
+                    <label class="form-label">Scenario # (one or more)</label>
+                    <input class="form-control" @bind="unlockIndex" placeholder="5, 7, 8" />
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label">Source (optional)</label>
@@ -208,18 +208,35 @@ else
     private async Task ManualUnlockAsync()
     {
         unlockError = null;
-        var index = unlockIndex.Trim().ToUpperInvariant();
-        try
+        var tokens = unlockIndex
+            .Split([',', ' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select(t => t.ToUpperInvariant())
+            .Distinct()
+            .ToList();
+
+        var unlocked = new List<string>();
+        var notFound = new List<string>();
+        foreach (var idx in tokens)
         {
-            var def = await Store.ManuallyUnlockAsync(index, unlockSource);
-            lastUnlockMessage = $"Unlocked #{def.Index} {def.Name}.";
-            unlockIndex = "";
+            try
+            {
+                var def = await Store.ManuallyUnlockAsync(idx, unlockSource);
+                unlocked.Add($"#{def.Index} {def.Name}");
+            }
+            catch
+            {
+                notFound.Add(idx);
+            }
+        }
+
+        if (unlocked.Count > 0)
+        {
+            lastUnlockMessage = $"Unlocked {string.Join(", ", unlocked)}.";
             unlockSource = "";
         }
-        catch (Exception ex)
-        {
-            unlockError = ex.Message;
-        }
+        // Keep any bad entries in the box so they can be corrected.
+        unlockIndex = string.Join(", ", notFound);
+        unlockError = notFound.Count > 0 ? $"Not found: {string.Join(", ", notFound.Select(n => "#" + n))}." : null;
     }
 
     private async Task RemoveManualUnlockAsync(string index)
