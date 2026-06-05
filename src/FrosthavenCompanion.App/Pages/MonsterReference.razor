@@ -35,7 +35,12 @@
         }
         else
         {
-            <h2 class="h4">@Selected.DisplayName</h2>
+            <div class="d-flex align-items-start gap-3 mb-2">
+                <img src="icons/monsters/@(PortraitSlug(Selected.Name)).png" alt="@Selected.DisplayName"
+                     onerror="this.style.display='none'" loading="lazy"
+                     style="height:130px; width:auto; border-radius:.5rem; flex-shrink:0;" />
+                <h2 class="h4 mb-0">@Selected.DisplayName</h2>
+            </div>
 
             @if (Selected.Immunities.Count > 0)
             {
@@ -82,6 +87,12 @@
     private int level = 1;
 
     private MonsterStats? Selected => string.IsNullOrEmpty(M) ? null : Monsters.Find(M);
+
+    // Portraits are filed under the base monster; scenario/section variants
+    // (e.g. "frozen-corpse-scenario-118") reuse the base art. Bosses with no
+    // portrait fall back to a hidden image via onerror.
+    private static string PortraitSlug(string name) =>
+        System.Text.RegularExpressions.Regex.Replace(name, "-(scenario|section)-.*$", "");
 
     private MonsterLevel? CurrentLevel => Selected?.Levels.FirstOrDefault(l => l.Level == level);
 

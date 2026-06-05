@@ -11,10 +11,12 @@
         <ul class="list-group">
             @foreach (var c in Conditions.All.Where(c => !c.Positive))
             {
-                <li class="list-group-item">
-                    <img src="icons/conditions/@(c.Icon).png" alt="@c.Name" class="me-1" style="height:1.6rem; width:auto;" />
-                    <span class="badge text-bg-danger me-1">@c.Name</span>
-                    <span class="small">@c.Description</span>
+                <li class="list-group-item d-flex align-items-start gap-2">
+                    <img src="icons/conditions/@(c.Icon).png" alt="@c.Name" style="height:1.6rem; width:auto; flex-shrink:0;" />
+                    <div>
+                        <span class="fw-semibold">@c.Name</span>
+                        <span class="small text-muted ms-1">@c.Description</span>
+                    </div>
                 </li>
             }
         </ul>
@@ -24,10 +26,12 @@
         <ul class="list-group">
             @foreach (var c in Conditions.All.Where(c => c.Positive))
             {
-                <li class="list-group-item">
-                    <img src="icons/conditions/@(c.Icon).png" alt="@c.Name" class="me-1" style="height:1.6rem; width:auto;" />
-                    <span class="badge text-bg-success me-1">@c.Name</span>
-                    <span class="small">@c.Description</span>
+                <li class="list-group-item d-flex align-items-start gap-2">
+                    <img src="icons/conditions/@(c.Icon).png" alt="@c.Name" style="height:1.6rem; width:auto; flex-shrink:0;" />
+                    <div>
+                        <span class="fw-semibold">@c.Name</span>
+                        <span class="small text-muted ms-1">@c.Description</span>
+                    </div>
                 </li>
             }
         </ul>
