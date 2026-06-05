@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow the workflow to publish to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment at a time; let an in-progress run finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Test
+        run: dotnet test FrosthavenCompanion.slnx -c Release
+
+      - name: Publish
+        run: dotnet publish src/FrosthavenCompanion.App -c Release -o publish
+
+      # GitHub Pages serves this project at /FrosthavenCompanion/, so the SPA
+      # base href must match or asset URLs will 404.
+      - name: Rewrite base href for project subpath
+        run: |
+          sed -i 's|<base href="/" />|<base href="/FrosthavenCompanion/" />|g' publish/wwwroot/index.html
+
+      # Pages ignores folders starting with "_" (like _framework) unless this exists.
+      - name: Add .nojekyll
+        run: touch publish/wwwroot/.nojekyll
+
+      # SPA fallback: unknown routes (deep links, refresh) return 404.html,
+      # which boots the same app and lets client-side routing take over.
+      - name: Add SPA 404 fallback
+        run: cp publish/wwwroot/index.html publish/wwwroot/404.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: publish/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

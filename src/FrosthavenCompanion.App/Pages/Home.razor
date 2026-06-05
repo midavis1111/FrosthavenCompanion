@@ -1,0 +1,212 @@
+@page "/"
+@inject CampaignStore Store
+@inject IJSRuntime JS
+
+<PageTitle>Frosthaven Companion</PageTitle>
+
+<div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+    <h1 class="me-auto mb-0">Scenario Tracker</h1>
+    <button class="btn btn-outline-secondary btn-sm" @onclick="ExportAsync">Export backup</button>
+    <label class="btn btn-outline-secondary btn-sm mb-0">
+        Import backup
+        <InputFile OnChange="ImportAsync" accept=".json" class="d-none" />
+    </label>
+</div>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else
+{
+    <div class="mb-4" style="max-width: 24rem">
+        <label class="form-label">Party name</label>
+        <input class="form-control" value="@Store.Progress.PartyName" @onchange="OnPartyNameChanged" />
+    </div>
+
+    @if (lastUnlockMessage is not null)
+    {
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <span>@lastUnlockMessage</span>
+            <button type="button" class="btn-close" @onclick="() => lastUnlockMessage = null"></button>
+        </div>
+    }
+
+    @if (importError is not null)
+    {
+        <div class="alert alert-danger">@importError</div>
+    }
+
+    <!-- Available now: the playable frontier -->
+    <h2 class="h4 mt-4">Available now</h2>
+    @if (Available.Count == 0)
+    {
+        <p class="text-muted">Nothing available. (A fresh campaign starts with scenarios 0 and 1.)</p>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var v in Available)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-primary">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">#@v.Index — @v.Name</h5>
+                            <p class="card-subtitle text-muted small mb-3">
+                                @(v.Definition.Hex is not null ? $"Hex {v.Definition.Hex}" : v.Definition.Group)
+                            </p>
+                            <button class="btn btn-success mt-auto" @onclick="() => CompleteAsync(v.Index)">
+                                Mark completed
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Revealed but gated by requirements -->
+    @if (Locked.Count > 0)
+    {
+        <h2 class="h4 mt-4">Waiting on requirements</h2>
+        <ul class="list-group">
+            @foreach (var v in Locked)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>#@v.Index — @v.Name</span>
+                    <span class="badge text-bg-warning">needs @string.Join(", ", v.Definition.Requires.Select(r => "#" + r))</span>
+                </li>
+            }
+        </ul>
+    }
+
+    <!-- History -->
+    @if (Completed.Count > 0)
+    {
+        <h2 class="h4 mt-4">Completed (@Completed.Count)</h2>
+        <table class="table table-sm align-middle">
+            <tbody>
+                @foreach (var v in Completed)
+                {
+                    <tr>
+                        <td class="text-nowrap"><span class="badge text-bg-success">✓</span> #@v.Index</td>
+                        <td class="w-100">@v.Name</td>
+                        <td class="text-muted small text-nowrap">@v.CompletedOn?.ToString("yyyy-MM-dd")</td>
+                        <td class="text-end">
+                            <button class="btn btn-outline-secondary btn-sm" @onclick="() => UncompleteAsync(v.Index)">
+                                Undo
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <!-- Branches not taken -->
+    @if (LockedOut.Count > 0)
+    {
+        <details class="mt-3">
+            <summary class="text-muted">Locked out by branch choices (@LockedOut.Count)</summary>
+            <ul class="list-group mt-2">
+                @foreach (var v in LockedOut)
+                {
+                    <li class="list-group-item text-muted">#@v.Index — @v.Name</li>
+                }
+            </ul>
+        </details>
+    }
+}
+
+@code {
+    private bool loaded;
+    private string? lastUnlockMessage;
+    private string? importError;
+
+    private IReadOnlyList<ScenarioView> Views => Store.Views;
+    private List<ScenarioView> Available => Filter(ScenarioStatus.Available);
+    private List<ScenarioView> Locked => Filter(ScenarioStatus.Locked);
+    private List<ScenarioView> LockedOut => Filter(ScenarioStatus.LockedOut);
+
+    private List<ScenarioView> Completed => Views
+        .Where(v => v.Status == ScenarioStatus.Completed)
+        .OrderByDescending(v => v.CompletedOn)
+        .ToList();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private List<ScenarioView> Filter(ScenarioStatus status) => Views
+        .Where(v => v.Status == status)
+        .OrderBy(v => v.Index, ScenarioIndexComparer.Instance)
+        .ToList();
+
+    private async Task OnPartyNameChanged(ChangeEventArgs e)
+    {
+        Store.Progress.PartyName = e.Value?.ToString() ?? "";
+        await Store.SaveAsync();
+    }
+
+    private async Task CompleteAsync(string index)
+    {
+        var revealed = await Store.CompleteAsync(index, DateOnly.FromDateTime(DateTime.Now));
+        lastUnlockMessage = revealed.Count == 0
+            ? $"#{index} completed."
+            : $"#{index} completed — unlocked {string.Join(", ", revealed.Select(d => $"#{d.Index} {d.Name}"))}";
+    }
+
+    private async Task UncompleteAsync(string index)
+    {
+        await Store.UncompleteAsync(index);
+        lastUnlockMessage = null;
+    }
+
+    private async Task ExportAsync()
+    {
+        var fileName = $"frosthaven-{Sanitize(Store.Progress.PartyName)}.json";
+        await JS.InvokeVoidAsync("frosthavenDownloadFile", fileName, "application/json", Store.Export());
+    }
+
+    private async Task ImportAsync(InputFileChangeEventArgs e)
+    {
+        importError = null;
+        try
+        {
+            using var reader = new StreamReader(e.File.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024));
+            await Store.ImportAsync(await reader.ReadToEndAsync());
+        }
+        catch (Exception ex)
+        {
+            importError = $"Import failed: {ex.Message}";
+        }
+    }
+
+    private static string Sanitize(string name)
+    {
+        var safe = new string(name.Select(c => char.IsLetterOrDigit(c) ? c : '-').ToArray());
+        return string.IsNullOrWhiteSpace(safe) ? "campaign" : safe.ToLowerInvariant();
+    }
+
+    // Sorts scenario indices numerically, keeping letter suffixes together (e.g. 4A before 4B).
+    private sealed class ScenarioIndexComparer : IComparer<string>
+    {
+        public static readonly ScenarioIndexComparer Instance = new();
+
+        public int Compare(string? x, string? y)
+        {
+            (int n, string s) Parse(string? v)
+            {
+                v ??= "";
+                var digits = new string(v.TakeWhile(char.IsDigit).ToArray());
+                return (int.TryParse(digits, out var n) ? n : int.MaxValue, v[digits.Length..]);
+            }
+            var px = Parse(x);
+            var py = Parse(y);
+            var byNumber = px.n.CompareTo(py.n);
+            return byNumber != 0 ? byNumber : string.Compare(px.s, py.s, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+}

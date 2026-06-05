@@ -1,0 +1,2014 @@
+[
+  {
+    "index": "0",
+    "name": "Howling in the Snow",
+    "initial": true,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "intro",
+    "hex": null,
+    "x": 803.5,
+    "y": 878
+  },
+  {
+    "index": "1",
+    "name": "A Town in Flames",
+    "initial": true,
+    "unlocks": [
+      "2",
+      "3"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "intro",
+    "hex": null,
+    "x": 961.25,
+    "y": 1872
+  },
+  {
+    "index": "2",
+    "name": "Algox Scouting",
+    "initial": false,
+    "unlocks": [
+      "4B"
+    ],
+    "blocks": [
+      "3",
+      "4A"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "intro",
+    "hex": null,
+    "x": 1078.5,
+    "y": 1073.5
+  },
+  {
+    "index": "3",
+    "name": "Algox Offensive",
+    "initial": false,
+    "unlocks": [
+      "4A"
+    ],
+    "blocks": [
+      "2",
+      "4B"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "intro",
+    "hex": null,
+    "x": 1049.5,
+    "y": 989.5
+  },
+  {
+    "index": "4A",
+    "name": "Heart of Ice A",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "4B"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "intro",
+    "hex": null,
+    "x": 903.5,
+    "y": 1083.5
+  },
+  {
+    "index": "4B",
+    "name": "Heart of Ice B",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "4A"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "intro",
+    "hex": null,
+    "x": 903.5,
+    "y": 1083.5
+  },
+  {
+    "index": "5",
+    "name": "Frozen Crypt",
+    "initial": false,
+    "unlocks": [
+      "9",
+      "10"
+    ],
+    "blocks": [
+      "6"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1293.5,
+    "y": 961.75
+  },
+  {
+    "index": "6",
+    "name": "Avalanche",
+    "initial": false,
+    "unlocks": [
+      "11",
+      "12"
+    ],
+    "blocks": [
+      "5"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 989,
+    "y": 1142.875
+  },
+  {
+    "index": "7",
+    "name": "Edge of the World",
+    "initial": false,
+    "unlocks": [
+      "13",
+      "14"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1154.5,
+    "y": 578.25
+  },
+  {
+    "index": "8",
+    "name": "Crystal Trench",
+    "initial": false,
+    "unlocks": [
+      "15",
+      "16"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1570.25,
+    "y": 1158.875
+  },
+  {
+    "index": "9",
+    "name": "Glowing Catacombs",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1265.5,
+    "y": 869
+  },
+  {
+    "index": "10",
+    "name": "Crystal Enclosure",
+    "initial": false,
+    "unlocks": [
+      "18"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1637.5,
+    "y": 906.75
+  },
+  {
+    "index": "11",
+    "name": "Snowscorn Peak",
+    "initial": false,
+    "unlocks": [
+      "19"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 886,
+    "y": 956
+  },
+  {
+    "index": "12",
+    "name": "Temple Entrance",
+    "initial": false,
+    "unlocks": [
+      "20"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1105.5,
+    "y": 1157.5
+  },
+  {
+    "index": "13",
+    "name": "Frozen Fjord",
+    "initial": false,
+    "unlocks": [
+      "21",
+      "32"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 728,
+    "y": 490.75
+  },
+  {
+    "index": "14",
+    "name": "Jagged Shoals",
+    "initial": false,
+    "unlocks": [
+      "22"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1006.5,
+    "y": 455.5
+  },
+  {
+    "index": "15",
+    "name": "Ancient Spire",
+    "initial": false,
+    "unlocks": [
+      "23",
+      "24"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [
+      "23",
+      "24"
+    ],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1907.5,
+    "y": 1043
+  },
+  {
+    "index": "16",
+    "name": "Derelict Elevator",
+    "initial": false,
+    "unlocks": [
+      "25",
+      "26"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [
+      "25",
+      "26"
+    ],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1663.75,
+    "y": 1311.25
+  },
+  {
+    "index": "17",
+    "name": "Haunted Vault",
+    "initial": false,
+    "unlocks": [
+      "27"
+    ],
+    "blocks": [],
+    "requires": [
+      "9"
+    ],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1376,
+    "y": 910.75
+  },
+  {
+    "index": "18",
+    "name": "Crystal Fields",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1755.5,
+    "y": 960.75
+  },
+  {
+    "index": "19",
+    "name": "Skyhall",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 819.125,
+    "y": 1013.375
+  },
+  {
+    "index": "20",
+    "name": "Temple of Liberation",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1045.25,
+    "y": 1249.375
+  },
+  {
+    "index": "21",
+    "name": "Realm of Endless Frost",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 788.25,
+    "y": 372.5
+  },
+  {
+    "index": "22",
+    "name": "Ice Floes",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1360.75,
+    "y": 509.75
+  },
+  {
+    "index": "23",
+    "name": "Spire Basement",
+    "initial": false,
+    "unlocks": [
+      "34"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [
+      "34"
+    ],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1964.5,
+    "y": 1088.25
+  },
+  {
+    "index": "24",
+    "name": "Upper Spire",
+    "initial": false,
+    "unlocks": [
+      "34"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [
+      "34"
+    ],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1909.25,
+    "y": 973.5
+  },
+  {
+    "index": "25",
+    "name": "Rusted Tunnels",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "26"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1770,
+    "y": 1233.5
+  },
+  {
+    "index": "26",
+    "name": "Quatryl Library",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "25"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1761.5,
+    "y": 1353
+  },
+  {
+    "index": "27",
+    "name": "Depths of Delirium",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1416.75,
+    "y": 866.75
+  },
+  {
+    "index": "28",
+    "name": "Summit Meeting",
+    "initial": false,
+    "unlocks": [
+      "38"
+    ],
+    "blocks": [
+      "29",
+      "30"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "algox-3",
+    "hex": null,
+    "x": 1264.75,
+    "y": 1118.25
+  },
+  {
+    "index": "29",
+    "name": "War of the Spire A",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "28"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 1679.75,
+    "y": 1062
+  },
+  {
+    "index": "30",
+    "name": "War of the Spire B",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "28"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1801,
+    "y": 1067.75
+  },
+  {
+    "index": "31",
+    "name": "Crackling Tunnel",
+    "initial": false,
+    "unlocks": [
+      "41"
+    ],
+    "blocks": [],
+    "requires": [
+      "20"
+    ],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1478.25,
+    "y": 1334
+  },
+  {
+    "index": "32",
+    "name": "Ravens' Roost",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 512.75,
+    "y": 561.75
+  },
+  {
+    "index": "33",
+    "name": "Thawed Wood",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 312,
+    "y": 474.5
+  },
+  {
+    "index": "34",
+    "name": "Top of the Spire",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1918,
+    "y": 913.25
+  },
+  {
+    "index": "35",
+    "name": "Scrap Pit",
+    "initial": false,
+    "unlocks": [
+      "43"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1876.25,
+    "y": 1396.25
+  },
+  {
+    "index": "36",
+    "name": "Buried Ducts",
+    "initial": false,
+    "unlocks": [
+      "44"
+    ],
+    "blocks": [
+      "37"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1960,
+    "y": 1267.25
+  },
+  {
+    "index": "37",
+    "name": "The Dead Mile",
+    "initial": false,
+    "unlocks": [
+      "44"
+    ],
+    "blocks": [
+      "36"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1955.25,
+    "y": 1407.75
+  },
+  {
+    "index": "38",
+    "name": "The Way Forward",
+    "initial": false,
+    "unlocks": [
+      "45",
+      "46"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-3",
+    "hex": null,
+    "x": 1510.25,
+    "y": 1075.25
+  },
+  {
+    "index": "39",
+    "name": "Corrupted Camp",
+    "initial": false,
+    "unlocks": [
+      "47"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 456.5,
+    "y": 681.5
+  },
+  {
+    "index": "40",
+    "name": "Relief Effort",
+    "initial": false,
+    "unlocks": [
+      "48"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1378,
+    "y": 1228.75
+  },
+  {
+    "index": "41",
+    "name": "Unfettered Shard",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1678.25,
+    "y": 1481.75
+  },
+  {
+    "index": "42",
+    "name": "Sunless Trench",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1211.75,
+    "y": 373
+  },
+  {
+    "index": "43",
+    "name": "Overrun Barricade",
+    "initial": false,
+    "unlocks": [
+      "51"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 1918,
+    "y": 1238.5
+  },
+  {
+    "index": "44",
+    "name": "Nerve Center",
+    "initial": false,
+    "unlocks": [
+      "58",
+      "59"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 2027.25,
+    "y": 1335
+  },
+  {
+    "index": "45",
+    "name": "Living Glacier",
+    "initial": false,
+    "unlocks": [
+      "52"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-3",
+    "hex": null,
+    "x": 2004.25,
+    "y": 616.75
+  },
+  {
+    "index": "46",
+    "name": "Dead Pass",
+    "initial": false,
+    "unlocks": [
+      "52"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-3",
+    "hex": null,
+    "x": 2025.5,
+    "y": 1570.75
+  },
+  {
+    "index": "47",
+    "name": "Carrion Ridge",
+    "initial": false,
+    "unlocks": [
+      "56"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [
+      "56"
+    ],
+    "group": "algox-1",
+    "hex": null,
+    "x": 297.75,
+    "y": 721.75
+  },
+  {
+    "index": "48",
+    "name": "Blizzard Island",
+    "initial": false,
+    "unlocks": [
+      "57"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [
+      "57"
+    ],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1779.5,
+    "y": 463.75
+  },
+  {
+    "index": "49",
+    "name": "Beneath Sea and Stone",
+    "initial": false,
+    "unlocks": [
+      "53"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1492.5,
+    "y": 530.5
+  },
+  {
+    "index": "50",
+    "name": "Explosive Descent",
+    "initial": false,
+    "unlocks": [
+      "54"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1531.75,
+    "y": 371.75
+  },
+  {
+    "index": "51",
+    "name": "Orphan's Halls",
+    "initial": false,
+    "unlocks": [
+      "58",
+      "59"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 2056.5,
+    "y": 1223
+  },
+  {
+    "index": "52",
+    "name": "Fleeting Permanence",
+    "initial": false,
+    "unlocks": [
+      "55"
+    ],
+    "blocks": [],
+    "requires": [
+      "45",
+      "46"
+    ],
+    "links": [],
+    "group": "algox-3",
+    "hex": null,
+    "x": 1501.5,
+    "y": 999.375
+  },
+  {
+    "index": "53",
+    "name": "Underwater Throne",
+    "initial": false,
+    "unlocks": [
+      "60"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1671.25,
+    "y": 476.25
+  },
+  {
+    "index": "54",
+    "name": "Among the Wreckage",
+    "initial": false,
+    "unlocks": [
+      "60"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1666.5,
+    "y": 377.75
+  },
+  {
+    "index": "55",
+    "name": "Change of Heart",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-3",
+    "hex": null,
+    "x": 1004,
+    "y": 1009.5
+  },
+  {
+    "index": "56",
+    "name": "Call of the Harbinger",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-1",
+    "hex": null,
+    "x": 321.25,
+    "y": 639.75
+  },
+  {
+    "index": "57",
+    "name": "Sanctuary of Snow",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "algox-2",
+    "hex": null,
+    "x": 1816,
+    "y": 377.75
+  },
+  {
+    "index": "58",
+    "name": "Orphan's Core",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "59"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 2128.25,
+    "y": 1297.25
+  },
+  {
+    "index": "59",
+    "name": "Automaton Uprising",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "58"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "unfettered",
+    "hex": null,
+    "x": 2048.75,
+    "y": 1400.75
+  },
+  {
+    "index": "60",
+    "name": "Uniting the Crown",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "lurker",
+    "hex": null,
+    "x": 1559,
+    "y": 428.5
+  },
+  {
+    "index": "61",
+    "name": "Life and Death",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "puzzle-book",
+    "hex": null,
+    "x": 1363,
+    "y": 1451.25
+  },
+  {
+    "index": "62",
+    "name": "The Unfettered Seal",
+    "initial": false,
+    "unlocks": [
+      "63"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "puzzle-book",
+    "hex": null,
+    "x": 2108.5,
+    "y": 1174.5
+  },
+  {
+    "index": "63",
+    "name": "The Savvas Seal",
+    "initial": false,
+    "unlocks": [
+      "64"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "puzzle-book",
+    "hex": null,
+    "x": 1496.5,
+    "y": 1536
+  },
+  {
+    "index": "64",
+    "name": "The Frosthaven Seal",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "puzzle-book",
+    "hex": null,
+    "x": 872,
+    "y": 2356.25
+  },
+  {
+    "index": "65",
+    "name": "A Strong Foundation",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 996.5,
+    "y": 730
+  },
+  {
+    "index": "66",
+    "name": "Elemental Cores",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 915,
+    "y": 668.25
+  },
+  {
+    "index": "67",
+    "name": "Core Attunement",
+    "initial": false,
+    "unlocks": [
+      "68"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1046,
+    "y": 676
+  },
+  {
+    "index": "68",
+    "name": "The Face of Torment",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1042,
+    "y": 538
+  },
+  {
+    "index": "69",
+    "name": "Sacred Soil",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 558.25,
+    "y": 476.75
+  },
+  {
+    "index": "70",
+    "name": "The True Oak",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 446.75,
+    "y": 445
+  },
+  {
+    "index": "71",
+    "name": "Invasion of the Dock",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1958.5,
+    "y": 2431
+  },
+  {
+    "index": "72",
+    "name": "A Giant Block of Ice",
+    "initial": false,
+    "unlocks": [
+      "73"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 2147.25,
+    "y": 813.25
+  },
+  {
+    "index": "73",
+    "name": "Flotsam",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1892.5,
+    "y": 559.25
+  },
+  {
+    "index": "74A",
+    "name": "Gaps in the Road A",
+    "initial": false,
+    "unlocks": [
+      "76"
+    ],
+    "blocks": [
+      "74B"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1533.5,
+    "y": 921.75
+  },
+  {
+    "index": "74B",
+    "name": "Gaps in the Road B",
+    "initial": false,
+    "unlocks": [
+      "75"
+    ],
+    "blocks": [
+      "74A"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1533.5,
+    "y": 921.75
+  },
+  {
+    "index": "75",
+    "name": "Infiltrating the Lair",
+    "initial": false,
+    "unlocks": [
+      "77"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 1937,
+    "y": 436.5
+  },
+  {
+    "index": "76",
+    "name": "Apotheosis",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 2045.75,
+    "y": 474.5
+  },
+  {
+    "index": "77",
+    "name": "Fish King's Ascension",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "personal-quests",
+    "hex": null,
+    "x": 2033,
+    "y": 375.75
+  },
+  {
+    "index": "78",
+    "name": "The Lurker Problem",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1410,
+    "y": 777.75
+  },
+  {
+    "index": "79",
+    "name": "Relic",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 2036.5,
+    "y": 835.5
+  },
+  {
+    "index": "80",
+    "name": "Relic Renewed",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 493.5,
+    "y": 1869.5
+  },
+  {
+    "index": "81",
+    "name": "Ruinous Research Lab",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 2122.75,
+    "y": 1497.5
+  },
+  {
+    "index": "82",
+    "name": "Expedition North",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 553.5,
+    "y": 1110
+  },
+  {
+    "index": "83",
+    "name": "Rising Brine",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1721.25,
+    "y": 680.25
+  },
+  {
+    "index": "84",
+    "name": "Here There Be Oozes",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 325.25,
+    "y": 809
+  },
+  {
+    "index": "85",
+    "name": "Deadly Pastimes",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 642.75,
+    "y": 842.25
+  },
+  {
+    "index": "86",
+    "name": "The Lady in White",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1816,
+    "y": 1934.5
+  },
+  {
+    "index": "87",
+    "name": "The Collection",
+    "initial": false,
+    "unlocks": [
+      "88"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1203.25,
+    "y": 1009
+  },
+  {
+    "index": "88",
+    "name": "Collection's Capstone",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1333.5,
+    "y": 1040.25
+  },
+  {
+    "index": "89",
+    "name": "A Contained Fire",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1568.5,
+    "y": 1260
+  },
+  {
+    "index": "90",
+    "name": "Frozen Treasure",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1272,
+    "y": 579.5
+  },
+  {
+    "index": "91",
+    "name": "Shoreline Scramble",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1169,
+    "y": 716.75
+  },
+  {
+    "index": "92",
+    "name": "Sinking Ship",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1307,
+    "y": 638.75
+  },
+  {
+    "index": "93A",
+    "name": "Midwinter Brawl A",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "93B"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1415.75,
+    "y": 1039.5
+  },
+  {
+    "index": "93B",
+    "name": "Midwinter Brawl B",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [
+      "93A"
+    ],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1415.75,
+    "y": 1039.5
+  },
+  {
+    "index": "94",
+    "name": "A Grand View",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 2057.5,
+    "y": 910.5
+  },
+  {
+    "index": "95",
+    "name": "To Bury the Dead",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 624,
+    "y": 1967.125
+  },
+  {
+    "index": "96",
+    "name": "Underground Station",
+    "initial": false,
+    "unlocks": [
+      "97"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1792.5,
+    "y": 1446
+  },
+  {
+    "index": "97",
+    "name": "Program Control Nexus",
+    "initial": false,
+    "unlocks": [
+      "98"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1811.75,
+    "y": 1545.25
+  },
+  {
+    "index": "98",
+    "name": "Collapsing Vent",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 1707.5,
+    "y": 1562
+  },
+  {
+    "index": "99",
+    "name": "Prison Break",
+    "initial": false,
+    "unlocks": [
+      "100"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 2125.75,
+    "y": 700.75
+  },
+  {
+    "index": "100",
+    "name": "Inside the Swarm",
+    "initial": false,
+    "unlocks": [
+      "101"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 2140.25,
+    "y": 606
+  },
+  {
+    "index": "101",
+    "name": "Harrower Library",
+    "initial": false,
+    "unlocks": [
+      "102"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 651.25,
+    "y": 606.25
+  },
+  {
+    "index": "102",
+    "name": "Into the Black",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 422.75,
+    "y": 996.25
+  },
+  {
+    "index": "103",
+    "name": "The Lead Door",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 370.75,
+    "y": 1091.25
+  },
+  {
+    "index": "104",
+    "name": "Ruins of the Solstice",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 1789.5,
+    "y": 774.25
+  },
+  {
+    "index": "105",
+    "name": "Ruins of the Equinox",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 1484.25,
+    "y": 1437.5
+  },
+  {
+    "index": "106",
+    "name": "The Tempus Forge",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 951.5,
+    "y": 808.75
+  },
+  {
+    "index": "107",
+    "name": "My Private Empire",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 1179.5,
+    "y": 1276.75
+  },
+  {
+    "index": "108",
+    "name": "Lustrous Pit",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 1931.5,
+    "y": 1549.75
+  },
+  {
+    "index": "109",
+    "name": "Furious Factory",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 1837,
+    "y": 1153.25
+  },
+  {
+    "index": "110",
+    "name": "Guardian's Temple",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 364.25,
+    "y": 913
+  },
+  {
+    "index": "111",
+    "name": "Ice Cave",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 655,
+    "y": 384.5
+  },
+  {
+    "index": "112",
+    "name": "Raised by Wolves",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "random-scenarios",
+    "hex": null,
+    "x": 1696,
+    "y": 1866.25
+  },
+  {
+    "index": "113",
+    "name": "Lush Grotto",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1496.75,
+    "y": 1241.75
+  },
+  {
+    "index": "114",
+    "name": "Work Freeze",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 660.75,
+    "y": 983.5
+  },
+  {
+    "index": "115",
+    "name": "Pylon Problems",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 708.25,
+    "y": 1071.5
+  },
+  {
+    "index": "116",
+    "name": "Caravan Guards",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 648.25,
+    "y": 1144.5
+  },
+  {
+    "index": "117",
+    "name": "A Waiting Game",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1646,
+    "y": 983.75
+  },
+  {
+    "index": "118",
+    "name": "Lurker Necromancy",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1620,
+    "y": 747.5
+  },
+  {
+    "index": "119",
+    "name": "Radiant Dust",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 428.5,
+    "y": 365.5
+  },
+  {
+    "index": "120",
+    "name": "Under the Influence",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 308.25,
+    "y": 2493.5
+  },
+  {
+    "index": "121",
+    "name": "Black Memories",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1930.75,
+    "y": 1640.5
+  },
+  {
+    "index": "122",
+    "name": "The Eternal Crave",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1348.25,
+    "y": 1335.75
+  },
+  {
+    "index": "123",
+    "name": "The Titan",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1116.25,
+    "y": 791
+  },
+  {
+    "index": "124",
+    "name": "A Growing Problem",
+    "initial": false,
+    "unlocks": [
+      "125"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1894.5,
+    "y": 2011.25
+  },
+  {
+    "index": "125",
+    "name": "The Longest Second",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1998.5,
+    "y": 1974.75
+  },
+  {
+    "index": "126",
+    "name": "Joseph the Lion",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 2042.75,
+    "y": 1898.5
+  },
+  {
+    "index": "127",
+    "name": "Derelict Freighter",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1557.25,
+    "y": 2626.75
+  },
+  {
+    "index": "128",
+    "name": "A Tall Drunken Tale",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1416,
+    "y": 2373
+  },
+  {
+    "index": "129",
+    "name": "How to Lay an Ambush",
+    "initial": false,
+    "unlocks": [
+      "130"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1267.5,
+    "y": 1217.75
+  },
+  {
+    "index": "130",
+    "name": "And Then, a Stream",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1393.5,
+    "y": 1151.25
+  },
+  {
+    "index": "131",
+    "name": "The Dancing Iceberg",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1138.5,
+    "y": 453.5
+  },
+  {
+    "index": "132",
+    "name": "Temple of Feline Power",
+    "initial": false,
+    "unlocks": [
+      "133"
+    ],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 524.5,
+    "y": 951.5
+  },
+  {
+    "index": "133",
+    "name": "Bolt",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "job-postings",
+    "hex": null,
+    "x": 551.25,
+    "y": 880.25
+  },
+  {
+    "index": "134",
+    "name": "Tower of Knowledge",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 333.5,
+    "y": 368
+  },
+  {
+    "index": "135",
+    "name": "Belara's Keep",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 641.75,
+    "y": 700.75
+  },
+  {
+    "index": "136",
+    "name": "Abandoned Hideout",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1206,
+    "y": 494.5
+  },
+  {
+    "index": "137",
+    "name": "Pirate Queen's Haul",
+    "initial": false,
+    "unlocks": [],
+    "blocks": [],
+    "requires": [],
+    "links": [],
+    "group": "other",
+    "hex": null,
+    "x": 1829.25,
+    "y": 648.25
+  }
+]

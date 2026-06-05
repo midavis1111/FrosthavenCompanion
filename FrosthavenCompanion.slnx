@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FrosthavenCompanion.App/FrosthavenCompanion.App.csproj" />
+    <Project Path="src/FrosthavenCompanion.Domain/FrosthavenCompanion.Domain.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FrosthavenCompanion.Domain.Tests/FrosthavenCompanion.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
