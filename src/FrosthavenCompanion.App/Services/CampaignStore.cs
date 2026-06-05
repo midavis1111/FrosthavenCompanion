@@ -12,6 +12,7 @@ namespace FrosthavenCompanion.App.Services;
 public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, IJSRuntime js)
 {
     private const string StorageKey = "frosthaven.progress";
+    private bool loaded;
 
     public CampaignProgress Progress { get; private set; } = new();
 
@@ -23,12 +24,18 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
     /// <summary>The full scenario graph, derived for the current progress.</summary>
     public IReadOnlyList<ScenarioView> Views => engine.BuildViews(Progress);
 
+    /// <summary>
+    /// Loads progress from local storage and reconciles with the gist once per
+    /// session. Safe to call from every page; only the first call does the work.
+    /// </summary>
     public async Task LoadAsync()
     {
+        if (loaded) return;
         Progress = await ReadLocalAsync() ?? new CampaignProgress();
         await sync.EnsureLoadedAsync();
         if (sync.Connected)
             await ReconcileWithRemoteAsync();
+        loaded = true;
     }
 
     /// <summary>Pulls the remote save and adopts whichever copy is newer.</summary>

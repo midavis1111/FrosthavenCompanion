@@ -113,3 +113,26 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+/* Flow chart view */
+.flowchart-wrap {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.flowchart {
+    display: block;
+    width: 100%;
+    height: 75vh;
+}
+
+.legend {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    border: 1px solid #00000022;
+    vertical-align: middle;
+    margin-right: 4px;
+}

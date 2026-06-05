@@ -1,0 +1,211 @@
+@page "/flowchart"
+@using System.Globalization
+@inject CampaignStore Store
+
+<PageTitle>Flow chart — Frosthaven Companion</PageTitle>
+
+<div class="d-flex align-items-center flex-wrap gap-3 mb-2">
+    <h1 class="me-auto mb-0">Flow chart</h1>
+    <div class="d-flex gap-3 small">
+        <span><span class="legend" style="background:@Fill(ScenarioStatus.Available)"></span> Available</span>
+        <span><span class="legend" style="background:@Fill(ScenarioStatus.Locked)"></span> Locked</span>
+        <span><span class="legend" style="background:@Fill(ScenarioStatus.Completed)"></span> Completed</span>
+        <span><span class="legend" style="background:@Fill(ScenarioStatus.LockedOut)"></span> Locked out</span>
+    </div>
+</div>
+<p class="text-muted small">Only scenarios you've revealed are shown. Click an <strong>available</strong> one to mark it completed.</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else
+{
+    var nodes = BuildNodes();
+    if (nodes.Count == 0)
+    {
+        <p class="text-muted">Nothing revealed yet. Complete or unlock a scenario to start the chart.</p>
+    }
+    else
+    {
+        var byIndex = nodes.ToDictionary(n => n.Index);
+        var edges = BuildEdges(nodes, byIndex);
+        var vb = ViewBox(nodes);
+
+        @if (message is not null)
+        {
+            <div class="alert alert-info py-2">@message</div>
+        }
+
+        <div class="flowchart-wrap">
+            <svg viewBox="@vb" preserveAspectRatio="xMidYMid meet" class="flowchart">
+                <defs>
+                    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3"
+                            orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L6,3 L0,6 Z" fill="#9aa0a6" />
+                    </marker>
+                </defs>
+
+                @foreach (var e in edges)
+                {
+                    <line x1="@F(e.X1)" y1="@F(e.Y1)" x2="@F(e.X2)" y2="@F(e.Y2)"
+                          stroke="#9aa0a6" stroke-width="3"
+                          stroke-dasharray="@(e.Dashed ? "8 6" : null)"
+                          marker-end="url(#arrow)" />
+                }
+
+                @foreach (var n in nodes)
+                {
+                    var clickable = n.Status == ScenarioStatus.Available;
+                    <g transform="translate(@F(n.Cx - NodeW / 2),@F(n.Cy - NodeH / 2))"
+                       class="@(clickable ? "node-available" : null)"
+                       style="@(clickable ? "cursor:pointer" : null)"
+                       @onclick="() => OnNodeClick(n)">
+                        <rect width="@F(NodeW)" height="@F(NodeH)" rx="8"
+                              fill="@Fill(n.Status)" stroke="@Stroke(n.Status)" stroke-width="2"
+                              stroke-dasharray="@(n.Status == ScenarioStatus.LockedOut ? "6 4" : null)" />
+                        <text x="@F(NodeW / 2)" y="22" text-anchor="middle"
+                              font-size="20" font-weight="700" fill="@Text(n.Status)">#@n.Index</text>
+                        <text x="@F(NodeW / 2)" y="42" text-anchor="middle"
+                              font-size="13" fill="@Text(n.Status)">@Truncate(n.Name)</text>
+                    </g>
+                }
+            </svg>
+        </div>
+    }
+}
+
+@code {
+    private bool loaded;
+    private string? message;
+
+    private const double NodeW = 150;
+    private const double NodeH = 54;
+    private const double Pad = 50;
+
+    private sealed record Node(string Index, string Name, ScenarioStatus Status, double Cx, double Cy);
+    private sealed record Edge(double X1, double Y1, double X2, double Y2, bool Dashed);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    // Visible scenarios positioned by their flow-chart coordinates. Boxes are
+    // then pushed apart just enough to remove overlaps (including co-located
+    // variants like 4A/4B), keeping positions close to the real layout.
+    private List<Node> BuildNodes()
+    {
+        var visible = Store.Views
+            .Where(v => v.Status != ScenarioStatus.Hidden && v.Definition.X is not null && v.Definition.Y is not null)
+            .OrderBy(v => v.Index, Comparer<string>.Default)
+            .ToList();
+        if (visible.Count == 0) return [];
+
+        var xs = new double[visible.Count];
+        var ys = new double[visible.Count];
+        var seen = new Dictionary<(double, double), int>();
+        for (var i = 0; i < visible.Count; i++)
+        {
+            double x = visible[i].Definition.X!.Value, y = visible[i].Definition.Y!.Value;
+            var key = (Math.Round(x), Math.Round(y));
+            var dup = seen.TryGetValue(key, out var c) ? c : 0;
+            seen[key] = dup + 1;
+            xs[i] = x + dup * 0.5; // tiny tie-break so exact duplicates separate cleanly
+            ys[i] = y + dup * 0.5;
+        }
+
+        const double sepX = NodeW + 16, sepY = NodeH + 16;
+        for (var iter = 0; iter < 80; iter++)
+        {
+            var moved = false;
+            for (var i = 0; i < visible.Count; i++)
+                for (var j = i + 1; j < visible.Count; j++)
+                {
+                    double dx = xs[j] - xs[i], dy = ys[j] - ys[i];
+                    double ox = sepX - Math.Abs(dx), oy = sepY - Math.Abs(dy);
+                    if (ox <= 0 || oy <= 0) continue; // boxes don't overlap
+                    moved = true;
+                    if (ox < oy) // resolve along the axis of least penetration
+                    {
+                        var push = ox / 2 * (dx >= 0 ? 1 : -1);
+                        xs[i] -= push; xs[j] += push;
+                    }
+                    else
+                    {
+                        var push = oy / 2 * (dy >= 0 ? 1 : -1);
+                        ys[i] -= push; ys[j] += push;
+                    }
+                }
+            if (!moved) break;
+        }
+
+        var nodes = new List<Node>(visible.Count);
+        for (var i = 0; i < visible.Count; i++)
+            nodes.Add(new Node(visible[i].Index, visible[i].Name, visible[i].Status, xs[i], ys[i]));
+        return nodes;
+    }
+
+    private List<Edge> BuildEdges(List<Node> nodes, Dictionary<string, Node> byIndex)
+    {
+        var edges = new List<Edge>();
+        foreach (var n in nodes)
+        {
+            var def = Store.Views.First(v => v.Index == n.Index).Definition;
+            foreach (var (target, dashed) in def.Unlocks.Select(u => (u, false)).Concat(def.Links.Select(l => (l, true))))
+            {
+                if (!byIndex.TryGetValue(target, out var t)) continue;
+                var end = EdgePoint(n.Cx, n.Cy, t.Cx, t.Cy); // stop at the target box edge
+                edges.Add(new Edge(n.Cx, n.Cy, end.x, end.y, dashed));
+            }
+        }
+        return edges;
+    }
+
+    // Point where the line from (sx,sy) to box-center (tx,ty) meets the box border.
+    private static (double x, double y) EdgePoint(double sx, double sy, double tx, double ty)
+    {
+        double dx = sx - tx, dy = sy - ty;
+        if (dx == 0 && dy == 0) return (tx, ty);
+        var scale = Math.Min(
+            Math.Abs(dx) < 1e-6 ? double.MaxValue : (NodeW / 2 + 4) / Math.Abs(dx),
+            Math.Abs(dy) < 1e-6 ? double.MaxValue : (NodeH / 2 + 4) / Math.Abs(dy));
+        return (tx + dx * scale, ty + dy * scale);
+    }
+
+    private string ViewBox(List<Node> nodes)
+    {
+        var minX = nodes.Min(n => n.Cx - NodeW / 2) - Pad;
+        var minY = nodes.Min(n => n.Cy - NodeH / 2) - Pad;
+        var maxX = nodes.Max(n => n.Cx + NodeW / 2) + Pad;
+        var maxY = nodes.Max(n => n.Cy + NodeH / 2) + Pad;
+        return $"{F(minX)} {F(minY)} {F(maxX - minX)} {F(maxY - minY)}";
+    }
+
+    private async Task OnNodeClick(Node n)
+    {
+        if (n.Status != ScenarioStatus.Available) return;
+        var revealed = await Store.CompleteAsync(n.Index, DateOnly.FromDateTime(DateTime.Now));
+        message = revealed.Count == 0
+            ? $"#{n.Index} completed."
+            : $"#{n.Index} completed — unlocked {string.Join(", ", revealed.Select(d => $"#{d.Index} {d.Name}"))}";
+    }
+
+    private static string F(double v) => v.ToString("0.##", CultureInfo.InvariantCulture);
+
+    private static string Truncate(string name) => name.Length <= 16 ? name : name[..15] + "…";
+
+    private static string Fill(ScenarioStatus s) => s switch
+    {
+        ScenarioStatus.Completed => "#198754",
+        ScenarioStatus.Available => "#0d6efd",
+        ScenarioStatus.Locked => "#ffc107",
+        ScenarioStatus.LockedOut => "#e9ecef",
+        _ => "#adb5bd",
+    };
+
+    private static string Stroke(ScenarioStatus s) => s == ScenarioStatus.LockedOut ? "#adb5bd" : "#00000033";
+
+    private static string Text(ScenarioStatus s) => s is ScenarioStatus.Locked or ScenarioStatus.LockedOut ? "#212529" : "#ffffff";
+}
