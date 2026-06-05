@@ -14,5 +14,6 @@ builder.Services.AddSingleton(_ => MonsterCatalog.LoadEmbedded());
 builder.Services.AddSingleton<CampaignEngine>();
 builder.Services.AddScoped<GistSyncService>();
 builder.Services.AddScoped<CampaignStore>();
+builder.Services.AddScoped<MonsterCardService>();
 
 await builder.Build().RunAsync();

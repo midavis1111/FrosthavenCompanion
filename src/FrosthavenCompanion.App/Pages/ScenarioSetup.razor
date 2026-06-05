@@ -1,0 +1,93 @@
+@page "/scenario/{Index}"
+@inject CampaignStore Store
+@inject MonsterCatalog Monsters
+@inject MonsterCardService Cards
+
+<PageTitle>Scenario setup — Frosthaven Companion</PageTitle>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else if (view is null || view.Status == ScenarioStatus.Hidden)
+{
+    <h1 class="h3">Scenario #@Index</h1>
+    <p class="text-muted">This scenario hasn't been revealed yet.</p>
+    <a class="btn btn-outline-secondary btn-sm" href="">← Back to scenarios</a>
+}
+else
+{
+    <div class="d-flex align-items-center flex-wrap gap-2 mb-1">
+        <h1 class="h3 mb-0 me-auto">#@view.Index — @view.Name</h1>
+        <a class="btn btn-outline-secondary btn-sm" href="">← Scenarios</a>
+    </div>
+    <p class="text-muted small mb-3">
+        @(view.Definition.Hex is not null ? $"Hex {view.Definition.Hex}" : view.Definition.Group)@(view.Definition.Complexity is int cx ? $" · Complexity {cx}/5" : "")
+        — all enemies at the chosen level.
+    </p>
+
+    <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+        <span class="text-muted small">Scenario level</span>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Scenario level">
+            @for (var i = 0; i <= 7; i++)
+            {
+                var lvl = i;
+                <button type="button" class="btn @(level == lvl ? "btn-primary" : "btn-outline-primary")"
+                        style="width:2.1rem" @onclick="() => level = lvl">@i</button>
+            }
+        </div>
+    </div>
+
+    @if (enemies.Count == 0)
+    {
+        <p class="text-muted">No monster list recorded for this scenario.</p>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var (name, monster) in enemies)
+            {
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    @if (monster is not null)
+                    {
+                        <MonsterStatCard Monster="monster" Level="level" Compact="true" />
+                    }
+                    else
+                    {
+                        <div class="enemy-card h-100">
+                            <div class="enemy-card-body">
+                                <div class="fw-semibold">@name</div>
+                                <div class="small text-muted">No stats on file.</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+}
+
+@code {
+    [Parameter] public string Index { get; set; } = "";
+
+    private bool loaded;
+    private int level = 1;
+    private ScenarioView? view;
+    private List<(string Name, MonsterStats? Monster)> enemies = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        await Cards.EnsureLoadedAsync();
+        loaded = true;
+    }
+
+    // Resolve once the route param and views are available.
+    protected override void OnParametersSet()
+    {
+        view = Store.Views.FirstOrDefault(v => string.Equals(v.Index, Index, StringComparison.OrdinalIgnoreCase));
+        enemies = view is null
+            ? []
+            : view.Definition.Monsters.Select(n => (n, Monsters.Find(n))).ToList();
+    }
+}

@@ -136,3 +136,46 @@ code {
     vertical-align: middle;
     margin-right: 4px;
 }
+
+/* Monster stat-card art (monster reference page) */
+.monster-statcard {
+    width: 100%;
+    max-width: 320px;
+    border-radius: .6rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+}
+
+/* Stacked enemy cards (scenario setup grid) */
+.enemy-card {
+    border: 1px solid #d9d4c8;
+    border-radius: .6rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .12);
+    display: flex;
+    flex-direction: column;
+}
+
+.enemy-card-art {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.enemy-card-body {
+    padding: .55rem .7rem .7rem;
+}
+
+.monster-mini th {
+    color: #6c757d;
+    font-weight: 600;
+    font-size: .78rem;
+    padding: .1rem .35rem;
+}
+
+.monster-mini td {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    padding: .1rem .35rem;
+}

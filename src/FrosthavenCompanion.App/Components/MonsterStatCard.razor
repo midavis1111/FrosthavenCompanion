@@ -1,0 +1,126 @@
+@namespace FrosthavenCompanion.App.Components
+@inject MonsterCardService Cards
+
+@*
+    Renders one monster's stats at a given level: the official Frosthaven stat-card
+    art (when it exists) plus the exact-level data table. Compact mode is used for
+    the scenario-setup grid; full mode for the monster reference page.
+*@
+
+@{
+    var img = Cards.CardImage(Monster.Name, Level);
+    var lvl = Monster.Levels.FirstOrDefault(l => l.Level == Level);
+}
+
+@if (Compact)
+{
+    <div class="enemy-card h-100">
+        @if (img is not null)
+        {
+            <img class="enemy-card-art" src="@img" alt="@Monster.DisplayName stat card"
+                 onerror="this.style.display='none'" loading="lazy" />
+        }
+        <div class="enemy-card-body">
+            <div class="fw-semibold mb-1">@Monster.DisplayName</div>
+            <table class="table table-sm mb-0 monster-mini">
+                <thead><tr><th></th><th>Norm</th><th>Elite</th></tr></thead>
+                <tbody>
+                    <tr><th>HP</th><td>@Cell(lvl?.Normal?.Health)</td><td>@Cell(lvl?.Elite?.Health)</td></tr>
+                    <tr><th>Move</th><td>@Cell(lvl?.Normal?.Move)</td><td>@Cell(lvl?.Elite?.Move)</td></tr>
+                    <tr><th>Atk</th><td>@Cell(lvl?.Normal?.Attack)</td><td>@Cell(lvl?.Elite?.Attack)</td></tr>
+                </tbody>
+            </table>
+            @if (Special(lvl?.Normal) is { } sn || Special(lvl?.Elite) is { } se)
+            {
+                <div class="small mt-1">
+                    @SpecialInline("N", lvl?.Normal)
+                    @SpecialInline("E", lvl?.Elite)
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="row g-3 align-items-start">
+        @if (img is not null)
+        {
+            <div class="col-auto">
+                <img class="monster-statcard" src="@img" alt="@Monster.DisplayName stat card"
+                     onerror="this.style.display='none'" loading="lazy" />
+            </div>
+        }
+        <div class="col" style="min-width:18rem">
+            <table class="table table-sm align-middle" style="max-width:24rem">
+                <thead><tr><th></th><th>Normal</th><th>Elite</th></tr></thead>
+                <tbody>
+                    <tr><th class="text-muted">Health</th><td>@Cell(lvl?.Normal?.Health)</td><td>@Cell(lvl?.Elite?.Health)</td></tr>
+                    <tr><th class="text-muted">Move</th><td>@Cell(lvl?.Normal?.Move)</td><td>@Cell(lvl?.Elite?.Move)</td></tr>
+                    <tr><th class="text-muted">Attack</th><td>@Cell(lvl?.Normal?.Attack)</td><td>@Cell(lvl?.Elite?.Attack)</td></tr>
+                    <tr><th class="text-muted">Range</th><td>@Cell(lvl?.Normal?.Range)</td><td>@Cell(lvl?.Elite?.Range)</td></tr>
+                    <tr><th class="text-muted">Special</th><td>@SpecialCell(lvl?.Normal)</td><td>@SpecialCell(lvl?.Elite)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired] public MonsterStats Monster { get; set; } = default!;
+    [Parameter] public int Level { get; set; } = 1;
+    [Parameter] public bool Compact { get; set; }
+
+    private static string Cap(string c) =>
+        Conditions.Find(c)?.Name ?? (string.IsNullOrEmpty(c) ? c : char.ToUpper(c[0]) + c[1..]);
+
+    private RenderFragment Cell(string? value) => string.IsNullOrEmpty(value)
+        ? @<span class="text-muted">—</span>
+        : @<text>@value</text>;
+
+    private static bool? Special(MonsterStatBlock? b) =>
+        b is not null && (b.Abilities.Count > 0 || b.Conditions.Count > 0) ? true : null;
+
+    private RenderFragment CondBadge(string cond)
+    {
+        var c = Conditions.Find(cond);
+        return c is null
+            ? @<span class="badge text-bg-light border me-1">@Cap(cond)</span>
+            : @<img src="icons/conditions/@(c.Icon).png" alt="@c.Name" title="@($"{c.Name}: {c.Description}")"
+                   class="me-1" style="height:1.3rem; width:auto; cursor:help" />;
+    }
+
+    private RenderFragment SpecialCell(MonsterStatBlock? b) => __builder =>
+    {
+        if (Special(b) is null)
+        {
+            <span class="text-muted">—</span>
+        }
+        else
+        {
+            @if (b!.Abilities.Count > 0)
+            {
+                <div>@string.Join(", ", b.Abilities)</div>
+            }
+            @foreach (var c in b.Conditions)
+            {
+                @CondBadge(c)
+            }
+        }
+    };
+
+    private RenderFragment SpecialInline(string label, MonsterStatBlock? b) => __builder =>
+    {
+        if (Special(b) is not null)
+        {
+            <span class="text-muted me-1">@label:</span>
+            @if (b!.Abilities.Count > 0)
+            {
+                <span class="me-1">@string.Join(", ", b.Abilities)</span>
+            }
+            @foreach (var c in b.Conditions)
+            {
+                @CondBadge(c)
+            }
+        }
+    };
+}

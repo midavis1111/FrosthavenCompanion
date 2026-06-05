@@ -1,5 +1,6 @@
 @page "/monsters"
 @inject MonsterCatalog Monsters
+@inject MonsterCardService Cards
 @inject NavigationManager Nav
 
 <PageTitle>Monsters — Frosthaven Companion</PageTitle>
@@ -63,18 +64,11 @@
                 }
             </div>
 
-            <table class="table table-sm align-middle" style="max-width:32rem">
-                <thead>
-                    <tr><th></th><th>Normal</th><th>Elite</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th class="text-muted">Health</th><td>@Cell(CurrentLevel?.Normal?.Health)</td><td>@Cell(CurrentLevel?.Elite?.Health)</td></tr>
-                    <tr><th class="text-muted">Move</th><td>@Cell(CurrentLevel?.Normal?.Move)</td><td>@Cell(CurrentLevel?.Elite?.Move)</td></tr>
-                    <tr><th class="text-muted">Attack</th><td>@Cell(CurrentLevel?.Normal?.Attack)</td><td>@Cell(CurrentLevel?.Elite?.Attack)</td></tr>
-                    <tr><th class="text-muted">Range</th><td>@Cell(CurrentLevel?.Normal?.Range)</td><td>@Cell(CurrentLevel?.Elite?.Range)</td></tr>
-                    <tr><th class="text-muted">Special</th><td>@SpecialCell(CurrentLevel?.Normal)</td><td>@SpecialCell(CurrentLevel?.Elite)</td></tr>
-                </tbody>
-            </table>
+            <MonsterStatCard Monster="Selected" Level="level" />
+            <p class="text-muted small mt-2">
+                The card shows all four levels in its band around the edges (corner = level); the
+                table is the exact Normal / Elite numbers for level @level.
+            </p>
         }
     </div>
 </div>
@@ -86,6 +80,8 @@
     private string search = "";
     private int level = 1;
 
+    protected override Task OnInitializedAsync() => Cards.EnsureLoadedAsync();
+
     private MonsterStats? Selected => string.IsNullOrEmpty(M) ? null : Monsters.Find(M);
 
     // Portraits are filed under the base monster; scenario/section variants
@@ -93,8 +89,6 @@
     // portrait fall back to a hidden image via onerror.
     private static string PortraitSlug(string name) =>
         System.Text.RegularExpressions.Regex.Replace(name, "-(scenario|section)-.*$", "");
-
-    private MonsterLevel? CurrentLevel => Selected?.Levels.FirstOrDefault(l => l.Level == level);
 
     private IEnumerable<MonsterStats> Filtered => string.IsNullOrWhiteSpace(search)
         ? Monsters.Monsters
@@ -106,10 +100,6 @@
     private static string Cap(string c) =>
         Conditions.Find(c)?.Name ?? (string.IsNullOrEmpty(c) ? c : char.ToUpper(c[0]) + c[1..]);
 
-    private RenderFragment Cell(string? value) => string.IsNullOrEmpty(value)
-        ? @<span class="text-muted">—</span>
-        : @<text>@value</text>;
-
     private RenderFragment CondBadge(string cond)
     {
         var c = Conditions.Find(cond);
@@ -118,23 +108,4 @@
             : @<img src="icons/conditions/@(c.Icon).png" alt="@c.Name" title="@($"{c.Name}: {c.Description}")"
                    class="me-1" style="height:1.5rem; width:auto; cursor:help" />;
     }
-
-    private RenderFragment SpecialCell(MonsterStatBlock? b) => __builder =>
-    {
-        if (b is null || (b.Abilities.Count == 0 && b.Conditions.Count == 0))
-        {
-            <span class="text-muted">—</span>
-        }
-        else
-        {
-            @if (b.Abilities.Count > 0)
-            {
-                <div>@string.Join(", ", b.Abilities)</div>
-            }
-            @foreach (var c in b.Conditions)
-            {
-                @CondBadge(c)
-            }
-        }
-    };
 }
