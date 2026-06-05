@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A **personal, single-user** companion app for the Frosthaven board game. First and current feature: campaign **scenario-progress tracking** that mirrors the game's spoiler-free flow chart. It's a .NET 10 **Blazor WebAssembly (standalone) PWA**, hosted free on GitHub Pages, with browser-local storage and optional cross-device sync. There is no server/backend — everything runs in the browser.
+A **personal, single-user** companion app for the Frosthaven board game. It's a .NET 10 **Blazor WebAssembly (standalone) PWA**, hosted free on GitHub Pages, with browser-local storage and optional cross-device sync. There is no server/backend — everything runs in the browser.
+
+Features so far: campaign **scenario-progress tracking** that mirrors the game's spoiler-free flow chart (list view with filter/search + a pan/zoom visual flow chart), per-scenario **rewards / descriptions / complexity / enemies / unlock-source**, **manual unlocks**, **cross-device sync** via a private gist, a **monster stat reference** (`/monsters`), and a **conditions glossary** (`/conditions`) with official condition icons. Not built yet (see project memory `backlog`): per-scenario notes & loss/retry tracking, a campaign status panel (week/prosperity), characters, monster ability-card decks.
 
 ## Commands
 
@@ -53,6 +55,15 @@ Monster stats and conditions are read-only reference data, separate from the cam
 - Local: `localStorage` key `frosthaven.progress` (the serialized `CampaignProgress`). JSON export/import in the UI is the same payload.
 - Cross-device sync (`Services/GistSyncService.cs`): mirrors the save to a **private GitHub gist**, calling the GitHub REST API **directly from the browser** (CORS works for api.github.com; do not set a `User-Agent` header — browsers forbid it). Auth is a classic PAT with `gist` scope, stored in localStorage (`frosthaven.sync.token`, `frosthaven.sync.gistId`). Reconciliation is **newest-wins** via `CampaignProgress.UpdatedAt`: on load, pull remote and adopt it if newer, else push local; every change stamps `UpdatedAt` and pushes.
 
+## Reference data (embedded)
+
+All under `src/FrosthavenCompanion.Domain/Data/`, each an `EmbeddedResource`. The scenario unlock graph + monster stats are *facts* derived from community datasets (not their code); descriptions and condition text are authored; the condition icon PNGs are official Cephalofair art used under their non-commercial fan policy (see Deployment for the required disclaimer).
+
+- **`scenarios.json`** — the scenario catalog (see below).
+- **`descriptions.json`** — authored short scenario recaps (index → text), kept **separate from scenarios.json so regenerating the catalog never wipes them**; `ScenarioCatalog.LoadEmbedded` merges them in. 141/141 written.
+- **`monsters.json`** — 122 monster stat blocks (`MonsterCatalog`, singleton). Regenerate via sparse-checkout of `Lurkars/gloomhavensecretariat` `data/fh/monster/*.json` (+ `data/fh/label`), excluding `*-solo.json`, merging each entry over `baseStat`. **Stat values are stored as strings** (health/move/attack/range) because boss/summon stats can be formulas like "Cx20" — System.Text.Json won't coerce mixed number/string. Range is usually absent (it lives on ability cards).
+- **`wwwroot/icons/conditions/{slug}.png`** (in the App, not Domain) — official condition icons from `any2cards/worldhaven` `images/art/frosthaven/icons/conditions/fh-{name}-color-icon.png`. The static `Conditions` class (15 standard conditions, authored descriptions) maps each to its icon slug. Referenced conditions render icon-only with a tooltip; the `/conditions` page shows icon + name + text.
+
 ## Scenario catalog data
 
 `src/FrosthavenCompanion.Domain/Data/scenarios.json` is an `EmbeddedResource` (logical name `FrosthavenCompanion.Domain.Data.scenarios.json`), derived from the community `Lurkars/gloomhavensecretariat` dataset (`data/fh/scenarios/*.json`) — only the factual unlock graph, not their code. To regenerate: sparse-checkout that repo's `data/fh/scenarios` **and** `data/fh/label`, then for each campaign scenario (filename `^[0-9]+[A-Z]?\.json$`, excluding `solo*`/`random`) extract index/name/initial/complexity/monsters/unlocks/blocks/requires/links/coords, and render the `rewards` object into human-readable strings (resolving `%data.…%`/`%game.…%` placeholders against `data/fh/label/en.json`). Their `requires` is a list-of-groups (AND/OR) that we **flatten** to a plain required-list (only scenarios 17/31/52 use it).
@@ -63,4 +74,6 @@ The generator applies manual **name overrides** (currently `22` → "Ice Flows")
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`: test → publish the WASM app → rewrite `<base href="/">` to `/FrosthavenCompanion/` (required for the GitHub Pages project subpath) → add `.nojekyll` (so `_framework` isn't ignored) → add `404.html` SPA fallback → deploy. Live at https://midavis1111.github.io/FrosthavenCompanion/. The Pages "Source" repo setting is "GitHub Actions" (one-time, already done).
 
-Note: the `gh` CLI token in the dev environment lacks admin rights to re-run or `workflow run` dispatch. To trigger a deploy, **push** (an empty commit works) rather than re-running via `gh`.
+Note: the `gh` CLI token in the dev environment is a **different account** (`midavisbiz`) that is **not** the repo owner — it has no push access (push via gh token → 403) and can't re-run/dispatch workflows. Working pushes use the Windows **Git Credential Manager** with the owner's creds, but in headless/agent sessions GCM often **hangs** (the `git push` silently backgrounds / times out without advancing the remote ref). So the agent frequently **cannot push** — commit locally and ask the **user to run `git push` from their own terminal** (that triggers the deploy). Some pushes work when GCM is "warm" from a recent manual push.
+
+Condition icons are official Cephalofair art used under their non-commercial fan-content policy; the required trademark/copyright disclaimer is in `Layout/MainLayout.razor` (app-wide footer). Keep it. The deploy workflow still uses Node20 GitHub Actions (deprecation warning only).
