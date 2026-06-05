@@ -1,3 +1,6 @@
+// Returns [width, height] in CSS pixels of an element (for pan math).
+window.frosthavenElementSize = (el) => el ? [el.getBoundingClientRect().width, el.getBoundingClientRect().height] : [0, 0];
+
 // Triggers a browser download of the given text content as a file.
 // Used by the campaign export feature.
 window.frosthavenDownloadFile = (fileName, contentType, content) => {

@@ -1,6 +1,7 @@
 @page "/flowchart"
 @using System.Globalization
 @inject CampaignStore Store
+@inject IJSRuntime JS
 
 <PageTitle>Flow chart — Frosthaven Companion</PageTitle>
 
@@ -19,60 +20,63 @@
 {
     <p><em>Loading…</em></p>
 }
+else if (_nodes.Count == 0)
+{
+    <p class="text-muted">Nothing revealed yet. Complete or unlock a scenario to start the chart.</p>
+}
 else
 {
-    var nodes = BuildNodes();
-    if (nodes.Count == 0)
+    @if (message is not null)
     {
-        <p class="text-muted">Nothing revealed yet. Complete or unlock a scenario to start the chart.</p>
+        <div class="alert alert-info py-2">@message</div>
     }
-    else
-    {
-        var byIndex = nodes.ToDictionary(n => n.Index);
-        var edges = BuildEdges(nodes, byIndex);
-        var vb = ViewBox(nodes);
 
-        @if (message is not null)
-        {
-            <div class="alert alert-info py-2">@message</div>
-        }
+    <div class="d-flex align-items-center gap-2 mb-2">
+        <button class="btn btn-outline-secondary btn-sm" @onclick="() => ZoomBy(1.25)" title="Zoom in">+</button>
+        <button class="btn btn-outline-secondary btn-sm" @onclick="() => ZoomBy(0.8)" title="Zoom out">−</button>
+        <button class="btn btn-outline-secondary btn-sm" @onclick="ResetView" title="Fit to screen">Reset</button>
+        <span class="text-muted small">@($"{_zoom * 100:0}%") · drag to pan, scroll to zoom</span>
+    </div>
 
-        <div class="flowchart-wrap">
-            <svg viewBox="@vb" preserveAspectRatio="xMidYMid meet" class="flowchart">
-                <defs>
-                    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3"
-                            orient="auto" markerUnits="strokeWidth">
-                        <path d="M0,0 L6,3 L0,6 Z" fill="#9aa0a6" />
-                    </marker>
-                </defs>
+    <div class="flowchart-wrap">
+        <svg @ref="_svgRef" viewBox="@ViewBox()" preserveAspectRatio="xMidYMid meet" class="flowchart"
+             style="cursor:@(_dragging ? "grabbing" : "grab")"
+             @onwheel="OnWheel" @onwheel:preventDefault="true"
+             @onpointerdown="OnPointerDown" @onpointermove="OnPointerMove"
+             @onpointerup="OnPointerUp" @onpointerleave="OnPointerUp">
+            <defs>
+                <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3"
+                        orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#9aa0a6" />
+                </marker>
+            </defs>
 
-                @foreach (var e in edges)
-                {
-                    <line x1="@F(e.X1)" y1="@F(e.Y1)" x2="@F(e.X2)" y2="@F(e.Y2)"
-                          stroke="#9aa0a6" stroke-width="3"
-                          stroke-dasharray="@(e.Dashed ? "8 6" : null)"
-                          marker-end="url(#arrow)" />
-                }
+            @foreach (var e in _edges)
+            {
+                <line x1="@F(e.X1)" y1="@F(e.Y1)" x2="@F(e.X2)" y2="@F(e.Y2)"
+                      stroke="#9aa0a6" stroke-width="3"
+                      stroke-dasharray="@(e.Dashed ? "8 6" : null)"
+                      marker-end="url(#arrow)" />
+            }
 
-                @foreach (var n in nodes)
-                {
-                    var clickable = n.Status == ScenarioStatus.Available;
-                    <g transform="translate(@F(n.Cx - NodeW / 2),@F(n.Cy - NodeH / 2))"
-                       class="@(clickable ? "node-available" : null)"
-                       style="@(clickable ? "cursor:pointer" : null)"
-                       @onclick="() => OnNodeClick(n)">
-                        <rect width="@F(NodeW)" height="@F(NodeH)" rx="8"
-                              fill="@Fill(n.Status)" stroke="@Stroke(n.Status)" stroke-width="2"
-                              stroke-dasharray="@(n.Status == ScenarioStatus.LockedOut ? "6 4" : null)" />
-                        <text x="@F(NodeW / 2)" y="22" text-anchor="middle"
-                              font-size="20" font-weight="700" fill="@Text(n.Status)">#@n.Index</text>
-                        <text x="@F(NodeW / 2)" y="42" text-anchor="middle"
-                              font-size="13" fill="@Text(n.Status)">@Truncate(n.Name)</text>
-                    </g>
-                }
-            </svg>
-        </div>
-    }
+            @foreach (var n in _nodes)
+            {
+                var clickable = n.Status == ScenarioStatus.Available;
+                <g transform="translate(@F(n.Cx - NodeW / 2),@F(n.Cy - NodeH / 2))"
+                   class="@(clickable ? "node-available" : null)"
+                   style="@(clickable ? "cursor:pointer" : null)"
+                   @onclick="() => OnNodeClick(n)">
+                    <rect width="@F(NodeW)" height="@F(NodeH)" rx="8"
+                          fill="@Fill(n.Status)" stroke="@Stroke(n.Status)" stroke-width="2"
+                          stroke-dasharray="@(n.Status == ScenarioStatus.LockedOut ? "6 4" : null)" />
+                    <text x="@F(NodeW / 2)" y="22" text-anchor="middle"
+                          font-size="20" font-weight="700" fill="@Text(n.Status)">#@n.Index</text>
+                    <text x="@F(NodeW / 2)" y="42" text-anchor="middle"
+                          font-size="13" fill="@Text(n.Status)">@Truncate(n.Name)</text>
+                </g>
+            }
+        </svg>
+    </div>
 }
 
 @code {
@@ -86,10 +90,133 @@ else
     private sealed record Node(string Index, string Name, ScenarioStatus Status, double Cx, double Cy);
     private sealed record Edge(double X1, double Y1, double X2, double Y2, bool Dashed);
 
+    // Cached layout — rebuilt only when progress changes, never on pan/zoom.
+    private List<Node> _nodes = [];
+    private List<Edge> _edges = [];
+    private double _baseMinX, _baseMinY, _baseW = 1, _baseH = 1;
+
+    // View transform.
+    private double _zoom = 1, _panX, _panY;
+
+    // Pan drag state + measured svg pixel size (for pixel→unit conversion).
+    private ElementReference _svgRef;
+    private bool _dragging;
+    private double _lastX, _lastY;
+    private double _svgPxW = 800, _svgPxH = 600;
+    private bool _needMeasure;
+
+    // Only re-render when something visible actually changed (avoids churn on hover).
+    private bool _dirty = true;
+    protected override bool ShouldRender()
+    {
+        if (!_dirty) return false;
+        _dirty = false;
+        return true;
+    }
+
     protected override async Task OnInitializedAsync()
     {
         await Store.LoadAsync();
         loaded = true;
+        Rebuild();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_needMeasure && loaded && _nodes.Count > 0)
+        {
+            _needMeasure = false;
+            try
+            {
+                var size = await JS.InvokeAsync<double[]>("frosthavenElementSize", _svgRef);
+                if (size is { Length: 2 } && size[0] > 0 && size[1] > 0)
+                {
+                    _svgPxW = size[0];
+                    _svgPxH = size[1];
+                }
+            }
+            catch { /* measurement is best-effort */ }
+        }
+    }
+
+    private void Rebuild()
+    {
+        _nodes = BuildNodes();
+        var byIndex = _nodes.ToDictionary(n => n.Index);
+        _edges = BuildEdges(_nodes, byIndex);
+        if (_nodes.Count > 0)
+        {
+            _baseMinX = _nodes.Min(n => n.Cx - NodeW / 2) - Pad;
+            _baseMinY = _nodes.Min(n => n.Cy - NodeH / 2) - Pad;
+            _baseW = _nodes.Max(n => n.Cx + NodeW / 2) + Pad - _baseMinX;
+            _baseH = _nodes.Max(n => n.Cy + NodeH / 2) + Pad - _baseMinY;
+        }
+        ResetView();
+        _needMeasure = true;
+        _dirty = true;
+    }
+
+    private string ViewBox() =>
+        $"{F(_baseMinX + _panX)} {F(_baseMinY + _panY)} {F(_baseW / _zoom)} {F(_baseH / _zoom)}";
+
+    private void ResetView()
+    {
+        _zoom = 1; _panX = 0; _panY = 0;
+        _dirty = true;
+    }
+
+    private void ZoomBy(double factor) => ApplyZoom(_zoom * factor);
+
+    private void ApplyZoom(double newZoom)
+    {
+        newZoom = Math.Clamp(newZoom, 0.25, 8);
+        // Keep the current viewBox center fixed while zooming.
+        double w = _baseW / _zoom, h = _baseH / _zoom;
+        double cx = _baseMinX + _panX + w / 2, cy = _baseMinY + _panY + h / 2;
+        double nw = _baseW / newZoom, nh = _baseH / newZoom;
+        _panX = cx - nw / 2 - _baseMinX;
+        _panY = cy - nh / 2 - _baseMinY;
+        _zoom = newZoom;
+        _dirty = true;
+    }
+
+    private void OnWheel(WheelEventArgs e) => ZoomBy(e.DeltaY < 0 ? 1.15 : 1 / 1.15);
+
+    private void OnPointerDown(PointerEventArgs e)
+    {
+        _dragging = true;
+        _lastX = e.ClientX;
+        _lastY = e.ClientY;
+        _dirty = true;
+    }
+
+    private void OnPointerMove(PointerEventArgs e)
+    {
+        if (!_dragging) return;
+        var dx = e.ClientX - _lastX;
+        var dy = e.ClientY - _lastY;
+        _lastX = e.ClientX;
+        _lastY = e.ClientY;
+        _panX -= dx * (_baseW / _zoom) / Math.Max(_svgPxW, 1);
+        _panY -= dy * (_baseH / _zoom) / Math.Max(_svgPxH, 1);
+        _dirty = true;
+    }
+
+    private void OnPointerUp(PointerEventArgs e)
+    {
+        if (!_dragging) return;
+        _dragging = false;
+        _dirty = true;
+    }
+
+    private async Task OnNodeClick(Node n)
+    {
+        if (n.Status != ScenarioStatus.Available) return;
+        var revealed = await Store.CompleteAsync(n.Index, DateOnly.FromDateTime(DateTime.Now));
+        message = revealed.Count == 0
+            ? $"#{n.Index} completed."
+            : $"#{n.Index} completed — unlocked {string.Join(", ", revealed.Select(d => $"#{d.Index} {d.Name}"))}";
+        Rebuild();
     }
 
     // Visible scenarios positioned by their flow-chart coordinates. Boxes are
@@ -172,24 +299,6 @@ else
             Math.Abs(dx) < 1e-6 ? double.MaxValue : (NodeW / 2 + 4) / Math.Abs(dx),
             Math.Abs(dy) < 1e-6 ? double.MaxValue : (NodeH / 2 + 4) / Math.Abs(dy));
         return (tx + dx * scale, ty + dy * scale);
-    }
-
-    private string ViewBox(List<Node> nodes)
-    {
-        var minX = nodes.Min(n => n.Cx - NodeW / 2) - Pad;
-        var minY = nodes.Min(n => n.Cy - NodeH / 2) - Pad;
-        var maxX = nodes.Max(n => n.Cx + NodeW / 2) + Pad;
-        var maxY = nodes.Max(n => n.Cy + NodeH / 2) + Pad;
-        return $"{F(minX)} {F(minY)} {F(maxX - minX)} {F(maxY - minY)}";
-    }
-
-    private async Task OnNodeClick(Node n)
-    {
-        if (n.Status != ScenarioStatus.Available) return;
-        var revealed = await Store.CompleteAsync(n.Index, DateOnly.FromDateTime(DateTime.Now));
-        message = revealed.Count == 0
-            ? $"#{n.Index} completed."
-            : $"#{n.Index} completed — unlocked {string.Join(", ", revealed.Select(d => $"#{d.Index} {d.Name}"))}";
     }
 
     private static string F(double v) => v.ToString("0.##", CultureInfo.InvariantCulture);

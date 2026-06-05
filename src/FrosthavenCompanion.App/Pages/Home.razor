@@ -64,6 +64,49 @@ else
         <div class="alert alert-danger">@importError</div>
     }
 
+    <!-- Filter / search -->
+    <div class="row g-2 mt-2 mb-1 align-items-center">
+        <div class="col-12 col-md-4">
+            <input class="form-control form-control-sm" placeholder="Search number, name, or text…"
+                   @bind="searchText" @bind:event="oninput" />
+        </div>
+        <div class="col-6 col-md-2">
+            <select class="form-select form-select-sm" @bind="statusFilter">
+                <option value="">All statuses</option>
+                <option value="Available">Available</option>
+                <option value="Locked">Waiting</option>
+                <option value="Completed">Completed</option>
+                <option value="LockedOut">Locked out</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-2">
+            <select class="form-select form-select-sm" @bind="regionFilter">
+                <option value="">All regions</option>
+                @foreach (var r in Regions)
+                {
+                    <option value="@r">@r</option>
+                }
+            </select>
+        </div>
+        <div class="col-6 col-md-2">
+            <select class="form-select form-select-sm" @bind="complexityFilter">
+                <option value="">Any difficulty</option>
+                @for (var i = 1; i <= 5; i++)
+                {
+                    <option value="@i">Complexity @i</option>
+                }
+            </select>
+        </div>
+        <div class="col-6 col-md-2">
+            <button class="btn btn-outline-secondary btn-sm w-100" @onclick="ClearFilters"
+                    disabled="@(!FiltersActive)">Clear</button>
+        </div>
+    </div>
+    @if (FiltersActive && Available.Count == 0 && Locked.Count == 0 && Completed.Count == 0 && LockedOut.Count == 0)
+    {
+        <p class="text-muted mt-3">No revealed scenarios match your filters.</p>
+    }
+
     <!-- Available now: the playable frontier -->
     <h2 class="h4 mt-4">Available now</h2>
     @if (Available.Count == 0)
@@ -202,15 +245,52 @@ else
     private string unlockSource = "";
     private string? unlockError;
 
+    // Filters (empty string = no filter on that axis).
+    private string searchText = "";
+    private string statusFilter = "";
+    private string regionFilter = "";
+    private string complexityFilter = "";
+
     private IReadOnlyList<ScenarioView> Views => Store.Views;
     private List<ScenarioView> Available => Filter(ScenarioStatus.Available);
     private List<ScenarioView> Locked => Filter(ScenarioStatus.Locked);
     private List<ScenarioView> LockedOut => Filter(ScenarioStatus.LockedOut);
 
-    private List<ScenarioView> Completed => Views
-        .Where(v => v.Status == ScenarioStatus.Completed)
-        .OrderByDescending(v => v.CompletedOn)
-        .ToList();
+    private List<ScenarioView> Completed => StatusShown(ScenarioStatus.Completed)
+        ? Views.Where(v => v.Status == ScenarioStatus.Completed && Matches(v))
+               .OrderByDescending(v => v.CompletedOn)
+               .ToList()
+        : [];
+
+    // Distinct regions among revealed scenarios, for the region filter dropdown.
+    private IEnumerable<string> Regions => Views
+        .Where(v => v.Status != ScenarioStatus.Hidden && !string.IsNullOrEmpty(v.Definition.Group))
+        .Select(v => v.Definition.Group!)
+        .Distinct()
+        .OrderBy(g => g);
+
+    private bool FiltersActive =>
+        !string.IsNullOrWhiteSpace(searchText) || statusFilter != "" || regionFilter != "" || complexityFilter != "";
+
+    private bool StatusShown(ScenarioStatus status) =>
+        statusFilter == "" || statusFilter == status.ToString();
+
+    private bool Matches(ScenarioView v)
+    {
+        if (regionFilter != "" && v.Definition.Group != regionFilter) return false;
+        if (complexityFilter != "" && v.Definition.Complexity?.ToString() != complexityFilter) return false;
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            var hay = $"{v.Index} {v.Name} {v.Definition.Description}";
+            if (hay.IndexOf(searchText.Trim(), StringComparison.OrdinalIgnoreCase) < 0) return false;
+        }
+        return true;
+    }
+
+    private void ClearFilters()
+    {
+        searchText = statusFilter = regionFilter = complexityFilter = "";
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -218,10 +298,12 @@ else
         loaded = true;
     }
 
-    private List<ScenarioView> Filter(ScenarioStatus status) => Views
-        .Where(v => v.Status == status)
-        .OrderBy(v => v.Index, ScenarioIndexComparer.Instance)
-        .ToList();
+    private List<ScenarioView> Filter(ScenarioStatus status) =>
+        StatusShown(status)
+            ? Views.Where(v => v.Status == status && Matches(v))
+                   .OrderBy(v => v.Index, ScenarioIndexComparer.Instance)
+                   .ToList()
+            : [];
 
     private async Task OnPartyNameChanged(ChangeEventArgs e)
     {
