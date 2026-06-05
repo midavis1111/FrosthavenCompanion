@@ -99,8 +99,14 @@
         ? @<span class="text-muted">—</span>
         : @<text>@value</text>;
 
-    private RenderFragment CondBadge(string cond) =>
-        @<span class="badge text-bg-light border me-1" title="@(Conditions.Find(cond)?.Description)">@Cap(cond)</span>;
+    private RenderFragment CondBadge(string cond)
+    {
+        var c = Conditions.Find(cond);
+        return c is null
+            ? @<span class="badge text-bg-light border me-1">@Cap(cond)</span>
+            : @<img src="icons/conditions/@(c.Icon).png" alt="@c.Name" title="@($"{c.Name}: {c.Description}")"
+                   class="me-1" style="height:1.5rem; width:auto; cursor:help" />;
+    }
 
     private RenderFragment SpecialCell(MonsterStatBlock? b) => __builder =>
     {

@@ -12,6 +12,7 @@
             @foreach (var c in Conditions.All.Where(c => !c.Positive))
             {
                 <li class="list-group-item">
+                    <img src="icons/conditions/@(c.Icon).png" alt="@c.Name" class="me-1" style="height:1.6rem; width:auto;" />
                     <span class="badge text-bg-danger me-1">@c.Name</span>
                     <span class="small">@c.Description</span>
                 </li>
@@ -24,6 +25,7 @@
             @foreach (var c in Conditions.All.Where(c => c.Positive))
             {
                 <li class="list-group-item">
+                    <img src="icons/conditions/@(c.Icon).png" alt="@c.Name" class="me-1" style="height:1.6rem; width:auto;" />
                     <span class="badge text-bg-success me-1">@c.Name</span>
                     <span class="small">@c.Description</span>
                 </li>
