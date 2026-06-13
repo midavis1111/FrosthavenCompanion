@@ -132,6 +132,26 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>Adds a blank character to the party.</summary>
+    public async Task AddCharacterAsync()
+    {
+        Progress.Party.Add(new Character());
+        await SaveAsync();
+    }
+
+    public async Task RemoveCharacterAsync(Character character)
+    {
+        Progress.Party.Remove(character);
+        await SaveAsync();
+    }
+
+    /// <summary>Sets the difficulty offset from the recommended scenario level (−2…+3).</summary>
+    public async Task SetDifficultyAsync(int modifier)
+    {
+        Progress.DifficultyModifier = Math.Clamp(modifier, -2, 3);
+        await SaveAsync();
+    }
+
     /// <summary>The stored state for a building (a fresh not-built default if untouched).</summary>
     public BuildingProgress BuildingOf(string slug) =>
         Progress.Buildings.GetValueOrDefault(slug) ?? new BuildingProgress();

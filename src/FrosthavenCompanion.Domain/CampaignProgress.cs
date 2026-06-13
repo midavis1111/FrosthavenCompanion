@@ -53,6 +53,12 @@ public sealed class CampaignProgress
     /// </summary>
     public CampaignStatus Status { get; set; } = new();
 
+    /// <summary>The party's characters (class + level), used to derive the scenario level.</summary>
+    public List<Character> Party { get; set; } = [];
+
+    /// <summary>Difficulty offset from the recommended scenario level (−2…+3).</summary>
+    public int DifficultyModifier { get; set; }
+
     /// <summary>Outpost buildings the party has interacted with, keyed by art slug.</summary>
     public Dictionary<string, BuildingProgress> Buildings { get; set; } = [];
 

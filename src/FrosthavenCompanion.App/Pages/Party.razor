@@ -1,0 +1,163 @@
+@page "/party"
+@inject CampaignStore Store
+
+<PageTitle>Party — Frosthaven Companion</PageTitle>
+
+<h1>Party</h1>
+<p class="text-muted" style="max-width: 42rem">
+    Your characters and the scenario level they call for. The recommended level is the
+    average character level ÷ 2 (rounded up); it sets monster stats, trap damage, coin
+    value and bonus XP.
+</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else
+{
+    <div class="mb-4" style="max-width: 24rem">
+        <label class="form-label">Party name</label>
+        <input class="form-control" value="@Store.Progress.PartyName" @onchange="OnPartyNameChanged" />
+    </div>
+
+    <div class="row g-4">
+        <!-- Characters -->
+        <div class="col-12 col-lg-7">
+            <h2 class="h4">Characters</h2>
+            @if (Members.Count == 0)
+            {
+                <p class="text-muted">No characters yet.</p>
+            }
+            @foreach (var c in Members)
+            {
+                <div class="card mb-2">
+                    <div class="card-body py-2">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-12 col-md-5">
+                                <input class="form-control form-control-sm" placeholder="Character name"
+                                       @bind="c.Name" @bind:after="SaveAsync" />
+                            </div>
+                            <div class="col-7 col-md-4">
+                                <input class="form-control form-control-sm" list="fh-classes" placeholder="Class"
+                                       @bind="c.ClassName" @bind:after="SaveAsync" />
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <div class="d-flex align-items-center gap-1">
+                                    <span class="text-muted small">Lv</span>
+                                    <button class="btn btn-outline-secondary btn-sm px-2" @onclick="() => SetLevelAsync(c, c.Level - 1)"
+                                            disabled="@(c.Level <= 1)">−</button>
+                                    <span class="fw-bold" style="min-width:1rem; text-align:center">@c.Level</span>
+                                    <button class="btn btn-outline-secondary btn-sm px-2" @onclick="() => SetLevelAsync(c, c.Level + 1)"
+                                            disabled="@(c.Level >= 9)">+</button>
+                                </div>
+                            </div>
+                            <div class="col-1 text-end">
+                                <button type="button" class="btn-close" title="Remove character"
+                                        @onclick="() => RemoveAsync(c)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <button class="btn btn-outline-primary btn-sm mt-1" @onclick="AddAsync">+ Add character</button>
+
+            <datalist id="fh-classes">
+                @foreach (var cls in StartingClasses)
+                {
+                    <option value="@cls" />
+                }
+            </datalist>
+        </div>
+
+        <!-- Derived scenario level -->
+        <div class="col-12 col-lg-5">
+            <div class="card">
+                <div class="card-header fw-semibold">Scenario level</div>
+                <div class="card-body">
+                    @if (Members.Count == 0)
+                    {
+                        <p class="text-muted mb-0">Add characters to calculate the recommended level.</p>
+                    }
+                    else
+                    {
+                        <p class="mb-2">
+                            Average level <strong>@Average.ToString("0.#")</strong>
+                            → recommended <strong>@Recommended</strong>
+                        </p>
+
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="text-muted small">Difficulty</span>
+                            <button class="btn btn-outline-secondary btn-sm px-2" @onclick="() => SetDifficultyAsync(Difficulty - 1)"
+                                    disabled="@(Difficulty <= -2)">−</button>
+                            <span class="fw-semibold" style="min-width:4.5rem; text-align:center">@DifficultyLabel</span>
+                            <button class="btn btn-outline-secondary btn-sm px-2" @onclick="() => SetDifficultyAsync(Difficulty + 1)"
+                                    disabled="@(Difficulty >= 3)">+</button>
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <div class="text-muted small text-uppercase">Scenario level</div>
+                            <div class="display-4 fw-bold">@Adjusted</div>
+                        </div>
+
+                        <table class="table table-sm mb-0">
+                            <tbody>
+                                <tr><th class="text-muted fw-normal">Monster level</th><td class="text-end fw-semibold">@Adjusted</td></tr>
+                                <tr><th class="text-muted fw-normal">Gold per coin</th><td class="text-end fw-semibold">@Info.GoldConversion</td></tr>
+                                <tr><th class="text-muted fw-normal">Trap damage</th><td class="text-end fw-semibold">@Info.TrapDamage</td></tr>
+                                <tr><th class="text-muted fw-normal">Hazardous terrain</th><td class="text-end fw-semibold">@Info.HazardousTerrain</td></tr>
+                                <tr><th class="text-muted fw-normal">Bonus XP (on completion)</th><td class="text-end fw-semibold">@Info.BonusExperience</td></tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool loaded;
+
+    private static readonly string[] StartingClasses =
+        ["Banner Spear", "Blinkblade", "Boneshaper", "Deathwalker", "Drifter", "Geminate"];
+
+    private List<Character> Members => Store.Progress.Party;
+    private IReadOnlyCollection<int> Levels => Members.Select(c => c.Level).ToList();
+
+    private double Average => Members.Count == 0 ? 0 : Members.Average(c => c.Level);
+    private int Recommended => ScenarioLevelTable.Recommended(Levels);
+    private int Difficulty => Store.Progress.DifficultyModifier;
+    private int Adjusted => ScenarioLevelTable.Adjusted(Levels, Difficulty);
+    private ScenarioLevelInfo Info => ScenarioLevelTable.Info(Adjusted);
+
+    private string DifficultyLabel => Difficulty switch
+    {
+        0 => "Normal",
+        > 0 => $"+{Difficulty}",
+        _ => Difficulty.ToString(),
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private Task SaveAsync() => Store.SaveAsync();
+    private Task AddAsync() => Store.AddCharacterAsync();
+    private Task RemoveAsync(Character c) => Store.RemoveCharacterAsync(c);
+    private Task SetDifficultyAsync(int mod) => Store.SetDifficultyAsync(mod);
+
+    private async Task SetLevelAsync(Character c, int level)
+    {
+        c.Level = Math.Clamp(level, 1, 9);
+        await Store.SaveAsync();
+    }
+
+    private async Task OnPartyNameChanged(ChangeEventArgs e)
+    {
+        Store.Progress.PartyName = e.Value?.ToString() ?? "";
+        await Store.SaveAsync();
+    }
+}
