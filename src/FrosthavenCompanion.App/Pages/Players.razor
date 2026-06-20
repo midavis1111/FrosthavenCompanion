@@ -54,7 +54,7 @@ else
                                             @onclick="() => CyclePerkAsync(c, perkIndex, boxIndex)">@PerkBoxGlyph(st)</button>
                                 }
                             </div>
-                            <span class="small">@perk.Text</span>
+                            <span class="small"><IconText Text="@perk.Text" /></span>
                         </div>
                     }
                 }
@@ -65,6 +65,23 @@ else
                 else
                 {
                     <p class="text-muted small mb-0">Set this character's class on the <a href="party">Party</a> page to track perks.</p>
+                }
+
+                @if (Perks.Masteries(c.ClassName).Count > 0)
+                {
+                    <h2 class="h6 mt-3">Masteries</h2>
+                    @for (var mi = 0; mi < Perks.Masteries(c.ClassName).Count; mi++)
+                    {
+                        var masteryIndex = mi;
+                        var done = CampaignStore.IsMastery(c, masteryIndex);
+                        <div class="d-flex align-items-start gap-2 mb-1">
+                            <button type="button" class="btn btn-sm @(done ? "btn-success" : "btn-outline-secondary") flex-shrink-0"
+                                    style="width:1.6rem;height:1.6rem;padding:0;line-height:1"
+                                    title="@(done ? "Completed — tap to clear" : "Not completed — tap to mark complete")"
+                                    @onclick="() => ToggleMasteryAsync(c, masteryIndex)">@(done ? "✓" : "")</button>
+                            <span class="small"><IconText Text="@Perks.Masteries(c.ClassName)[masteryIndex]" /></span>
+                        </div>
+                    }
                 }
             </div>
         </div>
@@ -84,6 +101,8 @@ else
 
     private Task CyclePerkAsync(Character c, int perkIndex, int boxIndex) =>
         Store.CyclePerkAsync(c, perkIndex, boxIndex);
+
+    private Task ToggleMasteryAsync(Character c, int index) => Store.ToggleMasteryAsync(c, index);
 
     private static string PerkBoxClass(PerkMark? s) => s switch
     {

@@ -14,6 +14,17 @@ public class PerkCatalogTests
         Assert.Equal(11, perks.Count);
         Assert.All(perks, p => Assert.True(p.Boxes is >= 1 and <= 3));
         Assert.Contains(perks, p => p.Text.Contains("Remove one -2"));
+        // Icon tokens are embedded in the text for inline rendering.
+        Assert.Contains(perks, p => p.Text.Contains("{wound}"));
+    }
+
+    [Fact]
+    public void Blinkblade_has_two_masteries()
+    {
+        var catalog = PerkCatalog.LoadEmbedded();
+        var masteries = catalog.Masteries("Blinkblade");
+        Assert.Equal(2, masteries.Count);
+        Assert.Contains(masteries, m => m.Contains("Declare Fast"));
     }
 
     [Fact]

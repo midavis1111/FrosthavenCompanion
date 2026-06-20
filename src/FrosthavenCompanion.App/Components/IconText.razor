@@ -1,0 +1,42 @@
+@using System.Text.RegularExpressions
+
+@foreach (var seg in Segments())
+{
+    if (seg.Src is null)
+    {
+        @seg.Text
+    }
+    else
+    {
+        <img src="@seg.Src" alt="@seg.Alt" title="@seg.Tip" class="inline-icon" />
+    }
+}
+
+@code {
+    /// <summary>Text that may contain {slug} tokens (e.g. "Add one +0 {wound} card").</summary>
+    [Parameter] public string Text { get; set; } = "";
+
+    private static readonly Regex TokenRx = new(@"\{([a-z0-9-]+)\}", RegexOptions.Compiled);
+
+    private sealed record Seg(string Text, string? Src, string? Alt, string? Tip);
+
+    private IEnumerable<Seg> Segments()
+    {
+        var pos = 0;
+        foreach (Match m in TokenRx.Matches(Text))
+        {
+            if (m.Index > pos)
+                yield return new Seg(Text[pos..m.Index], null, null, null);
+
+            var slug = m.Groups[1].Value;
+            if (GameIcons.Resolve(slug) is { } r)
+                yield return new Seg("", r.Src, slug, r.Tooltip);
+            else
+                yield return new Seg(m.Value, null, null, null); // unknown token: leave literal
+
+            pos = m.Index + m.Length;
+        }
+        if (pos < Text.Length)
+            yield return new Seg(Text[pos..], null, null, null);
+    }
+}

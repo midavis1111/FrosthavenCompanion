@@ -27,4 +27,7 @@ public sealed class Character
     /// bonus card. Absent keys are unchecked.
     /// </summary>
     public Dictionary<string, PerkMark> Perks { get; set; } = [];
+
+    /// <summary>Indices (into the class's mastery list) of completed masteries.</summary>
+    public HashSet<int> Masteries { get; set; } = [];
 }

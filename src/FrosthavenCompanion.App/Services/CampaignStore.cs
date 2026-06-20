@@ -187,6 +187,16 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    public static bool IsMastery(Character c, int index) => c.Masteries.Contains(index);
+
+    /// <summary>Checks or unchecks a mastery.</summary>
+    public async Task ToggleMasteryAsync(Character c, int index)
+    {
+        if (!c.Masteries.Add(index))
+            c.Masteries.Remove(index);
+        await SaveAsync();
+    }
+
     /// <summary>Sets the difficulty offset from the recommended scenario level (−2…+3).</summary>
     public async Task SetDifficultyAsync(int modifier)
     {

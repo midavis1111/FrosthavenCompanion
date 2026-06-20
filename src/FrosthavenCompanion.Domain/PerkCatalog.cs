@@ -10,19 +10,30 @@ public sealed record PerkDefinition
 }
 
 /// <summary>
-/// Per-class perk lists, loaded from the embedded perks.json. Keyed by class slug
-/// (e.g. "blinkblade"); <see cref="For"/> accepts a display name like "Blinkblade"
-/// and slugifies it. Only classes that have been authored are present.
+/// Per-class perks and masteries, loaded from the embedded perks.json. Keyed by
+/// class slug (e.g. "blinkblade"); the lookups accept a display name like
+/// "Blinkblade" and slugify it. Only classes that have been authored are present.
+/// Perk/mastery text may contain {slug} icon tokens (see the IconText component).
 /// </summary>
 public sealed class PerkCatalog
 {
-    private readonly IReadOnlyDictionary<string, IReadOnlyList<PerkDefinition>> _byClass;
+    private sealed class ClassEntry
+    {
+        public List<PerkDefinition> Perks { get; init; } = [];
+        public List<string> Masteries { get; init; } = [];
+    }
 
-    public PerkCatalog(IReadOnlyDictionary<string, IReadOnlyList<PerkDefinition>> byClass) => _byClass = byClass;
+    private readonly IReadOnlyDictionary<string, ClassEntry> _byClass;
 
-    /// <summary>The perk list for a class display name or slug, or empty if not authored.</summary>
+    private PerkCatalog(IReadOnlyDictionary<string, ClassEntry> byClass) => _byClass = byClass;
+
+    /// <summary>The perk rows for a class display name or slug, or empty if not authored.</summary>
     public IReadOnlyList<PerkDefinition> For(string classNameOrSlug) =>
-        _byClass.GetValueOrDefault(Slugify(classNameOrSlug)) ?? [];
+        _byClass.TryGetValue(Slugify(classNameOrSlug), out var e) ? e.Perks : [];
+
+    /// <summary>The mastery lines for a class display name or slug, or empty if not authored.</summary>
+    public IReadOnlyList<string> Masteries(string classNameOrSlug) =>
+        _byClass.TryGetValue(Slugify(classNameOrSlug), out var e) ? e.Masteries : [];
 
     public bool Has(string classNameOrSlug) => For(classNameOrSlug).Count > 0;
 
@@ -44,13 +55,10 @@ public sealed class PerkCatalog
         using var stream = assembly.GetManifestResourceStream(resourceName)
             ?? throw new InvalidOperationException($"Embedded resource '{resourceName}' was not found.");
 
-        var data = JsonSerializer.Deserialize<Dictionary<string, List<PerkDefinition>>>(stream, Options)
+        var data = JsonSerializer.Deserialize<Dictionary<string, ClassEntry>>(stream, Options)
             ?? throw new InvalidOperationException("The embedded perk catalog could not be read.");
 
-        var byClass = data.ToDictionary(
-            kv => kv.Key,
-            kv => (IReadOnlyList<PerkDefinition>)kv.Value,
-            StringComparer.OrdinalIgnoreCase);
+        var byClass = new Dictionary<string, ClassEntry>(data, StringComparer.OrdinalIgnoreCase);
         return new PerkCatalog(byClass);
     }
 }

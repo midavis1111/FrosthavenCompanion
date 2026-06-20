@@ -213,3 +213,11 @@ code {
 .building-body {
     padding: .55rem .7rem .7rem;
 }
+
+/* Inline Frosthaven symbols in perk/mastery text */
+.inline-icon {
+    height: 1.15em;
+    width: auto;
+    vertical-align: -0.2em;
+    margin: 0 1px;
+}
