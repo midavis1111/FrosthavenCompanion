@@ -10,6 +10,16 @@ public enum PerkMark
     Bonus,
 }
 
+/// <summary>Where an owned ability card currently sits.</summary>
+public enum CardSlot
+{
+    /// <summary>Owned but not in the active scenario deck.</summary>
+    Bench,
+
+    /// <summary>In the active scenario deck.</summary>
+    Deck,
+}
+
 /// <summary>
 /// A party member. The roster basics (name/class/level) drive the recommended
 /// scenario level via <see cref="ScenarioLevelTable"/>; the rest mirrors the
@@ -48,4 +58,7 @@ public sealed class Character
 
     /// <summary>Indices (into the class's mastery list) of completed masteries.</summary>
     public HashSet<int> Masteries { get; set; } = [];
+
+    /// <summary>Ability-card placement, keyed by card id (Deck or Bench); absent = unowned/unset.</summary>
+    public Dictionary<int, CardSlot> Cards { get; set; } = [];
 }

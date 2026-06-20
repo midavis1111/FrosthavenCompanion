@@ -1,6 +1,7 @@
 @page "/character"
 @inject CampaignStore Store
 @inject PerkCatalog Perks
+@inject CardCatalog Cards
 
 <PageTitle>My Character — Frosthaven Companion</PageTitle>
 
@@ -154,6 +155,47 @@ else
                     </div>
                 }
             }
+
+            <h2 class="h6 mt-3">Ability cards</h2>
+            @if (Cards.Has(c.ClassName))
+            {
+                var deckCount = c.Cards.Count(kv => kv.Value == CardSlot.Deck);
+                var handSize = Cards.HandSize(c.ClassName);
+                <div class="small mb-2">
+                    <div class="text-muted">
+                        Tap: — → <span class="text-secondary fw-semibold">Bench</span>
+                        → <span class="text-success fw-semibold">Deck</span> → —.
+                    </div>
+                    <div>
+                        Deck
+                        <strong class="@(deckCount > handSize ? "text-danger" : deckCount == handSize ? "text-success" : null)">@deckCount</strong>
+                        / @handSize
+                        @if (deckCount > handSize)
+                        {
+                            <span class="text-danger fw-semibold ms-1">⚠ over hand size</span>
+                        }
+                    </div>
+                </div>
+                @foreach (var grp in Cards.For(c.ClassName).GroupBy(x => x.Level))
+                {
+                    <div class="text-muted small mt-2 fw-semibold">Level @grp.Key</div>
+                    @foreach (var card in grp)
+                    {
+                        var cardId = card.Id;
+                        var slot = CampaignStore.CardSlotOf(c, cardId);
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <button type="button" class="btn btn-sm @CardBtnClass(slot)" style="min-width:3.6rem"
+                                    @onclick="() => CycleCardAsync(c, cardId)">@CardBtnLabel(slot)</button>
+                            <span class="small">@card.Name</span>
+                            <span class="text-muted small ms-auto">@FormatInit(card.Initiative)</span>
+                        </div>
+                    }
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(c.ClassName))
+            {
+                <p class="text-muted small mb-0">No ability-card list for "@c.ClassName" yet.</p>
+            }
         </div>
     </div>
 }
@@ -203,6 +245,25 @@ else
         Store.CyclePerkAsync(c, perkIndex, boxIndex);
 
     private Task ToggleMasteryAsync(Character c, int index) => Store.ToggleMasteryAsync(c, index);
+
+    private Task CycleCardAsync(Character c, int cardId) => Store.CycleCardAsync(c, cardId);
+
+    private static string CardBtnClass(CardSlot? s) => s switch
+    {
+        CardSlot.Deck => "btn-success",
+        CardSlot.Bench => "btn-secondary",
+        _ => "btn-outline-secondary",
+    };
+
+    private static string CardBtnLabel(CardSlot? s) => s switch
+    {
+        CardSlot.Deck => "Deck",
+        CardSlot.Bench => "Bench",
+        _ => "—",
+    };
+
+    // Blinkblade cards encode fast/slow initiative as a 4-digit number (e.g. 2050 → 20/50).
+    private static string FormatInit(int i) => i >= 1000 ? $"{i / 100}/{i % 100:00}" : i.ToString();
 
     private static string PerkBoxClass(PerkMark? s) => s switch
     {

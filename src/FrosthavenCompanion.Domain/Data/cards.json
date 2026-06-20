@@ -1,0 +1,181 @@
+{
+ "blinkblade": {
+  "handSize": 10,
+  "cards": [
+   {
+    "id": 37,
+    "name": "Power Leak",
+    "level": "1",
+    "initiative": 1747
+   },
+   {
+    "id": 40,
+    "name": "Cascading Reaction",
+    "level": "1",
+    "initiative": 1949
+   },
+   {
+    "id": 32,
+    "name": "Blurry Jab",
+    "level": "1",
+    "initiative": 2050
+   },
+   {
+    "id": 33,
+    "name": "Twin Strike",
+    "level": "1",
+    "initiative": 2454
+   },
+   {
+    "id": 35,
+    "name": "Kinetic Transfer",
+    "level": "1",
+    "initiative": 3666
+   },
+   {
+    "id": 38,
+    "name": "Hit and Run",
+    "level": "1",
+    "initiative": 4171
+   },
+   {
+    "id": 41,
+    "name": "Temporal Displacement",
+    "level": "1",
+    "initiative": 4474
+   },
+   {
+    "id": 34,
+    "name": "Sap Speed",
+    "level": "1",
+    "initiative": 4575
+   },
+   {
+    "id": 36,
+    "name": "Overdrive",
+    "level": "1",
+    "initiative": 6090
+   },
+   {
+    "id": 39,
+    "name": "Drive Recharge",
+    "level": "1",
+    "initiative": 6999
+   },
+   {
+    "id": 44,
+    "name": "Borrowed Time",
+    "level": "X",
+    "initiative": 232
+   },
+   {
+    "id": 42,
+    "name": "Experimental Adjustment",
+    "level": "X",
+    "initiative": 1242
+   },
+   {
+    "id": 43,
+    "name": "Sand in the Hourglass",
+    "level": "X",
+    "initiative": 5282
+   },
+   {
+    "id": 46,
+    "name": "Reckless Augmentation",
+    "level": "2",
+    "initiative": 1040
+   },
+   {
+    "id": 45,
+    "name": "Systems Reboot",
+    "level": "2",
+    "initiative": 5787
+   },
+   {
+    "id": 48,
+    "name": "Double Time",
+    "level": "3",
+    "initiative": 2252
+   },
+   {
+    "id": 47,
+    "name": "Make It Count",
+    "level": "3",
+    "initiative": 5181
+   },
+   {
+    "id": 49,
+    "name": "Precision Timing",
+    "level": "4",
+    "initiative": 1545
+   },
+   {
+    "id": 50,
+    "name": "Potential Energy",
+    "level": "4",
+    "initiative": 3262
+   },
+   {
+    "id": 51,
+    "name": "Breakneck Speed",
+    "level": "5",
+    "initiative": 333
+   },
+   {
+    "id": 52,
+    "name": "Flashing Flurry",
+    "level": "5",
+    "initiative": 4070
+   },
+   {
+    "id": 53,
+    "name": "Stab Them All",
+    "level": "6",
+    "initiative": 434
+   },
+   {
+    "id": 54,
+    "name": "The Knife's Edge",
+    "level": "6",
+    "initiative": 6595
+   },
+   {
+    "id": 56,
+    "name": "Rushed to the End",
+    "level": "7",
+    "initiative": 3262
+   },
+   {
+    "id": 55,
+    "name": "Phasing Blades",
+    "level": "7",
+    "initiative": 6393
+   },
+   {
+    "id": 58,
+    "name": "Fastest Alive",
+    "level": "8",
+    "initiative": 131
+   },
+   {
+    "id": 57,
+    "name": "Quantum Uncertainty",
+    "level": "8",
+    "initiative": 3565
+   },
+   {
+    "id": 60,
+    "name": "Fractured Timeline",
+    "level": "9",
+    "initiative": 5585
+   },
+   {
+    "id": 59,
+    "name": "Reverse the Flow",
+    "level": "9",
+    "initiative": 5888
+   }
+  ]
+ }
+}

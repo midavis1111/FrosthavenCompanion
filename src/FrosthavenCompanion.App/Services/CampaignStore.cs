@@ -223,6 +223,22 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>An owned card's slot (Deck/Bench), or null if not owned/unset.</summary>
+    public static CardSlot? CardSlotOf(Character c, int cardId) =>
+        c.Cards.TryGetValue(cardId, out var s) ? s : null;
+
+    /// <summary>Cycles an ability card: unowned → Bench → Deck → unowned.</summary>
+    public async Task CycleCardAsync(Character c, int cardId)
+    {
+        switch (CardSlotOf(c, cardId))
+        {
+            case null: c.Cards[cardId] = CardSlot.Bench; break;
+            case CardSlot.Bench: c.Cards[cardId] = CardSlot.Deck; break;
+            default: c.Cards.Remove(cardId); break;   // Deck → unowned
+        }
+        await SaveAsync();
+    }
+
     public static bool IsMastery(Character c, int index) => c.Masteries.Contains(index);
 
     /// <summary>Checks or unchecks a mastery.</summary>

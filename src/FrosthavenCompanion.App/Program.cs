@@ -12,6 +12,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddSingleton(_ => ScenarioCatalog.LoadEmbedded());
 builder.Services.AddSingleton(_ => MonsterCatalog.LoadEmbedded());
 builder.Services.AddSingleton(_ => PerkCatalog.LoadEmbedded());
+builder.Services.AddSingleton(_ => CardCatalog.LoadEmbedded());
 builder.Services.AddSingleton<CampaignEngine>();
 builder.Services.AddScoped<GistSyncService>();
 builder.Services.AddScoped<CampaignStore>();
