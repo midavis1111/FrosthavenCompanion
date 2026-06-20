@@ -1,6 +1,6 @@
 {
-  "name": "FrosthavenCompanion.App",
-  "short_name": "FrosthavenCompanion.App",
+  "name": "Frosthaven Companion",
+  "short_name": "Frosthaven",
   "id": "./",
   "start_url": "./",
   "display": "standalone",

@@ -19,7 +19,16 @@ public static class CampaignSerializer
     public static string Serialize(CampaignProgress progress) =>
         JsonSerializer.Serialize(progress, Options);
 
-    public static CampaignProgress Deserialize(string json) =>
-        JsonSerializer.Deserialize<CampaignProgress>(json, Options)
-        ?? throw new FormatException("The save data could not be read as campaign progress.");
+    public static CampaignProgress Deserialize(string json)
+    {
+        try
+        {
+            return JsonSerializer.Deserialize<CampaignProgress>(json, Options)
+                ?? throw new FormatException("The save data could not be read as campaign progress.");
+        }
+        catch (JsonException ex)
+        {
+            throw new FormatException("The save data is not valid campaign JSON.", ex);
+        }
+    }
 }

@@ -66,8 +66,33 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
 
     private async Task<CampaignProgress?> ReadLocalAsync()
     {
-        var json = await js.InvokeAsync<string?>("localStorage.getItem", StorageKey);
-        return string.IsNullOrWhiteSpace(json) ? null : CampaignSerializer.Deserialize(json);
+        string? json;
+        try
+        {
+            json = await js.InvokeAsync<string?>("localStorage.getItem", StorageKey);
+        }
+        catch
+        {
+            // localStorage can be unavailable (e.g. private browsing); run in-memory.
+            SyncStatus = "Local storage is unavailable — changes won't be saved on this device.";
+            return null;
+        }
+
+        if (string.IsNullOrWhiteSpace(json))
+            return null;
+
+        try
+        {
+            return CampaignSerializer.Deserialize(json);
+        }
+        catch (FormatException)
+        {
+            // Don't brick the app on a corrupt save — keep a backup and start fresh.
+            try { await js.InvokeVoidAsync("localStorage.setItem", $"{StorageKey}.corrupt", json); }
+            catch { /* best effort */ }
+            SyncStatus = "The saved campaign couldn't be read; it was backed up and a new one started.";
+            return null;
+        }
     }
 
     private async Task WriteLocalAsync() =>

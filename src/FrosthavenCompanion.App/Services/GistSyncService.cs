@@ -19,7 +19,11 @@ public sealed class GistSyncService(IJSRuntime js)
     private const string GistFileName = "frosthaven-campaign.json";
     private const string GistDescription = "Frosthaven Companion campaign sync";
 
-    private readonly HttpClient http = new() { BaseAddress = new Uri("https://api.github.com/") };
+    private readonly HttpClient http = new()
+    {
+        BaseAddress = new Uri("https://api.github.com/"),
+        Timeout = TimeSpan.FromSeconds(30),
+    };
     private string? token;
     private bool settingsLoaded;
 
@@ -30,8 +34,17 @@ public sealed class GistSyncService(IJSRuntime js)
     public async Task EnsureLoadedAsync()
     {
         if (settingsLoaded) return;
-        token = await js.InvokeAsync<string?>("localStorage.getItem", TokenKey);
-        GistId = await js.InvokeAsync<string?>("localStorage.getItem", GistIdKey);
+        try
+        {
+            token = await js.InvokeAsync<string?>("localStorage.getItem", TokenKey);
+            GistId = await js.InvokeAsync<string?>("localStorage.getItem", GistIdKey);
+        }
+        catch
+        {
+            // localStorage unavailable — treat sync as not configured rather than crashing.
+            token = null;
+            GistId = null;
+        }
         settingsLoaded = true;
     }
 

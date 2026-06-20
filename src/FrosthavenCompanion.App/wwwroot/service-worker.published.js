@@ -11,8 +11,9 @@ const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}`;
 const offlineAssetsInclude = [ /\.dll$/, /\.pdb$/, /\.wasm/, /\.html/, /\.js$/, /\.json$/, /\.css$/, /\.woff$/, /\.png$/, /\.jpe?g$/, /\.gif$/, /\.ico$/, /\.blat$/, /\.dat$/, /\.webmanifest$/ ];
 const offlineAssetsExclude = [ /^service-worker\.js$/ ];
 
-// Replace with your base path if you are hosting on a subfolder. Ensure there is a trailing '/'.
-const base = "/";
+// Derive the base from the service worker's own location so this works whether the
+// app is served from the domain root or a project subpath (e.g. /FrosthavenCompanion/).
+const base = self.location.pathname.replace(/service-worker\.js$/, '');
 const baseUrl = new URL(base, self.origin);
 const manifestUrlList = self.assetsManifest.assets.map(asset => new URL(asset.url, baseUrl).href);
 
