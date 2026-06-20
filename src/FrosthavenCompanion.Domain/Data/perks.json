@@ -1,0 +1,15 @@
+{
+  "blinkblade": [
+    { "text": "Remove one -2 card", "boxes": 1 },
+    { "text": "Replace one -1 card with one +1 card", "boxes": 2 },
+    { "text": "Replace one -1 card with one +0 Wound card", "boxes": 2 },
+    { "text": "Replace one +0 card with one +1 Immobilize card", "boxes": 2 },
+    { "text": "Replace one +0 card with one +0 rolling card: on your next attack, discard it to add +2 (persistent)", "boxes": 3 },
+    { "text": "Replace two +1 cards with two +2 cards", "boxes": 1 },
+    { "text": "Add one -1 card that grants 1 time token", "boxes": 2 },
+    { "text": "Add one +2 rolling card with self Regenerate", "boxes": 2 },
+    { "text": "When you short rest, you may spend one unused spent item (for no effect) to recover a different spent item", "boxes": 1 },
+    { "text": "At the start of your first turn each scenario, you may perform Move 3", "boxes": 1 },
+    { "text": "Ignore Immobilize (prevent the condition)", "boxes": 1 }
+  ]
+}

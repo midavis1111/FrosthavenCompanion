@@ -13,6 +13,8 @@
     <EmbeddedResource Include="Data/descriptions.json" />
     <!-- Monster stat reference, derived from the gloomhavensecretariat dataset. -->
     <EmbeddedResource Include="Data/monsters.json" />
+    <!-- Per-class perk lists (authored). -->
+    <EmbeddedResource Include="Data/perks.json" />
   </ItemGroup>
 
 </Project>

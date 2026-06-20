@@ -170,6 +170,23 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>The mark on a perk checkbox, or null if it's unchecked.</summary>
+    public static PerkMark? PerkState(Character c, int perkIndex, int boxIndex) =>
+        c.Perks.TryGetValue($"{perkIndex}:{boxIndex}", out var m) ? m : null;
+
+    /// <summary>Cycles a perk checkbox: unchecked → taken → bonus (from card) → unchecked.</summary>
+    public async Task CyclePerkAsync(Character c, int perkIndex, int boxIndex)
+    {
+        var key = $"{perkIndex}:{boxIndex}";
+        switch (PerkState(c, perkIndex, boxIndex))
+        {
+            case null: c.Perks[key] = PerkMark.Taken; break;
+            case PerkMark.Taken: c.Perks[key] = PerkMark.Bonus; break;
+            default: c.Perks.Remove(key); break;   // Bonus → unchecked
+        }
+        await SaveAsync();
+    }
+
     /// <summary>Sets the difficulty offset from the recommended scenario level (−2…+3).</summary>
     public async Task SetDifficultyAsync(int modifier)
     {
