@@ -11,15 +11,26 @@ public enum PerkMark
 }
 
 /// <summary>
-/// A party member: an optional name, the class played, and the current level
-/// (1–9). Stored in <see cref="CampaignProgress.Party"/>; the levels feed the
-/// recommended scenario level via <see cref="ScenarioLevelTable"/>.
+/// A party member. The roster basics (name/class/level) drive the recommended
+/// scenario level via <see cref="ScenarioLevelTable"/>; the rest mirrors the
+/// physical character sheet (XP, gold, personal resources, notes, perks,
+/// masteries) for the player's own "My Character" page.
 /// </summary>
 public sealed class Character
 {
+    /// <summary>Stable id so the player can mark which party member is "mine".</summary>
+    public string Id { get; set; } = "";
+
     public string Name { get; set; } = "";
     public string ClassName { get; set; } = "";
     public int Level { get; set; } = 1;
+
+    public int Experience { get; set; }
+    public int Gold { get; set; }
+    public string Notes { get; set; } = "";
+
+    /// <summary>Personal resource counts, keyed by resource slug (e.g. "lumber").</summary>
+    public Dictionary<string, int> Resources { get; set; } = [];
 
     /// <summary>
     /// Filled perk checkboxes, keyed by "{perkIndex}:{boxIndex}" against the

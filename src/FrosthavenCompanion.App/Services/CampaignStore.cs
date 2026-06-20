@@ -35,7 +35,20 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await sync.EnsureLoadedAsync();
         if (sync.Connected)
             await ReconcileWithRemoteAsync();
+        if (EnsureCharacterIds())   // back-fill ids on saves written before they existed
+            await SaveAsync();
         loaded = true;
+    }
+
+    private bool EnsureCharacterIds()
+    {
+        var changed = false;
+        foreach (var c in Progress.Party.Where(c => string.IsNullOrEmpty(c.Id)))
+        {
+            c.Id = Guid.NewGuid().ToString("N");
+            changed = true;
+        }
+        return changed;
     }
 
     /// <summary>Pulls the remote save and adopts whichever copy is newer.</summary>
@@ -160,7 +173,30 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
     /// <summary>Adds a blank character to the party.</summary>
     public async Task AddCharacterAsync()
     {
-        Progress.Party.Add(new Character());
+        Progress.Party.Add(new Character { Id = Guid.NewGuid().ToString("N") });
+        await SaveAsync();
+    }
+
+    /// <summary>The player's own character (their selection, or the first party member).</summary>
+    public Character? MyCharacter =>
+        Progress.Party.FirstOrDefault(c => c.Id == Progress.MyCharacterId)
+        ?? Progress.Party.FirstOrDefault();
+
+    /// <summary>Marks which party member is the player's own character.</summary>
+    public async Task SetMyCharacterAsync(string id)
+    {
+        Progress.MyCharacterId = id;
+        await SaveAsync();
+    }
+
+    public int ResourceOf(Character c, string slug) => c.Resources.GetValueOrDefault(slug);
+
+    /// <summary>Sets a personal resource count (clamped at 0; 0 forgets it).</summary>
+    public async Task SetResourceAsync(Character c, string slug, int count)
+    {
+        count = Math.Max(0, count);
+        if (count == 0) c.Resources.Remove(slug);
+        else c.Resources[slug] = count;
         await SaveAsync();
     }
 

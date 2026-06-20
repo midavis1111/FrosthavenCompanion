@@ -56,6 +56,9 @@ public sealed class CampaignProgress
     /// <summary>The party's characters (class + level), used to derive the scenario level.</summary>
     public List<Character> Party { get; set; } = [];
 
+    /// <summary>Id of the player's own character (which party member is "mine") for the My Character page.</summary>
+    public string? MyCharacterId { get; set; }
+
     /// <summary>Difficulty offset from the recommended scenario level (−2…+3).</summary>
     public int DifficultyModifier { get; set; }
 
