@@ -1,6 +1,5 @@
 @page "/party"
 @inject CampaignStore Store
-@inject PerkCatalog Perks
 
 <PageTitle>Party — Frosthaven Companion</PageTitle>
 
@@ -58,42 +57,6 @@ else
                                         @onclick="() => RemoveAsync(c)"></button>
                             </div>
                         </div>
-
-                        @if (Perks.Has(c.ClassName))
-                        {
-                            <details class="mt-2">
-                                <summary class="small text-muted" style="cursor:pointer">Perks — @PerkSummary(c)</summary>
-                                <div class="mt-2">
-                                    <div class="small text-muted mb-2">
-                                        Tap a box: empty → <span class="text-success fw-semibold">✓ taken</span>
-                                        → <span class="text-warning fw-semibold">★ from bonus card</span> → empty.
-                                    </div>
-                                    @for (var pi = 0; pi < Perks.For(c.ClassName).Count; pi++)
-                                    {
-                                        var perkIndex = pi;
-                                        var perk = Perks.For(c.ClassName)[pi];
-                                        <div class="d-flex align-items-start gap-2 mb-1">
-                                            <div class="d-flex gap-1 flex-shrink-0">
-                                                @for (var bi = 0; bi < perk.Boxes; bi++)
-                                                {
-                                                    var boxIndex = bi;
-                                                    var st = CampaignStore.PerkState(c, perkIndex, boxIndex);
-                                                    <button type="button" class="btn btn-sm @PerkBoxClass(st)"
-                                                            style="width:1.6rem;height:1.6rem;padding:0;line-height:1"
-                                                            title="@PerkBoxTitle(st)"
-                                                            @onclick="() => CyclePerkAsync(c, perkIndex, boxIndex)">@PerkBoxGlyph(st)</button>
-                                                }
-                                            </div>
-                                            <span class="small">@perk.Text</span>
-                                        </div>
-                                    }
-                                </div>
-                            </details>
-                        }
-                        else if (!string.IsNullOrWhiteSpace(c.ClassName))
-                        {
-                            <div class="small text-muted mt-2">No perk list for "@c.ClassName" yet.</div>
-                        }
                     </div>
                 </div>
             }
@@ -196,38 +159,5 @@ else
     {
         Store.Progress.PartyName = e.Value?.ToString() ?? "";
         await Store.SaveAsync();
-    }
-
-    private Task CyclePerkAsync(Character c, int perkIndex, int boxIndex) =>
-        Store.CyclePerkAsync(c, perkIndex, boxIndex);
-
-    private static string PerkBoxClass(PerkMark? s) => s switch
-    {
-        PerkMark.Taken => "btn-success",
-        PerkMark.Bonus => "btn-warning",
-        _ => "btn-outline-secondary",
-    };
-
-    private static string PerkBoxGlyph(PerkMark? s) => s switch
-    {
-        PerkMark.Taken => "✓",
-        PerkMark.Bonus => "★",
-        _ => "",
-    };
-
-    private static string PerkBoxTitle(PerkMark? s) => s switch
-    {
-        PerkMark.Taken => "Taken — tap to mark as a bonus-card perk",
-        PerkMark.Bonus => "From the bonus card — tap to clear",
-        _ => "Not taken — tap to take",
-    };
-
-    private string PerkSummary(Character c)
-    {
-        var taken = c.Perks.Count(p => p.Value == PerkMark.Taken);
-        var bonus = c.Perks.Count(p => p.Value == PerkMark.Bonus);
-        var total = Perks.For(c.ClassName).Sum(p => p.Boxes);
-        var summary = $"{taken + bonus}/{total}";
-        return bonus > 0 ? $"{summary} ({bonus} from bonus card)" : summary;
     }
 }
