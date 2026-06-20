@@ -29,6 +29,13 @@ public sealed class Character
     public int Gold { get; set; }
     public string Notes { get; set; } = "";
 
+    /// <summary>
+    /// Perks earned beyond leveling (battle goals, masteries, etc.) — the app
+    /// can't derive these, so the player sets the count. Used by the perk-count
+    /// validator together with the level.
+    /// </summary>
+    public int ExtraPerks { get; set; }
+
     /// <summary>Personal resource counts, keyed by resource slug (e.g. "lumber").</summary>
     public Dictionary<string, int> Resources { get; set; } = [];
 

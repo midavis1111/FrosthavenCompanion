@@ -88,10 +88,26 @@ else
             <h2 class="h6">Perks</h2>
             @if (Perks.Has(c.ClassName))
             {
-                <div class="small text-muted mb-2">
-                    Tap a box: empty → <span class="text-success fw-semibold">✓ taken</span>
-                    → <span class="text-warning fw-semibold">★ from bonus card</span> → empty.
-                    <span class="ms-1">(@PerkSummary(c))</span>
+                var b = Budget(c);
+                <div class="small mb-2">
+                    <div class="text-muted">
+                        Tap a box: empty → <span class="text-success fw-semibold">✓ taken</span>
+                        → <span class="text-warning fw-semibold">★ from bonus card</span> → empty.
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center gap-3 mt-1">
+                        <span class="d-flex align-items-center gap-1">
+                            Extra perks earned
+                            <input type="number" min="0" class="form-control form-control-sm" style="width:4rem"
+                                   @bind="c.ExtraPerks" @bind:after="SaveAsync"
+                                   title="Perks from battle goals, masteries, etc. (beyond leveling)" />
+                        </span>
+                        <span>Assigned <strong>@b.Assigned</strong> / earned <strong>@b.Earned</strong></span>
+                        @if (b.Bonus > 0)
+                        {
+                            <span>+ <strong>@b.Bonus</strong> ★ bonus</span>
+                        }
+                        <span class="fw-semibold @ValidationCss(b.State)">@ValidationMessage(b)</span>
+                    </div>
                 </div>
                 @for (var pi = 0; pi < Perks.For(c.ClassName).Count; pi++)
                 {
@@ -209,12 +225,24 @@ else
         _ => "Not taken — tap to take",
     };
 
-    private string PerkSummary(Character c)
+    private PerkBudget Budget(Character c)
     {
-        var taken = c.Perks.Count(p => p.Value == PerkMark.Taken);
+        var assigned = c.Perks.Count(p => p.Value == PerkMark.Taken);
         var bonus = c.Perks.Count(p => p.Value == PerkMark.Bonus);
-        var total = Perks.For(c.ClassName).Sum(p => p.Boxes);
-        var summary = $"{taken + bonus}/{total} perks";
-        return bonus > 0 ? $"{summary}, {bonus} from bonus card" : summary;
+        return PerkRules.Budget(c.Level, c.ExtraPerks, assigned, bonus);
     }
+
+    private static string ValidationCss(PerkBudgetState s) => s switch
+    {
+        PerkBudgetState.Over => "text-danger",
+        PerkBudgetState.Exact => "text-success",
+        _ => "text-muted",
+    };
+
+    private static string ValidationMessage(PerkBudget b) => b.State switch
+    {
+        PerkBudgetState.Over => $"⚠ {-b.Remaining} over your earned perks",
+        PerkBudgetState.Exact => "✓ all earned perks assigned",
+        _ => $"{b.Remaining} perk(s) left to assign",
+    };
 }
