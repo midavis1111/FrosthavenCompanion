@@ -17,6 +17,8 @@ public class CardCatalogTests
         Assert.Contains(cards, c => c.Name == "Blurry Jab" && c.Level == "1");
         Assert.Contains(cards, c => c.Level == "X");
         Assert.All(cards, c => Assert.True(c.Id > 0));
+        // Every Blinkblade card maps to a card-art image.
+        Assert.All(cards, c => Assert.False(string.IsNullOrEmpty(c.Image)));
     }
 
     [Fact]

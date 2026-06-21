@@ -6,175 +6,204 @@
     "id": 37,
     "name": "Power Leak",
     "level": "1",
-    "initiative": 1747
+    "initiative": 1747,
+    "image": "power-leak"
    },
    {
     "id": 40,
     "name": "Cascading Reaction",
     "level": "1",
-    "initiative": 1949
+    "initiative": 1949,
+    "image": "cascading-reaction"
    },
    {
     "id": 32,
     "name": "Blurry Jab",
     "level": "1",
-    "initiative": 2050
+    "initiative": 2050,
+    "image": "blurry-jab"
    },
    {
     "id": 33,
     "name": "Twin Strike",
     "level": "1",
-    "initiative": 2454
+    "initiative": 2454,
+    "image": "twin-strike"
    },
    {
     "id": 35,
     "name": "Kinetic Transfer",
     "level": "1",
-    "initiative": 3666
+    "initiative": 3666,
+    "image": "kinetic-transfer"
    },
    {
     "id": 38,
     "name": "Hit and Run",
     "level": "1",
-    "initiative": 4171
+    "initiative": 4171,
+    "image": "hit-and-run"
    },
    {
     "id": 41,
     "name": "Temporal Displacement",
     "level": "1",
-    "initiative": 4474
+    "initiative": 4474,
+    "image": "temporal-displacement"
    },
    {
     "id": 34,
     "name": "Sap Speed",
     "level": "1",
-    "initiative": 4575
+    "initiative": 4575,
+    "image": "sap-speed"
    },
    {
     "id": 36,
     "name": "Overdrive",
     "level": "1",
-    "initiative": 6090
+    "initiative": 6090,
+    "image": "overdrive"
    },
    {
     "id": 39,
     "name": "Drive Recharge",
     "level": "1",
-    "initiative": 6999
+    "initiative": 6999,
+    "image": "drive-recharge"
    },
    {
     "id": 44,
     "name": "Borrowed Time",
     "level": "X",
-    "initiative": 232
+    "initiative": 232,
+    "image": "borrowed-time"
    },
    {
     "id": 42,
     "name": "Experimental Adjustment",
     "level": "X",
-    "initiative": 1242
+    "initiative": 1242,
+    "image": "experimental-adjustment"
    },
    {
     "id": 43,
     "name": "Sand in the Hourglass",
     "level": "X",
-    "initiative": 5282
+    "initiative": 5282,
+    "image": "sand-in-the-hourglass"
    },
    {
     "id": 46,
     "name": "Reckless Augmentation",
     "level": "2",
-    "initiative": 1040
+    "initiative": 1040,
+    "image": "reckless-augmentation"
    },
    {
     "id": 45,
     "name": "Systems Reboot",
     "level": "2",
-    "initiative": 5787
+    "initiative": 5787,
+    "image": "systems-reboot"
    },
    {
     "id": 48,
     "name": "Double Time",
     "level": "3",
-    "initiative": 2252
+    "initiative": 2252,
+    "image": "double-time"
    },
    {
     "id": 47,
     "name": "Make It Count",
     "level": "3",
-    "initiative": 5181
+    "initiative": 5181,
+    "image": "make-it-count"
    },
    {
     "id": 49,
     "name": "Precision Timing",
     "level": "4",
-    "initiative": 1545
+    "initiative": 1545,
+    "image": "precision-timing"
    },
    {
     "id": 50,
     "name": "Potential Energy",
     "level": "4",
-    "initiative": 3262
+    "initiative": 3262,
+    "image": "potential-energy"
    },
    {
     "id": 51,
     "name": "Breakneck Speed",
     "level": "5",
-    "initiative": 333
+    "initiative": 333,
+    "image": "breakneck-speed"
    },
    {
     "id": 52,
     "name": "Flashing Flurry",
     "level": "5",
-    "initiative": 4070
+    "initiative": 4070,
+    "image": "flashing-flurry"
    },
    {
     "id": 53,
     "name": "Stab Them All",
     "level": "6",
-    "initiative": 434
+    "initiative": 434,
+    "image": "stab-them-all"
    },
    {
     "id": 54,
     "name": "The Knife's Edge",
     "level": "6",
-    "initiative": 6595
+    "initiative": 6595,
+    "image": "the-knifes-edge"
    },
    {
     "id": 56,
     "name": "Rushed to the End",
     "level": "7",
-    "initiative": 3262
+    "initiative": 3262,
+    "image": "rushed-to-the-end"
    },
    {
     "id": 55,
     "name": "Phasing Blades",
     "level": "7",
-    "initiative": 6393
+    "initiative": 6393,
+    "image": "phasing-blades"
    },
    {
     "id": 58,
     "name": "Fastest Alive",
     "level": "8",
-    "initiative": 131
+    "initiative": 131,
+    "image": "fastest-alive"
    },
    {
     "id": 57,
     "name": "Quantum Uncertainty",
     "level": "8",
-    "initiative": 3565
+    "initiative": 3565,
+    "image": "quantum-uncertainty"
    },
    {
     "id": 60,
     "name": "Fractured Timeline",
     "level": "9",
-    "initiative": 5585
+    "initiative": 5585,
+    "image": "fractured-timeline"
    },
    {
     "id": 59,
     "name": "Reverse the Flow",
     "level": "9",
-    "initiative": 5888
+    "initiative": 5888,
+    "image": "reverse-the-flow"
    }
   ]
  }

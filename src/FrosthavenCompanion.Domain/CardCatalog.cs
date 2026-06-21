@@ -11,6 +11,9 @@ public sealed record AbilityCard
 
     /// <summary>Raw initiative. Blinkblade cards encode fast/slow as one 4-digit number (e.g. 2050 = 20/50).</summary>
     public int Initiative { get; init; }
+
+    /// <summary>Card-art file slug under wwwroot/icons/cards/{classSlug}/, or null if no image.</summary>
+    public string? Image { get; init; }
 }
 
 /// <summary>
