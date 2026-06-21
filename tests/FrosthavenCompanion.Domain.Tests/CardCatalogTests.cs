@@ -21,6 +21,13 @@ public class CardCatalogTests
         Assert.All(cards, c => Assert.False(string.IsNullOrEmpty(c.Image)));
     }
 
+    [Theory]
+    [InlineData(2050, "20/50")]  // Blinkblade fast/slow pair
+    [InlineData(232, "2/32")]    // single-digit fast (leading zero dropped)
+    [InlineData(50, "50")]       // a normal 2-digit initiative
+    public void InitiativeDisplay_splits_fast_slow_pairs(int initiative, string expected) =>
+        Assert.Equal(expected, new AbilityCard { Id = 1, Name = "x", Initiative = initiative }.InitiativeDisplay);
+
     [Fact]
     public void Unknown_class_has_no_cards()
     {

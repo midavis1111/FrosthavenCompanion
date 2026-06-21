@@ -201,7 +201,7 @@ else
                                     <span class="small">@card.Name</span>
                                 }
                             </div>
-                            <span class="text-muted small flex-shrink-0">@FormatInit(card.Initiative)</span>
+                            <span class="text-muted small flex-shrink-0">@card.InitiativeDisplay</span>
                         </div>
                     }
                 }
@@ -276,8 +276,6 @@ else
         _ => "—",
     };
 
-    // Blinkblade cards encode fast/slow initiative as a 4-digit number (e.g. 2050 → 20/50).
-    private static string FormatInit(int i) => i >= 1000 ? $"{i / 100}/{i % 100:00}" : i.ToString();
 
     private static string PerkBoxClass(PerkMark? s) => s switch
     {

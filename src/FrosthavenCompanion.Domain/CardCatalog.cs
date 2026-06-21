@@ -14,6 +14,13 @@ public sealed record AbilityCard
 
     /// <summary>Card-art file slug under wwwroot/icons/cards/{classSlug}/, or null if no image.</summary>
     public string? Image { get; init; }
+
+    /// <summary>
+    /// Initiative for display. Blinkblade cards encode a fast/slow pair as one number
+    /// (slow in the last two digits), e.g. 2050 → "20/50" and 232 → "2/32". Normal
+    /// initiatives (1–99) show as-is.
+    /// </summary>
+    public string InitiativeDisplay => Initiative >= 100 ? $"{Initiative / 100}/{Initiative % 100:00}" : Initiative.ToString();
 }
 
 /// <summary>

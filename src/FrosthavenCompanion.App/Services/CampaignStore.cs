@@ -227,6 +227,14 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
     public static CardSlot? CardSlotOf(Character c, int cardId) =>
         c.Cards.TryGetValue(cardId, out var s) ? s : null;
 
+    /// <summary>Sets a card's slot directly; null removes it (unowned).</summary>
+    public async Task SetCardSlotAsync(Character c, int cardId, CardSlot? slot)
+    {
+        if (slot is null) c.Cards.Remove(cardId);
+        else c.Cards[cardId] = slot.Value;
+        await SaveAsync();
+    }
+
     /// <summary>Cycles an ability card: unowned → Bench → Deck → unowned.</summary>
     public async Task CycleCardAsync(Character c, int cardId)
     {
