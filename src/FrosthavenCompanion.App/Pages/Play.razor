@@ -1,0 +1,183 @@
+@page "/play"
+@inject CampaignStore Store
+@inject CardCatalog Cards
+
+<PageTitle>Play — Frosthaven Companion</PageTitle>
+
+<h1>Play</h1>
+<p class="text-muted" style="max-width: 42rem">
+    Run your hand for a scenario: move cards between hand, active, discard, and lost.
+    Build the deck on the <a href="deck">Deck</a> page.
+</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else if (Me is null || DeckCards().Count == 0)
+{
+    <p class="text-muted">No deck to play. Add cards to your deck on the <a href="deck">Deck</a> page.</p>
+}
+else
+{
+    var hand = InPile(null);
+    var active = InPile(PlayPile.Active);
+    var discard = InPile(PlayPile.Discard);
+    var lost = InPile(PlayPile.Lost);
+
+    <div class="d-flex flex-wrap gap-2 mb-2">
+        <button class="btn btn-outline-primary btn-sm" @onclick="ShortRest">Short rest (lose 1 random)</button>
+        <button class="btn btn-outline-primary btn-sm" @onclick="Recover" disabled="@(discard.Count == 0)">Recover discards</button>
+        <button class="btn btn-outline-secondary btn-sm" @onclick="Reset">New scenario (all to hand)</button>
+    </div>
+    @if (restMessage is not null)
+    {
+        <div class="alert alert-info py-2">@restMessage</div>
+    }
+
+    <h2 class="h5">Hand (@hand.Count)</h2>
+    @if (hand.Count == 0)
+    {
+        <p class="text-muted">Hand is empty.</p>
+    }
+    else
+    {
+        <div class="d-flex flex-wrap gap-3 mb-3">
+            @foreach (var card in hand)
+            {
+                var id = card.Id;
+                <div style="width: 140px">
+                    @if (card.Image is not null)
+                    {
+                        <img src="icons/cards/@(ClassSlug)/@(card.Image).png" alt="@card.Name" loading="lazy" class="img-fluid border rounded" />
+                    }
+                    <div class="small fw-semibold mt-1">@card.Name</div>
+                    <div class="text-muted small">Init @card.InitiativeDisplay</div>
+                    <div class="btn-group btn-group-sm w-100 mt-1">
+                        <button class="btn btn-outline-success" @onclick="() => Move(id, PlayPile.Active)">Active</button>
+                        <button class="btn btn-outline-secondary" @onclick="() => Move(id, PlayPile.Discard)">Discard</button>
+                        <button class="btn btn-outline-danger" @onclick="() => Move(id, PlayPile.Lost)">Lose</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <h2 class="h5">Active (@active.Count)</h2>
+    @if (active.Count == 0)
+    {
+        <p class="text-muted">No active cards.</p>
+    }
+    else
+    {
+        <div class="d-flex flex-wrap gap-3 mb-3">
+            @foreach (var card in active)
+            {
+                var id = card.Id;
+                <div style="width: 140px">
+                    @if (card.Image is not null)
+                    {
+                        <img src="icons/cards/@(ClassSlug)/@(card.Image).png" alt="@card.Name" loading="lazy" class="img-fluid border border-success rounded" />
+                    }
+                    <div class="small fw-semibold mt-1">@card.Name</div>
+                    <div class="btn-group btn-group-sm w-100 mt-1">
+                        <button class="btn btn-outline-secondary" @onclick="() => Move(id, null)">Hand</button>
+                        <button class="btn btn-outline-secondary" @onclick="() => Move(id, PlayPile.Discard)">Discard</button>
+                        <button class="btn btn-outline-danger" @onclick="() => Move(id, PlayPile.Lost)">Lose</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2 class="h6">Discard (@discard.Count)</h2>
+            <ul class="list-group mb-3">
+                @foreach (var card in discard)
+                {
+                    var id = card.Id;
+                    <li class="list-group-item d-flex align-items-center gap-2 py-1">
+                        <span class="flex-grow-1 small">@card.Name <span class="text-muted">@card.InitiativeDisplay</span></span>
+                        <button class="btn btn-outline-secondary btn-sm" @onclick="() => Move(id, null)">Hand</button>
+                        <button class="btn btn-outline-danger btn-sm" @onclick="() => Move(id, PlayPile.Lost)">Lose</button>
+                    </li>
+                }
+                @if (discard.Count == 0)
+                {
+                    <li class="list-group-item text-muted small py-1">Empty</li>
+                }
+            </ul>
+        </div>
+        <div class="col-12 col-md-6">
+            <h2 class="h6">Lost (@lost.Count)</h2>
+            <ul class="list-group mb-3">
+                @foreach (var card in lost)
+                {
+                    var id = card.Id;
+                    <li class="list-group-item d-flex align-items-center gap-2 py-1">
+                        <span class="flex-grow-1 small">@card.Name <span class="text-muted">@card.InitiativeDisplay</span></span>
+                        <button class="btn btn-outline-secondary btn-sm" @onclick="() => Move(id, null)">Hand</button>
+                    </li>
+                }
+                @if (lost.Count == 0)
+                {
+                    <li class="list-group-item text-muted small py-1">Empty</li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+@code {
+    private bool loaded;
+    private string? restMessage;
+
+    private Character? Me => Store.MyCharacter;
+    private string ClassSlug => Me is null ? "" : PerkCatalog.Slugify(Me.ClassName);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private List<AbilityCard> DeckCards() => Me is null
+        ? []
+        : Cards.For(Me.ClassName)
+            .Where(card => CampaignStore.CardSlotOf(Me, card.Id) == CardSlot.Deck)
+            .OrderBy(card => card.Initiative)
+            .ToList();
+
+    private List<AbilityCard> InPile(PlayPile? pile) =>
+        DeckCards().Where(card => CampaignStore.PlayPileOf(Me!, card.Id) == pile).ToList();
+
+    private async Task Move(int cardId, PlayPile? pile)
+    {
+        restMessage = null;
+        await Store.SetPlayPileAsync(Me!, cardId, pile);
+    }
+
+    private async Task ShortRest()
+    {
+        var lostId = await Store.ShortRestAsync(Me!);
+        restMessage = lostId is null
+            ? "Nothing in discard to recover."
+            : $"Short rest: recovered your discards and lost {CardName(lostId.Value)}.";
+    }
+
+    private async Task Recover()
+    {
+        restMessage = null;
+        await Store.RecoverDiscardsAsync(Me!);
+    }
+
+    private async Task Reset()
+    {
+        restMessage = null;
+        await Store.ResetPlayAsync(Me!);
+    }
+
+    private string CardName(int id) =>
+        Cards.For(Me!.ClassName).FirstOrDefault(c => c.Id == id)?.Name ?? $"#{id}";
+}

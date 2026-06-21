@@ -20,6 +20,19 @@ public enum CardSlot
     Deck,
 }
 
+/// <summary>Where a deck card sits during play. Hand is the default (no stored entry).</summary>
+public enum PlayPile
+{
+    /// <summary>Currently in play (persistent/active area).</summary>
+    Active,
+
+    /// <summary>Played and discarded; recoverable on a rest.</summary>
+    Discard,
+
+    /// <summary>Lost (consumed); not recovered by a rest.</summary>
+    Lost,
+}
+
 /// <summary>
 /// A party member. The roster basics (name/class/level) drive the recommended
 /// scenario level via <see cref="ScenarioLevelTable"/>; the rest mirrors the
@@ -61,4 +74,7 @@ public sealed class Character
 
     /// <summary>Ability-card placement, keyed by card id (Deck or Bench); absent = unowned/unset.</summary>
     public Dictionary<int, CardSlot> Cards { get; set; } = [];
+
+    /// <summary>During-play pile per deck card (Active/Discard/Lost); absent = in hand. Reset each scenario.</summary>
+    public Dictionary<int, PlayPile> Play { get; set; } = [];
 }

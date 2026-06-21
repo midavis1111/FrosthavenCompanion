@@ -247,6 +247,49 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>A deck card's play pile, or null if it's in hand.</summary>
+    public static PlayPile? PlayPileOf(Character c, int cardId) =>
+        c.Play.TryGetValue(cardId, out var p) ? p : null;
+
+    /// <summary>Moves a card to a play pile; null returns it to hand.</summary>
+    public async Task SetPlayPileAsync(Character c, int cardId, PlayPile? pile)
+    {
+        if (pile is null) c.Play.Remove(cardId);
+        else c.Play[cardId] = pile.Value;
+        await SaveAsync();
+    }
+
+    /// <summary>Returns all discarded cards to hand.</summary>
+    public async Task RecoverDiscardsAsync(Character c)
+    {
+        foreach (var id in c.Play.Where(kv => kv.Value == PlayPile.Discard).Select(kv => kv.Key).ToList())
+            c.Play.Remove(id);
+        await SaveAsync();
+    }
+
+    /// <summary>Short rest: recover discards to hand and lose one at random. Returns the lost card id, or null.</summary>
+    public async Task<int?> ShortRestAsync(Character c)
+    {
+        var discarded = c.Play.Where(kv => kv.Value == PlayPile.Discard).Select(kv => kv.Key).ToList();
+        foreach (var id in discarded) c.Play.Remove(id);
+
+        int? lost = null;
+        if (discarded.Count > 0)
+        {
+            lost = discarded[Random.Shared.Next(discarded.Count)];
+            c.Play[lost.Value] = PlayPile.Lost;
+        }
+        await SaveAsync();
+        return lost;
+    }
+
+    /// <summary>Returns every deck card to hand (start of a new scenario).</summary>
+    public async Task ResetPlayAsync(Character c)
+    {
+        c.Play.Clear();
+        await SaveAsync();
+    }
+
     public static bool IsMastery(Character c, int index) => c.Masteries.Contains(index);
 
     /// <summary>Checks or unchecks a mastery.</summary>
