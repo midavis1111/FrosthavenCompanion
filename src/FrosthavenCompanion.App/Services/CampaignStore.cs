@@ -259,6 +259,13 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>Plays a round: sends the chosen cards to one pile (discard by default) in a single save.</summary>
+    public async Task PlayRoundAsync(Character c, IEnumerable<int> cardIds, PlayPile pile = PlayPile.Discard)
+    {
+        foreach (var id in cardIds) c.Play[id] = pile;
+        await SaveAsync();
+    }
+
     /// <summary>Returns all discarded cards to hand.</summary>
     public async Task RecoverDiscardsAsync(Character c)
     {

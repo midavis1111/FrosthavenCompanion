@@ -1,0 +1,61 @@
+.hand {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.tile {
+    width: 116px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: .5rem;
+    padding: 2px;
+    user-select: none;
+}
+
+.tile img {
+    width: 100%;
+    display: block;
+    border-radius: .35rem;
+}
+
+.tile .name {
+    font-size: .72rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-top: .15rem;
+}
+
+.tile .init {
+    font-size: .7rem;
+    color: #6c757d;
+}
+
+.tile.selected {
+    border-color: #0d6efd;
+    background: rgba(13, 110, 253, .1);
+    transform: translateY(-4px);
+}
+
+.tile.leader {
+    border-color: #ffc107;
+    background: rgba(255, 193, 7, .12);
+    transform: translateY(-4px);
+}
+
+.leader-badge {
+    font-size: .65rem;
+    font-weight: 700;
+    color: #946200;
+}
+
+.piles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.piles summary {
+    cursor: pointer;
+    font-weight: 600;
+}
