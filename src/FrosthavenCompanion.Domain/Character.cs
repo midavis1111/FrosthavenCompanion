@@ -77,4 +77,7 @@ public sealed class Character
 
     /// <summary>During-play pile per deck card (Active/Discard/Lost); absent = in hand. Reset each scenario.</summary>
     public Dictionary<int, PlayPile> Play { get; set; } = [];
+
+    /// <summary>Blinkblade hourglass / time tokens currently held (normally 0–2).</summary>
+    public int TimeTokens { get; set; }
 }

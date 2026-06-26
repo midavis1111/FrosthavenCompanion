@@ -43,7 +43,7 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
     private bool EnsureCharacterIds()
     {
         var changed = false;
-        foreach (var c in Progress.Party.Where(c => string.IsNullOrEmpty(c.Id)))
+        foreach (var c in Progress.Party.Concat(Progress.ArchivedCharacters).Where(c => string.IsNullOrEmpty(c.Id)))
         {
             c.Id = Guid.NewGuid().ToString("N");
             changed = true;
@@ -186,6 +186,58 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
     public async Task SetMyCharacterAsync(string id)
     {
         Progress.MyCharacterId = id;
+        await SaveAsync();
+    }
+
+    /// <summary>Class names the player has a saved sheet for (active + archived).</summary>
+    public IEnumerable<string> MyClasses =>
+        Progress.ArchivedCharacters
+            .Select(c => c.ClassName)
+            .Append(MyCharacter?.ClassName ?? "")
+            .Where(n => !string.IsNullOrWhiteSpace(n))
+            .Distinct(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Switches the player's own character to the given class without losing data:
+    /// the current sheet is archived and the target class's saved sheet is restored
+    /// (or a fresh one created). Each class keeps its own perks, cards, level, etc.
+    /// </summary>
+    public async Task SwitchMyClassAsync(string className)
+    {
+        className = className.Trim();
+        if (string.IsNullOrEmpty(className)) return;
+
+        var cur = MyCharacter;
+        if (cur is not null && string.Equals(cur.ClassName, className, StringComparison.OrdinalIgnoreCase))
+            return;
+
+        // Stash the current sheet (if it's a real, classed character).
+        if (cur is not null && !string.IsNullOrWhiteSpace(cur.ClassName))
+        {
+            Progress.Party.Remove(cur);
+            Progress.ArchivedCharacters.Add(cur);
+        }
+
+        // Restore the target class from the archive, or reuse an empty current, or make a new one.
+        var target = Progress.ArchivedCharacters
+            .FirstOrDefault(c => string.Equals(c.ClassName, className, StringComparison.OrdinalIgnoreCase));
+        if (target is not null)
+            Progress.ArchivedCharacters.Remove(target);
+        else if (cur is not null && string.IsNullOrWhiteSpace(cur.ClassName))
+            target = cur;   // an unclassed starter row — just name its class
+        else
+            target = new Character { Id = Guid.NewGuid().ToString("N") };
+
+        target.ClassName = className;
+        if (!Progress.Party.Contains(target)) Progress.Party.Add(target);
+        Progress.MyCharacterId = target.Id;
+        await SaveAsync();
+    }
+
+    /// <summary>Sets the player's Blinkblade time-token (hourglass) count (floored at 0).</summary>
+    public async Task SetTimeTokensAsync(Character c, int count)
+    {
+        c.TimeTokens = Math.Max(0, count);
         await SaveAsync();
     }
 

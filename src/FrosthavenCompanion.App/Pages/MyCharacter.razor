@@ -2,6 +2,7 @@
 @inject CampaignStore Store
 @inject PerkCatalog Perks
 @inject CardCatalog Cards
+@inject Microsoft.JSInterop.IJSRuntime JS
 
 <PageTitle>My Character — Frosthaven Companion</PageTitle>
 
@@ -17,11 +18,33 @@ else if (Me is null)
 }
 else
 {
+    var c = Me!;
+
+    <div class="mb-3" style="max-width: 22rem">
+        <label class="form-label small text-muted">My class</label>
+        <select class="form-select form-select-sm" value="@c.ClassName" @onchange="OnPickClass">
+            @foreach (var cls in ClassOptions(c))
+            {
+                <option value="@cls" selected="@(string.Equals(cls, c.ClassName, StringComparison.OrdinalIgnoreCase))">@cls</option>
+            }
+            <option value="__other__">Other class…</option>
+        </select>
+        @if (addingClass)
+        {
+            <div class="input-group input-group-sm mt-2">
+                <input class="form-control" placeholder="Class name" @bind="newClassName" />
+                <button class="btn btn-primary" @onclick="ConfirmNewClass">Switch</button>
+                <button class="btn btn-outline-secondary" @onclick="CancelNewClass">Cancel</button>
+            </div>
+        }
+        <div class="form-text">Switching keeps each class's full sheet — switch back anytime.</div>
+    </div>
+
     @if (Store.Progress.Party.Count > 1)
     {
         <div class="mb-3" style="max-width: 22rem">
             <label class="form-label small text-muted">Which character is mine?</label>
-            <select class="form-select form-select-sm" value="@Me.Id" @onchange="OnPickCharacter">
+            <select class="form-select form-select-sm" value="@c.Id" @onchange="OnPickCharacter">
                 @foreach (var ch in Store.Progress.Party)
                 {
                     <option value="@ch.Id">@(string.IsNullOrWhiteSpace(ch.Name) ? "Unnamed" : ch.Name) — @ch.ClassName</option>
@@ -30,11 +53,9 @@ else
         </div>
     }
 
-    var c = Me;
     <div class="card">
         <div class="card-header">
             <span class="h5 mb-0">@(string.IsNullOrWhiteSpace(c.ClassName) ? "No class set" : c.ClassName)</span>
-            <span class="text-muted small ms-2">Set class on the <a href="party">Party</a> page</span>
         </div>
         <div class="card-body">
             <div class="row g-3">
@@ -64,6 +85,31 @@ else
                 XP for next level (@(c.Level < 9 ? c.Level + 1 : 9)):
                 <strong>@(c.Level < 9 ? Thresholds[c.Level].ToString() : "max")</strong>
             </p>
+
+            @if (IsBlinkblade(c))
+            {
+                <hr />
+                <h2 class="h6">Time tokens <span class="text-muted small fw-normal">(hourglass)</span></h2>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <button class="btn btn-outline-secondary btn-sm" @onclick="() => SetTime(c, c.TimeTokens - 1)"
+                            disabled="@(c.TimeTokens <= 0)">− Slow</button>
+                    <span class="d-inline-flex align-items-center gap-1" style="min-width:3.6rem">
+                        @for (var i = 0; i < c.TimeTokens; i++)
+                        {
+                            <img src="icons/game/time.png" alt="time token" style="height:1.7rem" />
+                        }
+                        @if (c.TimeTokens == 0)
+                        {
+                            <span class="text-muted small">none</span>
+                        }
+                    </span>
+                    <span class="fw-bold" style="min-width:1rem">@c.TimeTokens</span>
+                    <button class="btn btn-outline-primary btn-sm" @onclick="() => FastAsync(c)"
+                            disabled="@(c.TimeTokens >= 2)">+ Fast</button>
+                    <button class="btn btn-outline-secondary btn-sm" @onclick="() => MoreAsync(c)">+1 more…</button>
+                </div>
+                <div class="form-text">Fast adds a token (max 2); Slow removes one. Use “+1 more” to go past 2 (confirms first).</div>
+            }
 
             <hr />
 
@@ -227,6 +273,12 @@ else
         ("flamefruit", "Flamefruit"), ("rockroot", "Rockroot"), ("snowthistle", "Snowthistle"),
     ];
 
+    private static readonly string[] StartingClasses =
+        ["Banner Spear", "Blinkblade", "Boneshaper", "Deathwalker", "Drifter", "Geminate"];
+
+    private bool addingClass;
+    private string newClassName = "";
+
     private Character? Me => Store.MyCharacter;
 
     protected override async Task OnInitializedAsync()
@@ -241,6 +293,58 @@ else
     {
         if (e.Value?.ToString() is { } id)
             await Store.SetMyCharacterAsync(id);
+    }
+
+    private IEnumerable<string> ClassOptions(Character c) =>
+        StartingClasses
+            .Concat(Store.MyClasses)
+            .Append(c.ClassName)
+            .Where(s => !string.IsNullOrWhiteSpace(s))
+            .Distinct(StringComparer.OrdinalIgnoreCase);
+
+    private async Task OnPickClass(ChangeEventArgs e)
+    {
+        var value = e.Value?.ToString() ?? "";
+        if (value == "__other__")
+        {
+            addingClass = true;
+            return;
+        }
+        addingClass = false;
+        await Store.SwitchMyClassAsync(value);
+    }
+
+    private async Task ConfirmNewClass()
+    {
+        if (!string.IsNullOrWhiteSpace(newClassName))
+            await Store.SwitchMyClassAsync(newClassName);
+        addingClass = false;
+        newClassName = "";
+    }
+
+    private void CancelNewClass()
+    {
+        addingClass = false;
+        newClassName = "";
+    }
+
+    private static bool IsBlinkblade(Character c) =>
+        string.Equals(c.ClassName, "Blinkblade", StringComparison.OrdinalIgnoreCase);
+
+    private Task SetTime(Character c, int n) => Store.SetTimeTokensAsync(c, n);
+
+    private async Task FastAsync(Character c)
+    {
+        if (c.TimeTokens < 2)
+            await Store.SetTimeTokensAsync(c, c.TimeTokens + 1);
+    }
+
+    private async Task MoreAsync(Character c)
+    {
+        var ok = await JS.InvokeAsync<bool>("confirm",
+            $"You have {c.TimeTokens} time tokens. Add another beyond the usual max of 2?");
+        if (ok)
+            await Store.SetTimeTokensAsync(c, c.TimeTokens + 1);
     }
 
     private async Task SetLevel(Character c, int level)

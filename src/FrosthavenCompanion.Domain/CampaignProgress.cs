@@ -59,6 +59,13 @@ public sealed class CampaignProgress
     /// <summary>Id of the player's own character (which party member is "mine") for the My Character page.</summary>
     public string? MyCharacterId { get; set; }
 
+    /// <summary>
+    /// The player's other-class character sheets, kept aside when they switch class so
+    /// nothing is lost. Not part of the active party (excluded from the scenario-level
+    /// calc); swapped back into <see cref="Party"/> on switching to that class.
+    /// </summary>
+    public List<Character> ArchivedCharacters { get; set; } = [];
+
     /// <summary>Difficulty offset from the recommended scenario level (−2…+3).</summary>
     public int DifficultyModifier { get; set; }
 
