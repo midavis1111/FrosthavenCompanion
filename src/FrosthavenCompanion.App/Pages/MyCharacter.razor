@@ -92,7 +92,7 @@ else
                 <h2 class="h6">Time tokens <span class="text-muted small fw-normal">(hourglass)</span></h2>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                     <button class="btn btn-outline-secondary btn-sm" @onclick="() => SetTime(c, c.TimeTokens - 1)"
-                            disabled="@(c.TimeTokens <= 0)">− Slow</button>
+                            disabled="@(c.TimeTokens <= 0)">− Fast</button>
                     <span class="d-inline-flex align-items-center gap-1" style="min-width:3.6rem">
                         @for (var i = 0; i < c.TimeTokens; i++)
                         {
@@ -104,11 +104,11 @@ else
                         }
                     </span>
                     <span class="fw-bold" style="min-width:1rem">@c.TimeTokens</span>
-                    <button class="btn btn-outline-primary btn-sm" @onclick="() => FastAsync(c)"
-                            disabled="@(c.TimeTokens >= 2)">+ Fast</button>
+                    <button class="btn btn-outline-primary btn-sm" @onclick="() => SlowAsync(c)"
+                            disabled="@(c.TimeTokens >= 2)">+ Slow</button>
                     <button class="btn btn-outline-secondary btn-sm" @onclick="() => MoreAsync(c)">+1 more…</button>
                 </div>
-                <div class="form-text">Fast adds a token (max 2); Slow removes one. Use “+1 more” to go past 2 (confirms first).</div>
+                <div class="form-text">Slow adds a token (max 2); Fast spends one. Use “+1 more” to go past 2 (confirms first).</div>
             }
 
             <hr />
@@ -333,7 +333,7 @@ else
 
     private Task SetTime(Character c, int n) => Store.SetTimeTokensAsync(c, n);
 
-    private async Task FastAsync(Character c)
+    private async Task SlowAsync(Character c)
     {
         if (c.TimeTokens < 2)
             await Store.SetTimeTokensAsync(c, c.TimeTokens + 1);
