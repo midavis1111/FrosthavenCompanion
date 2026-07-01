@@ -297,10 +297,15 @@ else
 
     private IEnumerable<string> ClassOptions(Character c) =>
         StartingClasses
+            .Concat(Cards.Classes.Select(Display))
             .Concat(Store.MyClasses)
             .Append(c.ClassName)
             .Where(s => !string.IsNullOrWhiteSpace(s))
             .Distinct(StringComparer.OrdinalIgnoreCase);
+
+    private static string Display(string slug) =>
+        string.Join(" ", slug.Split('-')
+            .Select(w => w.Length == 0 ? w : char.ToUpperInvariant(w[0]) + w[1..]));
 
     private async Task OnPickClass(ChangeEventArgs e)
     {
