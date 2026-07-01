@@ -865,5 +865,213 @@
     "image": "mother-of-all-traps"
    }
   ]
+ },
+ "pyroclast": {
+  "handSize": 10,
+  "cards": [
+   {
+    "id": 220,
+    "name": "Igneous Path",
+    "level": "1",
+    "initiative": 18,
+    "image": "igneous-path"
+   },
+   {
+    "id": 217,
+    "name": "Flowing Fire",
+    "level": "1",
+    "initiative": 20,
+    "image": "flowing-fire"
+   },
+   {
+    "id": 224,
+    "name": "Cloud of Ash",
+    "level": "1",
+    "initiative": 23,
+    "image": "cloud-of-ash"
+   },
+   {
+    "id": 223,
+    "name": "Liquid Stone",
+    "level": "1",
+    "initiative": 28,
+    "image": "liquid-stone"
+   },
+   {
+    "id": 216,
+    "name": "Quenched Rage",
+    "level": "1",
+    "initiative": 30,
+    "image": "quenched-rage"
+   },
+   {
+    "id": 218,
+    "name": "Eruption",
+    "level": "1",
+    "initiative": 47,
+    "image": "eruption"
+   },
+   {
+    "id": 219,
+    "name": "Lava Bomb",
+    "level": "1",
+    "initiative": 53,
+    "image": "lava-bomb"
+   },
+   {
+    "id": 222,
+    "name": "Melted Armor",
+    "level": "1",
+    "initiative": 62,
+    "image": "melted-armor"
+   },
+   {
+    "id": 215,
+    "name": "Cooling",
+    "level": "1",
+    "initiative": 75,
+    "image": "cooling"
+   },
+   {
+    "id": 221,
+    "name": "Under Pressure",
+    "level": "1",
+    "initiative": 85,
+    "image": "under-pressure"
+   },
+   {
+    "id": 226,
+    "name": "Force of the Earth",
+    "level": "X",
+    "initiative": 15,
+    "image": "force-of-the-earth"
+   },
+   {
+    "id": 227,
+    "name": "Metamorphic Rock",
+    "level": "X",
+    "initiative": 68,
+    "image": "metamorphic-rock"
+   },
+   {
+    "id": 225,
+    "name": "Wildfire",
+    "level": "X",
+    "initiative": 72,
+    "image": "wildfire"
+   },
+   {
+    "id": 229,
+    "name": "Deep Fury",
+    "level": "2",
+    "initiative": 38,
+    "image": "deep-fury"
+   },
+   {
+    "id": 228,
+    "name": "Searing Smoke",
+    "level": "2",
+    "initiative": 45,
+    "image": "searing-smoke"
+   },
+   {
+    "id": 230,
+    "name": "Living Magma",
+    "level": "3",
+    "initiative": 22,
+    "image": "living-magma"
+   },
+   {
+    "id": 231,
+    "name": "Hardened Spike",
+    "level": "3",
+    "initiative": 80,
+    "image": "hardened-spike"
+   },
+   {
+    "id": 233,
+    "name": "Heat Wave",
+    "level": "4",
+    "initiative": 8,
+    "image": "heat-wave"
+   },
+   {
+    "id": 232,
+    "name": "Hand of Flame",
+    "level": "4",
+    "initiative": 29,
+    "image": "hand-of-flame"
+   },
+   {
+    "id": 234,
+    "name": "Rain of Fire",
+    "level": "5",
+    "initiative": 21,
+    "image": "rain-of-fire"
+   },
+   {
+    "id": 235,
+    "name": "Magma Orbs",
+    "level": "5",
+    "initiative": 82,
+    "image": "magma-orbs"
+   },
+   {
+    "id": 236,
+    "name": "Return to the Source",
+    "level": "6",
+    "initiative": 14,
+    "image": "return-to-the-source"
+   },
+   {
+    "id": 237,
+    "name": "Obsidian Shield",
+    "level": "6",
+    "initiative": 19,
+    "image": "obsidian-shield"
+   },
+   {
+    "id": 239,
+    "name": "Swelter",
+    "level": "7",
+    "initiative": 32,
+    "image": "swelter"
+   },
+   {
+    "id": 238,
+    "name": "Erupting Rage",
+    "level": "7",
+    "initiative": 70,
+    "image": "erupting-rage"
+   },
+   {
+    "id": 240,
+    "name": "Feed the Beast",
+    "level": "8",
+    "initiative": 27,
+    "image": "feed-the-beast"
+   },
+   {
+    "id": 241,
+    "name": "Cinder Lance",
+    "level": "8",
+    "initiative": 90,
+    "image": "cinder-lance"
+   },
+   {
+    "id": 242,
+    "name": "Stone Armor",
+    "level": "9",
+    "initiative": 9,
+    "image": "stone-armor"
+   },
+   {
+    "id": 243,
+    "name": "Calamity",
+    "level": "9",
+    "initiative": 35,
+    "image": "calamity"
+   }
+  ]
  }
 }

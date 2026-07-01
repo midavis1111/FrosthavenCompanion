@@ -130,7 +130,7 @@
     "boxes": 1
    },
    {
-    "text": "Add one ×2 {brittle} (self) card",
+    "text": "Add one Ã—2 {brittle} (self) card",
     "boxes": 1
    },
    {
@@ -200,6 +200,62 @@
    {
     "text": "(see your perk sheet)",
     "boxes": 1
+   }
+  ],
+  "masteries": [
+   "(see mastery on your sheet)",
+   "(see mastery on your sheet)"
+  ]
+ },
+ "pyroclast": {
+  "perks": [
+   {
+    "text": "Remove two -1 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Remove one -2 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one +0 card with one +1 {wound} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one -1 card with one +0 meteor card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace two +0 cards with two +0 {rolling} push 2 cards",
+    "boxes": 2
+   },
+   {
+    "text": "Replace two +1 cards with two +2 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Add two +1 fire|earth cards",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +1 {rolling} {muddle} cards",
+    "boxes": 1
+   },
+   {
+    "text": "Ignore negative scenario effects",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 3
    }
   ],
   "masteries": [

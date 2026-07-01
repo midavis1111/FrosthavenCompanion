@@ -32,6 +32,7 @@ public class CardCatalogTests
     [InlineData("Deathwalker")]
     [InlineData("Geminate")]
     [InlineData("Trapper")]
+    [InlineData("Pyroclast")]
     public void Authored_classes_load_cards_with_images(string className)
     {
         var catalog = CardCatalog.LoadEmbedded();
@@ -47,7 +48,7 @@ public class CardCatalogTests
     {
         var catalog = CardCatalog.LoadEmbedded();
         Assert.Superset(
-            new HashSet<string> { "blinkblade", "deathwalker", "geminate", "trapper" },
+            new HashSet<string> { "blinkblade", "deathwalker", "geminate", "trapper", "pyroclast" },
             catalog.Classes.ToHashSet());
     }
 
