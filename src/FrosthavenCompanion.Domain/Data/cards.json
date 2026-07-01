@@ -1073,5 +1073,657 @@
     "image": "calamity"
    }
   ]
+ },
+ "banner-spear": {
+  "handSize": 10,
+  "cards": [
+   {
+    "id": 68,
+    "name": "Set for the Charge",
+    "level": "1",
+    "initiative": 6,
+    "image": "set-for-the-charge"
+   },
+   {
+    "id": 65,
+    "name": "Deflecting Maneuver",
+    "level": "1",
+    "initiative": 15,
+    "image": "deflecting-maneuver"
+   },
+   {
+    "id": 64,
+    "name": "Javelin",
+    "level": "1",
+    "initiative": 21,
+    "image": "javelin"
+   },
+   {
+    "id": 70,
+    "name": "Regroup",
+    "level": "1",
+    "initiative": 25,
+    "image": "regroup"
+   },
+   {
+    "id": 67,
+    "name": "Combined Effort",
+    "level": "1",
+    "initiative": 32,
+    "image": "combined-effort"
+   },
+   {
+    "id": 61,
+    "name": "At All Costs",
+    "level": "1",
+    "initiative": 60,
+    "image": "at-all-costs"
+   },
+   {
+    "id": 66,
+    "name": "Tip of the Spear",
+    "level": "1",
+    "initiative": 67,
+    "image": "tip-of-the-spear"
+   },
+   {
+    "id": 69,
+    "name": "Pincer Movement",
+    "level": "1",
+    "initiative": 69,
+    "image": "pincer-movement"
+   },
+   {
+    "id": 62,
+    "name": "Rallying Cry",
+    "level": "1",
+    "initiative": 71,
+    "image": "rallying-cry"
+   },
+   {
+    "id": 63,
+    "name": "Unbreakable Wall",
+    "level": "1",
+    "initiative": 83,
+    "image": "unbreakable-wall"
+   },
+   {
+    "id": 71,
+    "name": "Resolved Courage",
+    "level": "X",
+    "initiative": 10,
+    "image": "resolved-courage"
+   },
+   {
+    "id": 73,
+    "name": "Driving Inspiration",
+    "level": "X",
+    "initiative": 18,
+    "image": "driving-inspiration"
+   },
+   {
+    "id": 72,
+    "name": "Incendiary Throw",
+    "level": "X",
+    "initiative": 22,
+    "image": "incendiary-throw"
+   },
+   {
+    "id": 75,
+    "name": "Pinning Charge",
+    "level": "2",
+    "initiative": 17,
+    "image": "pinning-charge"
+   },
+   {
+    "id": 74,
+    "name": "Meat Grinder",
+    "level": "2",
+    "initiative": 62,
+    "image": "meat-grinder"
+   },
+   {
+    "id": 76,
+    "name": "Let Them Come",
+    "level": "3",
+    "initiative": 24,
+    "image": "let-them-come"
+   },
+   {
+    "id": 77,
+    "name": "Head of the Hammer",
+    "level": "3",
+    "initiative": 87,
+    "image": "head-of-the-hammer"
+   },
+   {
+    "id": 79,
+    "name": "Air Support",
+    "level": "4",
+    "initiative": 20,
+    "image": "air-support"
+   },
+   {
+    "id": 78,
+    "name": "Boldening Blow",
+    "level": "4",
+    "initiative": 72,
+    "image": "boldening-blow"
+   },
+   {
+    "id": 81,
+    "name": "Hold the Line",
+    "level": "5",
+    "initiative": 5,
+    "image": "hold-the-line"
+   },
+   {
+    "id": 80,
+    "name": "Explosive Epicenter",
+    "level": "5",
+    "initiative": 78,
+    "image": "explosive-epicenter"
+   },
+   {
+    "id": 82,
+    "name": "Barricade",
+    "level": "6",
+    "initiative": 16,
+    "image": "barricade"
+   },
+   {
+    "id": 83,
+    "name": "Bolstering Shout",
+    "level": "6",
+    "initiative": 75,
+    "image": "bolstering-shout"
+   },
+   {
+    "id": 84,
+    "name": "Tri-Thrust",
+    "level": "7",
+    "initiative": 27,
+    "image": "tri-thrust"
+   },
+   {
+    "id": 85,
+    "name": "Lead from Afar",
+    "level": "7",
+    "initiative": 80,
+    "image": "lead-from-afar"
+   },
+   {
+    "id": 87,
+    "name": "Taunting Howl",
+    "level": "8",
+    "initiative": 11,
+    "image": "taunting-howl"
+   },
+   {
+    "id": 86,
+    "name": "Sweeping Aid",
+    "level": "8",
+    "initiative": 73,
+    "image": "sweeping-aid"
+   },
+   {
+    "id": 89,
+    "name": "Hail of Spears",
+    "level": "9",
+    "initiative": 44,
+    "image": "hail-of-spears"
+   },
+   {
+    "id": 88,
+    "name": "Take no Prisoners",
+    "level": "9",
+    "initiative": 85,
+    "image": "take-no-prisoners"
+   }
+  ]
+ },
+ "boneshaper": {
+  "handSize": 12,
+  "cards": [
+   {
+    "id": 128,
+    "name": "Flow of the Black River",
+    "level": "1",
+    "initiative": 18,
+    "image": "flow-of-the-black-river"
+   },
+   {
+    "id": 131,
+    "name": "Malicious Conversion",
+    "level": "1",
+    "initiative": 26,
+    "image": "malicious-conversion"
+   },
+   {
+    "id": 127,
+    "name": "Fell Remedy",
+    "level": "1",
+    "initiative": 30,
+    "image": "fell-remedy"
+   },
+   {
+    "id": 125,
+    "name": "Dark Tidings",
+    "level": "1",
+    "initiative": 43,
+    "image": "dark-tidings"
+   },
+   {
+    "id": 124,
+    "name": "Decaying Will",
+    "level": "1",
+    "initiative": 46,
+    "image": "decaying-will"
+   },
+   {
+    "id": 123,
+    "name": "Transfer of Essence",
+    "level": "1",
+    "initiative": 62,
+    "image": "transfer-of-essence"
+   },
+   {
+    "id": 130,
+    "name": "Eternal Torment",
+    "level": "1",
+    "initiative": 70,
+    "image": "eternal-torment"
+   },
+   {
+    "id": 122,
+    "name": "Damned Horde",
+    "level": "1",
+    "initiative": 71,
+    "image": "damned-horde"
+   },
+   {
+    "id": 126,
+    "name": "Angry Spirits",
+    "level": "1",
+    "initiative": 76,
+    "image": "angry-spirits"
+   },
+   {
+    "id": 121,
+    "name": "Returned Servant",
+    "level": "1",
+    "initiative": 81,
+    "image": "returned-servant"
+   },
+   {
+    "id": 129,
+    "name": "Command the Wretched",
+    "level": "1",
+    "initiative": 83,
+    "image": "command-the-wretched"
+   },
+   {
+    "id": 120,
+    "name": "Life in Death",
+    "level": "1",
+    "initiative": 91,
+    "image": "life-in-death"
+   },
+   {
+    "id": 133,
+    "name": "Exploding Corpse",
+    "level": "X",
+    "initiative": 21,
+    "image": "exploding-corpse"
+   },
+   {
+    "id": 132,
+    "name": "Approach Oblivion",
+    "level": "X",
+    "initiative": 53,
+    "image": "approach-oblivion"
+   },
+   {
+    "id": 134,
+    "name": "Wrath of the Turned Earth",
+    "level": "X",
+    "initiative": 80,
+    "image": "wrath-of-the-turned-earth"
+   },
+   {
+    "id": 136,
+    "name": "Bone",
+    "level": "2",
+    "initiative": 29,
+    "image": null
+   },
+   {
+    "id": 135,
+    "name": "Unearthed Horror",
+    "level": "2",
+    "initiative": 94,
+    "image": "unearthed-horror"
+   },
+   {
+    "id": 138,
+    "name": "Putrid Cloud",
+    "level": "3",
+    "initiative": 28,
+    "image": "putrid-cloud"
+   },
+   {
+    "id": 137,
+    "name": "Grave Digging",
+    "level": "3",
+    "initiative": 96,
+    "image": "grave-digging"
+   },
+   {
+    "id": 140,
+    "name": "Flesh Shield",
+    "level": "4",
+    "initiative": 16,
+    "image": "flesh-shield"
+   },
+   {
+    "id": 139,
+    "name": "Critical Failure",
+    "level": "4",
+    "initiative": 95,
+    "image": "critical-failure"
+   },
+   {
+    "id": 142,
+    "name": "Solid Bones",
+    "level": "5",
+    "initiative": 32,
+    "image": "solid-bones"
+   },
+   {
+    "id": 141,
+    "name": "Unforgivable Methods",
+    "level": "5",
+    "initiative": 98,
+    "image": "unforgivable-methods"
+   },
+   {
+    "id": 143,
+    "name": "Rotting Multitude",
+    "level": "6",
+    "initiative": 66,
+    "image": "rotting-multitude"
+   },
+   {
+    "id": 144,
+    "name": "Twisted Decree",
+    "level": "6",
+    "initiative": 85,
+    "image": "twisted-decree"
+   },
+   {
+    "id": 146,
+    "name": "Soul Claim",
+    "level": "7",
+    "initiative": 23,
+    "image": "soul-claim"
+   },
+   {
+    "id": 145,
+    "name": "Recycled Limbs",
+    "level": "7",
+    "initiative": 52,
+    "image": "recycled-limbs"
+   },
+   {
+    "id": 148,
+    "name": "Wailing from Beyond",
+    "level": "8",
+    "initiative": 73,
+    "image": "wailing-from-beyond"
+   },
+   {
+    "id": 147,
+    "name": "Endless Numbers",
+    "level": "8",
+    "initiative": 86,
+    "image": "endless-numbers"
+   },
+   {
+    "id": 150,
+    "name": "Behold the Shrouded Sun",
+    "level": "9",
+    "initiative": 10,
+    "image": "behold-the-shrouded-sun"
+   },
+   {
+    "id": 149,
+    "name": "Unholy Prowess",
+    "level": "9",
+    "initiative": 97,
+    "image": "unholy-prowess"
+   }
+  ]
+ },
+ "drifter": {
+  "handSize": 12,
+  "cards": [
+   {
+    "id": 9,
+    "name": "Prudent Preparation",
+    "level": "1",
+    "initiative": 14,
+    "image": "prudent-preparation"
+   },
+   {
+    "id": 8,
+    "name": "Draining Arrows",
+    "level": "1",
+    "initiative": 23,
+    "image": "draining-arrows"
+   },
+   {
+    "id": 7,
+    "name": "Vile Assault",
+    "level": "1",
+    "initiative": 27,
+    "image": "vile-assault"
+   },
+   {
+    "id": 10,
+    "name": "Deadly Shot",
+    "level": "1",
+    "initiative": 32,
+    "image": "deadly-shot"
+   },
+   {
+    "id": 4,
+    "name": "Continuous Health",
+    "level": "1",
+    "initiative": 61,
+    "image": "continuous-health"
+   },
+   {
+    "id": 11,
+    "name": "Bloodletting",
+    "level": "1",
+    "initiative": 65,
+    "image": "bloodletting"
+   },
+   {
+    "id": 3,
+    "name": "Precision Aim",
+    "level": "1",
+    "initiative": 66,
+    "image": "precision-aim"
+   },
+   {
+    "id": 12,
+    "name": "Violent Inheritance",
+    "level": "1",
+    "initiative": 70,
+    "image": "violent-inheritance"
+   },
+   {
+    "id": 1,
+    "name": "Crushing Weight",
+    "level": "1",
+    "initiative": 71,
+    "image": "crushing-weight"
+   },
+   {
+    "id": 2,
+    "name": "Sustained Momentum",
+    "level": "1",
+    "initiative": 76,
+    "image": "sustained-momentum"
+   },
+   {
+    "id": 5,
+    "name": "Relentless",
+    "level": "1",
+    "initiative": 89,
+    "image": "relentless"
+   },
+   {
+    "id": 6,
+    "name": "Unbreakable",
+    "level": "1",
+    "initiative": 90,
+    "image": "unbreakable"
+   },
+   {
+    "id": 15,
+    "name": "Destructive Fury",
+    "level": "X",
+    "initiative": 19,
+    "image": "destructive-fury"
+   },
+   {
+    "id": 14,
+    "name": "No Remorse",
+    "level": "X",
+    "initiative": 20,
+    "image": "no-remorse"
+   },
+   {
+    "id": 13,
+    "name": "Fortitude",
+    "level": "X",
+    "initiative": 31,
+    "image": "fortitude"
+   },
+   {
+    "id": 16,
+    "name": "Shockwave",
+    "level": "2",
+    "initiative": 17,
+    "image": "shockwave"
+   },
+   {
+    "id": 17,
+    "name": "Ever Forward",
+    "level": "2",
+    "initiative": 67,
+    "image": "ever-forward"
+   },
+   {
+    "id": 19,
+    "name": "Dual Bow",
+    "level": "3",
+    "initiative": 26,
+    "image": "dual-bow"
+   },
+   {
+    "id": 18,
+    "name": "Fierce Barrage",
+    "level": "3",
+    "initiative": 32,
+    "image": "fierce-barrage"
+   },
+   {
+    "id": 21,
+    "name": "Gift of the Prey",
+    "level": "4",
+    "initiative": 40,
+    "image": "gift-of-the-prey"
+   },
+   {
+    "id": 20,
+    "name": "Chunk of Flesh",
+    "level": "4",
+    "initiative": 62,
+    "image": "chunk-of-flesh"
+   },
+   {
+    "id": 23,
+    "name": "Break Through",
+    "level": "5",
+    "initiative": 34,
+    "image": "break-through"
+   },
+   {
+    "id": 22,
+    "name": "Survivalist",
+    "level": "5",
+    "initiative": 91,
+    "image": "survivalist"
+   },
+   {
+    "id": 25,
+    "name": "Consume Stamina",
+    "level": "6",
+    "initiative": 21,
+    "image": "consume-stamina"
+   },
+   {
+    "id": 24,
+    "name": "Accurate Strikes",
+    "level": "6",
+    "initiative": 56,
+    "image": "accurate-strikes"
+   },
+   {
+    "id": 27,
+    "name": "Unending Fight",
+    "level": "7",
+    "initiative": 25,
+    "image": "unending-fight"
+   },
+   {
+    "id": 26,
+    "name": "Like the Wind",
+    "level": "7",
+    "initiative": 77,
+    "image": "like-the-wind"
+   },
+   {
+    "id": 29,
+    "name": "Inevitable Conclusion",
+    "level": "8",
+    "initiative": 29,
+    "image": "inevitable-conclusion"
+   },
+   {
+    "id": 28,
+    "name": "Against All Odds",
+    "level": "8",
+    "initiative": 37,
+    "image": "against-all-odds"
+   },
+   {
+    "id": 31,
+    "name": "Use Every Part",
+    "level": "9",
+    "initiative": 18,
+    "image": "use-every-part"
+   },
+   {
+    "id": 30,
+    "name": "Everlasting",
+    "level": "9",
+    "initiative": 96,
+    "image": "everlasting"
+   }
+  ]
  }
 }

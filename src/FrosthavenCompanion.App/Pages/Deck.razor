@@ -64,8 +64,10 @@ else
                 <div style="width: 150px">
                     @if (card.Image is not null)
                     {
-                        <img src="icons/cards/@(ClassSlug)/@(card.Image).png" alt="@card.Name" loading="lazy"
-                             class="img-fluid border rounded" />
+                        var imgSrc = $"icons/cards/{ClassSlug}/{card.Image}.png";
+                        <img src="@imgSrc" alt="@card.Name" loading="lazy"
+                             class="img-fluid border rounded" style="cursor: zoom-in"
+                             @onclick="() => lightbox?.Open(imgSrc, card.Name)" />
                     }
                     <div class="small fw-semibold mt-1">@card.Name</div>
                     <div class="text-muted small">Init @card.InitiativeDisplay · @LevelLabel(card.Level)</div>
@@ -131,7 +133,10 @@ else
     }
 }
 
+<CardLightbox @ref="lightbox" />
+
 @code {
+    private CardLightbox? lightbox;
     private bool loaded;
 
     private Character? Me => Store.MyCharacter;

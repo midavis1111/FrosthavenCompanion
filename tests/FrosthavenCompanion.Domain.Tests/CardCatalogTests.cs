@@ -48,7 +48,11 @@ public class CardCatalogTests
     {
         var catalog = CardCatalog.LoadEmbedded();
         Assert.Superset(
-            new HashSet<string> { "blinkblade", "deathwalker", "geminate", "trapper", "pyroclast" },
+            new HashSet<string>
+            {
+                "blinkblade", "deathwalker", "geminate", "trapper", "pyroclast",
+                "banner-spear", "boneshaper", "drifter",
+            },
             catalog.Classes.ToHashSet());
     }
 

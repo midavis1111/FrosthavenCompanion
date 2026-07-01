@@ -70,8 +70,10 @@ else
                 <div style="width: 160px">
                     @if (card.Image is not null)
                     {
-                        <img src="icons/cards/@(selected)/@(card.Image).png" alt="@card.Name" loading="lazy"
-                             class="img-fluid border rounded" />
+                        var imgSrc = $"icons/cards/{selected}/{card.Image}.png";
+                        <img src="@imgSrc" alt="@card.Name" loading="lazy"
+                             class="img-fluid border rounded" style="cursor: zoom-in"
+                             @onclick="() => lightbox?.Open(imgSrc, card.Name)" />
                     }
                     <div class="small fw-semibold mt-1">@card.Name</div>
                     <div class="text-muted small">Init @card.InitiativeDisplay</div>
@@ -81,7 +83,10 @@ else
     }
 }
 
+<CardLightbox @ref="lightbox" />
+
 @code {
+    private CardLightbox? lightbox;
     private List<string> allClasses = [];
     private string selected = "";
 

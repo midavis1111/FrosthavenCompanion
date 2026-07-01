@@ -1,0 +1,128 @@
+@page "/retirements"
+@inject CampaignStore Store
+@inject CardCatalog Cards
+
+<PageTitle>Retirements — Frosthaven Companion</PageTitle>
+
+<h1>Retirements</h1>
+<p class="text-muted" style="max-width: 42rem">
+    A log of retired characters — the party's history. Record each one when they complete their
+    personal quest and hang up their gear.
+</p>
+
+@if (!loaded)
+{
+    <p><em>Loading…</em></p>
+}
+else
+{
+    <div class="card mb-4" style="max-width: 40rem">
+        <div class="card-header fw-semibold">Log a retirement</div>
+        <div class="card-body">
+            <div class="row g-2">
+                <div class="col-12 col-sm-6">
+                    <label class="form-label small">Name</label>
+                    <input class="form-control form-control-sm" @bind="draft.Name" placeholder="Character name" />
+                </div>
+                <div class="col-8 col-sm-4">
+                    <label class="form-label small">Class</label>
+                    <input class="form-control form-control-sm" list="fh-classes" @bind="draft.ClassName" placeholder="Class" />
+                </div>
+                <div class="col-4 col-sm-2">
+                    <label class="form-label small">Level</label>
+                    <input type="number" min="1" max="9" class="form-control form-control-sm" @bind="draft.Level" />
+                </div>
+                <div class="col-6 col-sm-4">
+                    <label class="form-label small">Date retired</label>
+                    <input type="date" class="form-control form-control-sm" @bind="draft.Date" />
+                </div>
+                <div class="col-12 col-sm-8">
+                    <label class="form-label small">Personal quest</label>
+                    <input class="form-control form-control-sm" @bind="draft.PersonalQuest" placeholder="Quest that triggered retirement" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label small">Notes</label>
+                    <input class="form-control form-control-sm" @bind="draft.Notes" placeholder="What it unlocked, who took over, …" />
+                </div>
+            </div>
+            <button class="btn btn-primary btn-sm mt-3" @onclick="AddAsync" disabled="@(!CanAdd)">Add retirement</button>
+        </div>
+    </div>
+
+    <datalist id="fh-classes">
+        @foreach (var cls in ClassSuggestions)
+        {
+            <option value="@cls" />
+        }
+    </datalist>
+
+    <h2 class="h4">Retired (@Store.Retirements.Count)</h2>
+    @if (Store.Retirements.Count == 0)
+    {
+        <p class="text-muted">No retirements logged yet.</p>
+    }
+    else
+    {
+        @foreach (var r in Store.Retirements)
+        {
+            <div class="card mb-2">
+                <div class="card-body py-2">
+                    <div class="d-flex align-items-start gap-2">
+                        <div class="flex-grow-1">
+                            <div>
+                                <span class="fw-semibold">@(string.IsNullOrWhiteSpace(r.Name) ? "Unnamed" : r.Name)</span>
+                                <span class="text-muted">— @r.ClassName · level @r.Level · @r.Date.ToString("MMM d, yyyy")</span>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(r.PersonalQuest))
+                            {
+                                <div class="small">Quest: @r.PersonalQuest</div>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(r.Notes))
+                            {
+                                <div class="small text-muted">@r.Notes</div>
+                            }
+                        </div>
+                        <button type="button" class="btn-close" title="Remove" @onclick="() => RemoveAsync(r)"></button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
+@code {
+    private bool loaded;
+    private Retirement draft = NewDraft();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Store.LoadAsync();
+        loaded = true;
+    }
+
+    private static Retirement NewDraft() => new()
+    {
+        Level = 1,
+        Date = DateOnly.FromDateTime(DateTime.Today),
+    };
+
+    private bool CanAdd => !string.IsNullOrWhiteSpace(draft.Name) || !string.IsNullOrWhiteSpace(draft.ClassName);
+
+    private IEnumerable<string> ClassSuggestions =>
+        new[] { "Banner Spear", "Blinkblade", "Boneshaper", "Deathwalker", "Drifter", "Geminate" }
+            .Concat(Cards.Classes.Select(Display))
+            .Distinct(StringComparer.OrdinalIgnoreCase);
+
+    private async Task AddAsync()
+    {
+        draft.Level = Math.Clamp(draft.Level, 1, 9);
+        await Store.AddRetirementAsync(draft);
+        draft = NewDraft();
+    }
+
+    private Task RemoveAsync(Retirement r) => Store.RemoveRetirementAsync(r);
+
+    private static string Display(string slug) =>
+        string.Join(" ", slug.Split('-')
+            .Select(w => w.Length == 0 ? w : char.ToUpperInvariant(w[0]) + w[1..]));
+}

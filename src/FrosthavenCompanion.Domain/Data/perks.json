@@ -130,7 +130,7 @@
     "boxes": 1
    },
    {
-    "text": "Add one Ã—2 {brittle} (self) card",
+    "text": "Add one Ãƒâ€”2 {brittle} (self) card",
     "boxes": 1
    },
    {
@@ -261,6 +261,162 @@
   "masteries": [
    "(see mastery on your sheet)",
    "(see mastery on your sheet)"
+  ]
+ },
+ "banner-spear": {
+  "perks": [
+   {
+    "text": "Replace one -1 card with one +0 {rolling} shield 1 card",
+    "boxes": 3
+   },
+   {
+    "text": "Replace one +0 card with one +1 Add attack.valueSign 1 for each ally adjacent to the target card",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +1 {disarm} card",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +2 push 1 card",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +1 {rolling} cards",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +0 {rolling} heal 1 (self) cards",
+    "boxes": 2
+   },
+   {
+    "text": "Remove one -1 card",
+    "boxes": 1
+   },
+   {
+    "text": "At the end of each of your long rests, grant one ally within range 3: move 2",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you open a door with a move ability, add move.valueSign 3",
+    "boxes": 1
+   },
+   {
+    "text": "Once each scenario, during your turn, gain shield 2 for the round",
+    "boxes": 2
+   }
+  ],
+  "masteries": [
+   "Attack at least three enemies with each of three different area of effect attack abilities",
+   "Perform a Banner summon ability on your first turn, keep the banner alive and within range 3 of you for the entire scenario"
+  ]
+ },
+ "boneshaper": {
+  "perks": [
+   {
+    "text": "Replace one -1 card with one +0 {curse} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one -1 card with one +0 {poison} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one -2 card with one +0 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one +0 card with one +1 Kill the attacking summon to instead add plus4 card",
+    "boxes": 3
+   },
+   {
+    "text": "Add three +0 {rolling} heal 1 cards",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +2 earth|dark card",
+    "boxes": 3
+   },
+   {
+    "text": "Add two +1 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Immediately before each of your rests, you may kill one of your summons to perform {bless}, self",
+    "boxes": 1
+   },
+   {
+    "text": "Once each scenario, when any character ally would become exhausted by suffering damage, you may suffer damage:2 to reduce their hit point value to 1 instead",
+    "boxes": 1
+   },
+   {
+    "text": "At the start of each scenario, you may play a level 1 card from your hand to performa summon action of the card",
+    "boxes": 2
+   }
+  ],
+  "masteries": [
+   "Kill at least fifteen of your summons",
+   "Play a summon action on your first turn, have the summon kill at least six enemies, and keep it alive for the entire scenario"
+  ]
+ },
+ "drifter": {
+  "perks": [
+   {
+    "text": "Replace one -1 card with one +1 card",
+    "boxes": 3
+   },
+   {
+    "text": "Replace one -2 card with one +0 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one +1 card with two +0 Move one of your character tokens backward one slot cards",
+    "boxes": 2
+   },
+   {
+    "text": "Replace two +0 cards with two +0 {rolling} pierce 3 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Replace two +0 cards with two +0 {rolling} push 2 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Add one +3 card",
+    "boxes": 1
+   },
+   {
+    "text": "Add one +2 {immobilize} card",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +0 {rolling} heal 1 (self) cards",
+    "boxes": 1
+   },
+   {
+    "text": "Add one +1 card",
+    "boxes": 1
+   },
+   {
+    "text": "Add one +1 card",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you long rest, you may move one of your characters token backward one slot",
+    "boxes": 2
+   },
+   {
+    "text": "You may bring one additional onehand item into each scenario",
+    "boxes": 1
+   },
+   {
+    "text": "At the end of each scenario you may discard up to two loot cards, except Random Item, to draw that many new loot cards",
+    "boxes": 1
+   }
+  ],
+  "masteries": [
+   "End a scenario with your character tokens on the last slots of four persistent abilities",
+   "Never perform a move ability or attack with a value less then 4, and perform at least one move or attack ability each round"
   ]
  }
 }

@@ -258,6 +258,22 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>Retirements, newest first.</summary>
+    public IReadOnlyList<Retirement> Retirements =>
+        Progress.Retirements.OrderByDescending(r => r.Date).ToList();
+
+    public async Task AddRetirementAsync(Retirement retirement)
+    {
+        Progress.Retirements.Add(retirement);
+        await SaveAsync();
+    }
+
+    public async Task RemoveRetirementAsync(Retirement retirement)
+    {
+        Progress.Retirements.Remove(retirement);
+        await SaveAsync();
+    }
+
     /// <summary>The mark on a perk checkbox, or null if it's unchecked.</summary>
     public static PerkMark? PerkState(Character c, int perkIndex, int boxIndex) =>
         c.Perks.TryGetValue($"{perkIndex}:{boxIndex}", out var m) ? m : null;

@@ -1,0 +1,23 @@
+@* A full-screen zoom overlay for a card image. Call Open(src, alt); click anywhere to close. *@
+@if (open)
+{
+    <div class="lb-overlay" @onclick="Close">
+        <img src="@src" alt="@alt" class="lb-img" />
+    </div>
+}
+
+@code {
+    private bool open;
+    private string? src;
+    private string alt = "";
+
+    public void Open(string source, string altText = "")
+    {
+        src = source;
+        alt = altText;
+        open = true;
+        StateHasChanged();
+    }
+
+    private void Close() => open = false;
+}

@@ -75,5 +75,25 @@ public sealed class CampaignProgress
     /// <summary>Keys of the outpost-phase checklist steps ticked this phase.</summary>
     public HashSet<string> OutpostChecklist { get; set; } = [];
 
+    /// <summary>A log of retired characters (a campaign milestone record).</summary>
+    public List<Retirement> Retirements { get; set; } = [];
+
     public bool IsCompleted(string index) => Completed.ContainsKey(index);
+}
+
+/// <summary>One retired character — a permanent campaign milestone.</summary>
+public sealed class Retirement
+{
+    public string Name { get; set; } = "";
+    public string ClassName { get; set; } = "";
+    public int Level { get; set; } = 1;
+
+    /// <summary>When the character retired.</summary>
+    public DateOnly Date { get; set; }
+
+    /// <summary>The personal quest that triggered retirement.</summary>
+    public string PersonalQuest { get; set; } = "";
+
+    /// <summary>What it unlocked, who took over, anything worth remembering.</summary>
+    public string Notes { get; set; } = "";
 }
