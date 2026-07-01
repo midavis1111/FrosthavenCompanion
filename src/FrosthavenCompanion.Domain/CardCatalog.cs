@@ -50,6 +50,9 @@ public sealed class CardCatalog
 
     public bool Has(string classNameOrSlug) => For(classNameOrSlug).Count > 0;
 
+    /// <summary>All class slugs that have an authored deck (e.g. "blinkblade").</summary>
+    public IReadOnlyCollection<string> Classes => _byClass.Keys.OrderBy(k => k).ToList();
+
     private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

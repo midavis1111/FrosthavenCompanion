@@ -1,21 +1,210 @@
 {
-  "blinkblade": {
-    "perks": [
-      { "text": "Remove one -2 card", "boxes": 1 },
-      { "text": "Replace one -1 card with one +1 card", "boxes": 2 },
-      { "text": "Replace one -1 card with one +0 {wound} card", "boxes": 2 },
-      { "text": "Replace one +0 card with one +1 {immobilize} card", "boxes": 2 },
-      { "text": "Replace one +0 card with one \"Place this card in your active area. On your next attack, discard this card to add +2 {attack}\" {rolling} card", "boxes": 3 },
-      { "text": "Replace two +1 cards with two +2 cards", "boxes": 1 },
-      { "text": "Add one -1 \"Gain 1 {time}\" card", "boxes": 2 },
-      { "text": "Add one +2 \"{regenerate}, self\" {rolling} card", "boxes": 2 },
-      { "text": "Whenever you short rest, you may spend one unspent {spent} item for no effect to {recover} a different spent item", "boxes": 1 },
-      { "text": "At the start of your first turn each scenario, you may perform {move} 3", "boxes": 1 },
-      { "text": "Whenever you would gain {immobilize}, prevent the condition", "boxes": 1 }
-    ],
-    "masteries": [
-      "Declare Fast for seven consecutive rounds",
-      "Never be targeted by an attack"
-    ]
-  }
+ "blinkblade": {
+  "perks": [
+   {
+    "text": "Remove one -2 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one -1 card with one +1 card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one -1 card with one +0 {wound} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one +0 card with one +1 {immobilize} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one +0 card with one \"Place this card in your active area. On your next attack, discard this card to add +2 {attack}\" {rolling} card",
+    "boxes": 3
+   },
+   {
+    "text": "Replace two +1 cards with two +2 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Add one -1 \"Gain 1 {time}\" card",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +2 \"{regenerate}, self\" {rolling} card",
+    "boxes": 2
+   },
+   {
+    "text": "Whenever you short rest, you may spend one unspent {spent} item for no effect to {recover} a different spent item",
+    "boxes": 1
+   },
+   {
+    "text": "At the start of your first turn each scenario, you may perform {move} 3",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you would gain {immobilize}, prevent the condition",
+    "boxes": 1
+   }
+  ],
+  "masteries": [
+   "Declare Fast for seven consecutive rounds",
+   "Never be targeted by an attack"
+  ]
+ },
+ "deathwalker": {
+  "perks": [
+   {
+    "text": "Remove two -1 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one -2 card with one +0 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one -1 card with one +1 card",
+    "boxes": 3
+   },
+   {
+    "text": "Replace one +0 card with one +1 {curse} card",
+    "boxes": 3
+   },
+   {
+    "text": "Add one +2 dark card",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +0 {rolling} {disarm} card and one +0 {rolling} {muddle} card",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +0 {rolling} heal 1 (ally) cards",
+    "boxes": 2
+   },
+   {
+    "text": "Ignore negative scenario effects",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you long rest, you may move one shadow up to three hexes",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you short rest, you may consume dark to perform {muddle}, {curse}, range 2 as if you were occupying a hex with a shadow",
+    "boxes": 1
+   },
+   {
+    "text": "While you are occupying a hex with a shadow, all attacks targeting you gain disadvantage",
+    "boxes": 1
+   }
+  ],
+  "masteries": [
+   "Remove seven shadow in one round",
+   "Place or remove at least one shadow each round"
+  ]
+ },
+ "geminate": {
+  "perks": [
+   {
+    "text": "Replace one -2 card with one +0 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one -1 card with one +0 consume wild card",
+    "boxes": 3
+   },
+   {
+    "text": "Replace one +0 card with one +1 {poison} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one +0 card with one +1 {wound} card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace two +0 cards with two +0 {rolling} pierce 3 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Add two +1 push 3 cards",
+    "boxes": 1
+   },
+   {
+    "text": "Add one ×2 {brittle} (self) card",
+    "boxes": 1
+   },
+   {
+    "text": "Add one +1 {rolling} {regenerate} (self) card",
+    "boxes": 2
+   },
+   {
+    "text": "Ignore negative scenario effects",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you short rest, you may remove one negative condition from one ally within range 3",
+    "boxes": 1
+   },
+   {
+    "text": "Once each scenario, when you would give yourself a negative condition, prevent the condition",
+    "boxes": 1
+   },
+   {
+    "text": "Whenever you perform an action with a lost icon, you may discard one card to recover one card from your discard pile of equal or lower level",
+    "boxes": 2
+   }
+  ],
+  "masteries": [
+   "Switch forms each round",
+   "Lose at least one ability card each round"
+  ]
+ },
+ "trapper": {
+  "perks": [
+   {
+    "text": "Remove one -2 card",
+    "boxes": 1
+   },
+   {
+    "text": "Replace one -1 card with one +0 trap card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one -1 card with one +0 trap card",
+    "boxes": 3
+   },
+   {
+    "text": "Replace two +0 cards with two +0 trap cards",
+    "boxes": 3
+   },
+   {
+    "text": "Replace two +1 cards with two +2 {immobilize} cards",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +0 {rolling} cards",
+    "boxes": 3
+   },
+   {
+    "text": "Ignore negative scenario effects",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 1
+   }
+  ],
+  "masteries": [
+   "(see mastery on your sheet)",
+   "(see mastery on your sheet)"
+  ]
+ }
 }

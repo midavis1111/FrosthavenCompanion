@@ -1,0 +1,99 @@
+@page "/classes"
+@inject CardCatalog Cards
+@inject PerkCatalog Perks
+
+<PageTitle>Classes — Frosthaven Companion</PageTitle>
+
+<h1>Classes</h1>
+<p class="text-muted" style="max-width: 42rem">
+    A reference for every authored class — see all of its ability cards, plus its perks and masteries.
+    This is read-only and independent of your own character; to build a deck, use the
+    <a href="deck">Deck</a> page.
+</p>
+
+@if (allClasses.Count == 0)
+{
+    <p class="text-muted">No classes authored yet.</p>
+}
+else
+{
+    <div class="mb-3" style="max-width: 22rem">
+        <label class="form-label small text-muted">Class</label>
+        <select class="form-select form-select-sm" value="@selected" @onchange="OnPick">
+            @foreach (var slug in allClasses)
+            {
+                <option value="@slug">@Display(slug)</option>
+            }
+        </select>
+    </div>
+
+    var deck = Cards.For(selected);
+    var hand = Cards.HandSize(selected);
+
+    <h2 class="h4">@Display(selected)</h2>
+    <p class="text-muted">@deck.Count ability cards · hand size @hand</p>
+
+    @if (Perks.Has(selected))
+    {
+        <h3 class="h5 mt-3">Perks</h3>
+        <ul class="list-unstyled">
+            @foreach (var perk in Perks.For(selected))
+            {
+                <li class="mb-1 d-flex gap-2">
+                    <span class="text-muted" style="min-width:2.2rem">
+                        @(string.Concat(Enumerable.Repeat("☐ ", perk.Boxes)))
+                    </span>
+                    <span><IconText Text="@perk.Text" /></span>
+                </li>
+            }
+        </ul>
+
+        @if (Perks.Masteries(selected).Count > 0)
+        {
+            <h3 class="h5 mt-3">Masteries</h3>
+            <ul>
+                @foreach (var m in Perks.Masteries(selected))
+                {
+                    <li><IconText Text="@m" /></li>
+                }
+            </ul>
+        }
+    }
+
+    <h3 class="h5 mt-3">Cards</h3>
+    @foreach (var grp in deck.GroupBy(c => c.Level))
+    {
+        <div class="text-muted small mt-2 fw-semibold">Level @grp.Key</div>
+        <div class="d-flex flex-wrap gap-3 mb-2">
+            @foreach (var card in grp)
+            {
+                <div style="width: 160px">
+                    @if (card.Image is not null)
+                    {
+                        <img src="icons/cards/@(selected)/@(card.Image).png" alt="@card.Name" loading="lazy"
+                             class="img-fluid border rounded" />
+                    }
+                    <div class="small fw-semibold mt-1">@card.Name</div>
+                    <div class="text-muted small">Init @card.InitiativeDisplay</div>
+                </div>
+            }
+        </div>
+    }
+}
+
+@code {
+    private List<string> allClasses = [];
+    private string selected = "";
+
+    protected override void OnInitialized()
+    {
+        allClasses = Cards.Classes.ToList();
+        selected = allClasses.Contains("blinkblade") ? "blinkblade" : allClasses.FirstOrDefault() ?? "";
+    }
+
+    private void OnPick(ChangeEventArgs e) => selected = e.Value?.ToString() ?? selected;
+
+    private static string Display(string slug) =>
+        string.Join(" ", slug.Split('-')
+            .Select(w => w.Length == 0 ? w : char.ToUpperInvariant(w[0]) + w[1..]));
+}

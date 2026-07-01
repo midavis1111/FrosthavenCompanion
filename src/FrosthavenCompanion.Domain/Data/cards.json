@@ -206,5 +206,664 @@
     "image": "reverse-the-flow"
    }
   ]
+ },
+ "deathwalker": {
+  "handSize": 11,
+  "cards": [
+   {
+    "id": 91,
+    "name": "Anger of the Dead",
+    "level": "1",
+    "initiative": 14,
+    "image": "anger-of-the-dead"
+   },
+   {
+    "id": 99,
+    "name": "Shadow Step",
+    "level": "1",
+    "initiative": 19,
+    "image": "shadow-step"
+   },
+   {
+    "id": 93,
+    "name": "Fluid night",
+    "level": "1",
+    "initiative": 24,
+    "image": "fluid-night"
+   },
+   {
+    "id": 95,
+    "name": "Black Barrage",
+    "level": "1",
+    "initiative": 28,
+    "image": "black-barrage"
+   },
+   {
+    "id": 96,
+    "name": "Call of Doom",
+    "level": "1",
+    "initiative": 32,
+    "image": "call-of-doom"
+   },
+   {
+    "id": 94,
+    "name": "Dark fog",
+    "level": "1",
+    "initiative": 46,
+    "image": "dark-fog"
+   },
+   {
+    "id": 100,
+    "name": "Strength of the Abyss",
+    "level": "1",
+    "initiative": 50,
+    "image": "strength-of-the-abyss"
+   },
+   {
+    "id": 98,
+    "name": "Lingering Rot",
+    "level": "1",
+    "initiative": 64,
+    "image": "lingering-rot"
+   },
+   {
+    "id": 90,
+    "name": "Call to the Abyss",
+    "level": "1",
+    "initiative": 82,
+    "image": "call-to-the-abyss"
+   },
+   {
+    "id": 97,
+    "name": "Eclipse",
+    "level": "1",
+    "initiative": 86,
+    "image": "eclipse"
+   },
+   {
+    "id": 92,
+    "name": "Sunless Apparition",
+    "level": "1",
+    "initiative": 96,
+    "image": "sunless-apparition"
+   },
+   {
+    "id": 103,
+    "name": "Rest in the Shade",
+    "level": "X",
+    "initiative": 26,
+    "image": "rest-in-the-shade"
+   },
+   {
+    "id": 102,
+    "name": "Forceful Spirits",
+    "level": "X",
+    "initiative": 34,
+    "image": "forceful-spirits"
+   },
+   {
+    "id": 101,
+    "name": "Wave of Anguish",
+    "level": "X",
+    "initiative": 58,
+    "image": "wave-of-anguish"
+   },
+   {
+    "id": 105,
+    "name": "Deepening Despair",
+    "level": "2",
+    "initiative": 11,
+    "image": "deepening-despair"
+   },
+   {
+    "id": 104,
+    "name": "Restless Spirits",
+    "level": "2",
+    "initiative": 20,
+    "image": "restless-spirits"
+   },
+   {
+    "id": 107,
+    "name": "Ritual Sacrifice",
+    "level": "3",
+    "initiative": 13,
+    "image": "ritual-sacrifice"
+   },
+   {
+    "id": 106,
+    "name": "Dead Bolt",
+    "level": "3",
+    "initiative": 88,
+    "image": "dead-bolt"
+   },
+   {
+    "id": 108,
+    "name": "Fleeting Dusk",
+    "level": "4",
+    "initiative": 36,
+    "image": "fleeting-dusk"
+   },
+   {
+    "id": 109,
+    "name": "Pulled Across",
+    "level": "4",
+    "initiative": 77,
+    "image": "pulled-across"
+   },
+   {
+    "id": 111,
+    "name": "Dominate",
+    "level": "5",
+    "initiative": 29,
+    "image": "dominate"
+   },
+   {
+    "id": 110,
+    "name": "Medium",
+    "level": "5",
+    "initiative": 55,
+    "image": "medium"
+   },
+   {
+    "id": 113,
+    "name": "Vengeful Storm",
+    "level": "6",
+    "initiative": 18,
+    "image": "vengeful-storm"
+   },
+   {
+    "id": 112,
+    "name": "The night Takes Shape",
+    "level": "6",
+    "initiative": 94,
+    "image": "the-night-takes-shape"
+   },
+   {
+    "id": 115,
+    "name": "Hungry Grasps",
+    "level": "7",
+    "initiative": 25,
+    "image": "hungry-grasps"
+   },
+   {
+    "id": 114,
+    "name": "Proliferation of the Abyss",
+    "level": "7",
+    "initiative": 38,
+    "image": "proliferation-of-the-abyss"
+   },
+   {
+    "id": 117,
+    "name": "Frozen in Fear",
+    "level": "8",
+    "initiative": 21,
+    "image": "frozen-in-fear"
+   },
+   {
+    "id": 116,
+    "name": "Lashing Tendrils",
+    "level": "8",
+    "initiative": 80,
+    "image": "lashing-tendrils"
+   },
+   {
+    "id": 119,
+    "name": "Black Lance",
+    "level": "9",
+    "initiative": 16,
+    "image": "black-lance"
+   },
+   {
+    "id": 118,
+    "name": "When Your Time Comes",
+    "level": "9",
+    "initiative": 72,
+    "image": "when-your-time-comes"
+   }
+  ]
+ },
+ "geminate": {
+  "handSize": 7,
+  "cards": [
+   {
+    "id": 155,
+    "name": "Flailing Tendrils",
+    "level": "1",
+    "initiative": 12,
+    "image": "flailing-tendrils"
+   },
+   {
+    "id": 151,
+    "name": "Icebound Quills",
+    "level": "1",
+    "initiative": 14,
+    "image": "icebound-quills"
+   },
+   {
+    "id": 164,
+    "name": "Mind Spike",
+    "level": "1",
+    "initiative": 18,
+    "image": "mind-spike"
+   },
+   {
+    "id": 157,
+    "name": "Hornbeetle Carapace",
+    "level": "1",
+    "initiative": 20,
+    "image": "hornbeetle-carapace"
+   },
+   {
+    "id": 153,
+    "name": "Hornet Stingers",
+    "level": "1",
+    "initiative": 23,
+    "image": "hornet-stingers"
+   },
+   {
+    "id": 160,
+    "name": "Selfless Offering",
+    "level": "1",
+    "initiative": 27,
+    "image": "selfless-offering"
+   },
+   {
+    "id": 163,
+    "name": "Scarab flight",
+    "level": "1",
+    "initiative": 30,
+    "image": "scarab-flight"
+   },
+   {
+    "id": 156,
+    "name": "Drag Down",
+    "level": "1",
+    "initiative": 34,
+    "image": "drag-down"
+   },
+   {
+    "id": 161,
+    "name": "Into My Embrace",
+    "level": "1",
+    "initiative": 36,
+    "image": "into-my-embrace"
+   },
+   {
+    "id": 158,
+    "name": "Reckless Jab",
+    "level": "1",
+    "initiative": 38,
+    "image": "reckless-jab"
+   },
+   {
+    "id": 154,
+    "name": "Changeling's Boon",
+    "level": "1",
+    "initiative": 40,
+    "image": "changelings-boon"
+   },
+   {
+    "id": 165,
+    "name": "Harvest the Essence",
+    "level": "1",
+    "initiative": 60,
+    "image": "harvest-the-essence"
+   },
+   {
+    "id": 159,
+    "name": "Feeding Frenzy",
+    "level": "1",
+    "initiative": 62,
+    "image": "feeding-frenzy"
+   },
+   {
+    "id": 152,
+    "name": "Draining Pincers",
+    "level": "1",
+    "initiative": 72,
+    "image": "draining-pincers"
+   },
+   {
+    "id": 162,
+    "name": "Firefly Swarm",
+    "level": "1",
+    "initiative": 76,
+    "image": "firefly-swarm"
+   },
+   {
+    "id": 167,
+    "name": "Smoldering Hatred",
+    "level": "X",
+    "initiative": 32,
+    "image": "smoldering-hatred"
+   },
+   {
+    "id": 168,
+    "name": "Reshape the Guise",
+    "level": "X",
+    "initiative": 38,
+    "image": "reshape-the-guise"
+   },
+   {
+    "id": 166,
+    "name": "Hail of Thorns",
+    "level": "X",
+    "initiative": 88,
+    "image": "hail-of-thorns"
+   },
+   {
+    "id": 169,
+    "name": "Venomous Barbs",
+    "level": "2",
+    "initiative": 17,
+    "image": "venomous-barbs"
+   },
+   {
+    "id": 170,
+    "name": "Locust Host",
+    "level": "2",
+    "initiative": 23,
+    "image": "locust-host"
+   },
+   {
+    "id": 171,
+    "name": "Mandible Storm",
+    "level": "3",
+    "initiative": 30,
+    "image": "mandible-storm"
+   },
+   {
+    "id": 172,
+    "name": "Dragonfly Surge",
+    "level": "3",
+    "initiative": 50,
+    "image": "dragonfly-surge"
+   },
+   {
+    "id": 173,
+    "name": "Thresh and Flail",
+    "level": "4",
+    "initiative": 43,
+    "image": "thresh-and-flail"
+   },
+   {
+    "id": 174,
+    "name": "Luminous Descent",
+    "level": "4",
+    "initiative": 67,
+    "image": "luminous-descent"
+   },
+   {
+    "id": 176,
+    "name": "Chitinous Horde",
+    "level": "5",
+    "initiative": 15,
+    "image": "chitinous-horde"
+   },
+   {
+    "id": 175,
+    "name": "Formless Grace",
+    "level": "5",
+    "initiative": 75,
+    "image": "formless-grace"
+   },
+   {
+    "id": 177,
+    "name": "Corrosive Acids",
+    "level": "6",
+    "initiative": 28,
+    "image": "corrosive-acids"
+   },
+   {
+    "id": 178,
+    "name": "Hirudotherapy",
+    "level": "6",
+    "initiative": 92,
+    "image": "hirudotherapy"
+   },
+   {
+    "id": 179,
+    "name": "Two Pronged Entrapment",
+    "level": "7",
+    "initiative": 21,
+    "image": "two-pronged-entrapment"
+   },
+   {
+    "id": 180,
+    "name": "Alluring Pheromones",
+    "level": "7",
+    "initiative": 49,
+    "image": "alluring-pheromones"
+   },
+   {
+    "id": 182,
+    "name": "Oscillating Entity",
+    "level": "8",
+    "initiative": 55,
+    "image": "oscillating-entity"
+   },
+   {
+    "id": 181,
+    "name": "Accelerated Metabolism",
+    "level": "8",
+    "initiative": 85,
+    "image": "accelerated-metabolism"
+   },
+   {
+    "id": 183,
+    "name": "Harbinger of Ruin",
+    "level": "9",
+    "initiative": 11,
+    "image": "harbinger-of-ruin"
+   },
+   {
+    "id": 184,
+    "name": "Voice of Salvation",
+    "level": "9",
+    "initiative": 39,
+    "image": "voice-of-salvation"
+   }
+  ]
+ },
+ "trapper": {
+  "handSize": 9,
+  "cards": [
+   {
+    "id": 278,
+    "name": "Honeypot",
+    "level": "1",
+    "initiative": 18,
+    "image": "honeypot"
+   },
+   {
+    "id": 275,
+    "name": "Boar Catcher",
+    "level": "1",
+    "initiative": 20,
+    "image": "boar-catcher"
+   },
+   {
+    "id": 273,
+    "name": "Caltrops",
+    "level": "1",
+    "initiative": 25,
+    "image": "caltrops"
+   },
+   {
+    "id": 279,
+    "name": "Enticing Bait",
+    "level": "1",
+    "initiative": 30,
+    "image": "enticing-bait"
+   },
+   {
+    "id": 276,
+    "name": "Spike Pit",
+    "level": "1",
+    "initiative": 47,
+    "image": "spike-pit"
+   },
+   {
+    "id": 277,
+    "name": "Electrified net",
+    "level": "1",
+    "initiative": 53,
+    "image": "electrified-net"
+   },
+   {
+    "id": 280,
+    "name": "Exploding Decoy",
+    "level": "1",
+    "initiative": 62,
+    "image": "exploding-decoy"
+   },
+   {
+    "id": 281,
+    "name": "Flurry of Nails",
+    "level": "1",
+    "initiative": 68,
+    "image": "flurry-of-nails"
+   },
+   {
+    "id": 274,
+    "name": "Furry facade",
+    "level": "1",
+    "initiative": 85,
+    "image": "furry-facade"
+   },
+   {
+    "id": 283,
+    "name": "Spring Loaded",
+    "level": "X",
+    "initiative": 15,
+    "image": "spring-loaded"
+   },
+   {
+    "id": 284,
+    "name": "Improvised Improvement",
+    "level": "X",
+    "initiative": 58,
+    "image": "improvised-improvement"
+   },
+   {
+    "id": 282,
+    "name": "Dismantle",
+    "level": "X",
+    "initiative": 72,
+    "image": "dismantle"
+   },
+   {
+    "id": 286,
+    "name": "Path of Pain",
+    "level": "2",
+    "initiative": 38,
+    "image": "path-of-pain"
+   },
+   {
+    "id": 285,
+    "name": "Unavoidable Outcome",
+    "level": "2",
+    "initiative": 45,
+    "image": "unavoidable-outcome"
+   },
+   {
+    "id": 287,
+    "name": "Extra Teeth",
+    "level": "3",
+    "initiative": 22,
+    "image": "extra-teeth"
+   },
+   {
+    "id": 288,
+    "name": "Pyrotechnics",
+    "level": "3",
+    "initiative": 80,
+    "image": "pyrotechnics"
+   },
+   {
+    "id": 290,
+    "name": "Stalker's Spoils",
+    "level": "4",
+    "initiative": 10,
+    "image": "stalkers-spoils"
+   },
+   {
+    "id": 289,
+    "name": "Dangerous Ground",
+    "level": "4",
+    "initiative": 31,
+    "image": "dangerous-ground"
+   },
+   {
+    "id": 292,
+    "name": "Proficient Hunter",
+    "level": "5",
+    "initiative": 26,
+    "image": "proficient-hunter"
+   },
+   {
+    "id": 291,
+    "name": "Lure of the Snare",
+    "level": "5",
+    "initiative": 59,
+    "image": "lure-of-the-snare"
+   },
+   {
+    "id": 293,
+    "name": "Persistent Pitfalls",
+    "level": "6",
+    "initiative": 13,
+    "image": "persistent-pitfalls"
+   },
+   {
+    "id": 294,
+    "name": "Cage of Thorns",
+    "level": "6",
+    "initiative": 55,
+    "image": "cage-of-thorns"
+   },
+   {
+    "id": 295,
+    "name": "Grasping Hazards",
+    "level": "7",
+    "initiative": 8,
+    "image": "grasping-hazards"
+   },
+   {
+    "id": 296,
+    "name": "Foxhole",
+    "level": "7",
+    "initiative": 90,
+    "image": "foxhole"
+   },
+   {
+    "id": 298,
+    "name": "Magnetic Shards",
+    "level": "8",
+    "initiative": 37,
+    "image": "magnetic-shards"
+   },
+   {
+    "id": 297,
+    "name": "Spike Strip",
+    "level": "8",
+    "initiative": 67,
+    "image": "spike-strip"
+   },
+   {
+    "id": 299,
+    "name": "Dangerous Cargo",
+    "level": "9",
+    "initiative": 23,
+    "image": "dangerous-cargo"
+   },
+   {
+    "id": 300,
+    "name": "Mother of All Traps",
+    "level": "9",
+    "initiative": 86,
+    "image": "mother-of-all-traps"
+   }
+  ]
  }
 }

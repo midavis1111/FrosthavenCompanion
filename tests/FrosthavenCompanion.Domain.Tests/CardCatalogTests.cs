@@ -28,6 +28,29 @@ public class CardCatalogTests
     public void InitiativeDisplay_splits_fast_slow_pairs(int initiative, string expected) =>
         Assert.Equal(expected, new AbilityCard { Id = 1, Name = "x", Initiative = initiative }.InitiativeDisplay);
 
+    [Theory]
+    [InlineData("Deathwalker")]
+    [InlineData("Geminate")]
+    [InlineData("Trapper")]
+    public void Authored_classes_load_cards_with_images(string className)
+    {
+        var catalog = CardCatalog.LoadEmbedded();
+        var cards = catalog.For(className);
+
+        Assert.NotEmpty(cards);
+        Assert.True(catalog.HandSize(className) > 0);
+        Assert.All(cards, c => Assert.False(string.IsNullOrEmpty(c.Image)));
+    }
+
+    [Fact]
+    public void Catalog_lists_all_authored_classes()
+    {
+        var catalog = CardCatalog.LoadEmbedded();
+        Assert.Superset(
+            new HashSet<string> { "blinkblade", "deathwalker", "geminate", "trapper" },
+            catalog.Classes.ToHashSet());
+    }
+
     [Fact]
     public void Unknown_class_has_no_cards()
     {
