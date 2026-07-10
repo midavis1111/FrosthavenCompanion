@@ -57,6 +57,16 @@ public class CardCatalogTests
     }
 
     [Fact]
+    public void Card_tags_are_merged_from_card_tags_json()
+    {
+        var cards = CardCatalog.LoadEmbedded().For("Blinkblade");
+        var blurryJab = cards.Single(c => c.Name == "Blurry Jab");
+
+        Assert.Contains("Bleed", blurryJab.Tags);
+        Assert.Contains("Muddle", blurryJab.Tags);
+    }
+
+    [Fact]
     public void Unknown_class_has_no_cards()
     {
         var catalog = CardCatalog.LoadEmbedded();

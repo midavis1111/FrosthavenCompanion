@@ -15,6 +15,9 @@ public sealed record AbilityCard
     /// <summary>Card-art file slug under wwwroot/icons/cards/{classSlug}/, or null if no image.</summary>
     public string? Image { get; init; }
 
+    /// <summary>Authored effect tags (conditions, elements, keywords) this card provides. Merged from card-tags.json.</summary>
+    public IReadOnlyList<string> Tags { get; init; } = [];
+
     /// <summary>
     /// Initiative for display. Blinkblade cards encode a fast/slow pair as one number
     /// (slow in the last two digits), e.g. 2050 → "20/50" and 232 → "2/32". Normal
@@ -69,6 +72,28 @@ public sealed class CardCatalog
         var data = JsonSerializer.Deserialize<Dictionary<string, ClassDeck>>(stream, Options)
             ?? throw new InvalidOperationException("The embedded card catalog could not be read.");
 
+        MergeTags(assembly, data);
+
         return new CardCatalog(new Dictionary<string, ClassDeck>(data, StringComparer.OrdinalIgnoreCase));
+    }
+
+    /// <summary>Applies authored per-card effect tags (card-tags.json, class → card name → tags).</summary>
+    private static void MergeTags(System.Reflection.Assembly assembly, Dictionary<string, ClassDeck> data)
+    {
+        using var stream = assembly.GetManifestResourceStream("FrosthavenCompanion.Domain.Data.card-tags.json");
+        if (stream is null) return;
+
+        var tags = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<string>>>>(stream, Options);
+        if (tags is null) return;
+
+        foreach (var (classSlug, byName) in tags)
+        {
+            if (!data.TryGetValue(classSlug, out var deck)) continue;
+            for (var i = 0; i < deck.Cards.Count; i++)
+            {
+                if (byName.TryGetValue(deck.Cards[i].Name, out var cardTags))
+                    deck.Cards[i] = deck.Cards[i] with { Tags = cardTags };
+            }
+        }
     }
 }

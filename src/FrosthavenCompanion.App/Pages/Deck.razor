@@ -24,6 +24,8 @@ else
     var bench = BenchCards();
     var unowned = UnownedCards();
     var hand = Cards.HandSize(Me.ClassName);
+    var provided = TagCounts(deck);
+    var available = AvailableTags(deck);
 
     <div class="card mb-3">
         <div class="card-body py-2">
@@ -49,6 +51,42 @@ else
             </div>
         </div>
     </div>
+
+    @if (provided.Count > 0 || available.Count > 0)
+    {
+        <div class="card mb-3">
+            <div class="card-body py-2">
+                <div class="fw-semibold small">Your deck provides</div>
+                @if (provided.Count == 0)
+                {
+                    <span class="text-muted small">No tagged effects in your deck yet.</span>
+                }
+                else
+                {
+                    <div class="d-flex flex-wrap gap-1 mb-2">
+                        @foreach (var (tag, count) in provided.OrderByDescending(t => t.Value).ThenBy(t => t.Key))
+                        {
+                            <span class="badge text-bg-primary">@tag@(count > 1 ? $" ×{count}" : "")</span>
+                        }
+                    </div>
+                }
+                <div class="fw-semibold small">Available on cards not in your deck</div>
+                @if (available.Count == 0)
+                {
+                    <span class="text-muted small">Nothing more to add (from tagged cards).</span>
+                }
+                else
+                {
+                    <div class="d-flex flex-wrap gap-1">
+                        @foreach (var tag in available)
+                        {
+                            <span class="badge text-bg-light border">@tag</span>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
 
     <h2 class="h5">Your deck (@deck.Count)</h2>
     @if (deck.Count == 0)
@@ -158,6 +196,30 @@ else
     private List<AbilityCard> DeckCards() => InSlot(CardSlot.Deck);
     private List<AbilityCard> BenchCards() => InSlot(CardSlot.Bench);
     private List<AbilityCard> UnownedCards() => InSlot(null);
+
+    // Aggregate effect tags across the chosen deck (tag → how many deck cards provide it).
+    private static Dictionary<string, int> TagCounts(IEnumerable<AbilityCard> cards)
+    {
+        var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        foreach (var tag in cards.SelectMany(c => c.Tags))
+            counts[tag] = counts.GetValueOrDefault(tag) + 1;
+        return counts;
+    }
+
+    // Tags found on this class's cards that are NOT in the deck yet (what you could still add).
+    private List<string> AvailableTags(List<AbilityCard> deck)
+    {
+        if (Me is null) return [];
+        var inDeck = deck.SelectMany(c => c.Tags).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var deckIds = deck.Select(c => c.Id).ToHashSet();
+        return Cards.For(Me.ClassName)
+            .Where(c => !deckIds.Contains(c.Id))
+            .SelectMany(c => c.Tags)
+            .Where(t => !inDeck.Contains(t))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(t => t)
+            .ToList();
+    }
 
     private Task Move(int cardId, CardSlot? slot) => Store.SetCardSlotAsync(Me!, cardId, slot);
 

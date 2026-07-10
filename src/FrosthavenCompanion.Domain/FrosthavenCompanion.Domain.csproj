@@ -17,6 +17,8 @@
     <EmbeddedResource Include="Data/perks.json" />
     <!-- Per-class ability cards (deck/bench picker). -->
     <EmbeddedResource Include="Data/cards.json" />
+    <!-- Authored per-card effect tags, kept separate so regenerating cards.json never wipes them. -->
+    <EmbeddedResource Include="Data/card-tags.json" />
   </ItemGroup>
 
 </Project>

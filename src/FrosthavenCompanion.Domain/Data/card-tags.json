@@ -1,0 +1,25 @@
+{
+  "blinkblade": {
+    "Power Leak": ["XP", "Heal"],
+    "Cascading Reaction": ["Bleed", "XP"],
+    "Blurry Jab": ["Bleed", "Muddle", "XP", "Damage"],
+    "Twin Strike": ["Move", "XP", "Air", "Pierce", "Heal", "Earth"],
+    "Kinetic Transfer": ["Push", "Fire", "Water", "Damage", "Time Token"],
+    "Hit and Run": ["Move", "XP", "Pin"],
+    "Temporal Displacement": ["Move", "Loot"],
+    "Sap Speed": ["XP", "Pin"],
+    "Overdrive": ["Shield", "Jump", "Muddle"],
+    "Drive Recharge": ["Bless", "Time Token", "Regenerate", "Ward", "Heal"],
+    "Borrowed Time": ["Pin"],
+    "Experimental Adjustment": ["Damage", "Pin", "Muddle", "Vanish", "Loot"],
+    "Sand in the Hourglass": ["Bleed", "Heal"],
+    "Reckless Augmentation": [],
+    "Systems Reboot": ["Self Heal"],
+    "Double Time": [],
+    "Make It Count": ["Heal", "XP", "Bless", "Bleed"],
+    "Precision Timing": ["XP"],
+    "Potential Energy": [],
+    "Breakneck Speed": [],
+    "Flashing Flurry": ["XP", "Stun", "Time Token"]
+  }
+}
