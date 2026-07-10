@@ -77,6 +77,15 @@ else
                     }
                     <div class="small fw-semibold mt-1">@card.Name</div>
                     <div class="text-muted small">Init @card.InitiativeDisplay</div>
+                    @if (card.Tags.Count > 0)
+                    {
+                        <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                            @foreach (var t in card.Tags)
+                            {
+                                <TagChip Tag="@t" Compact="true" />
+                            }
+                        </div>
+                    }
                 </div>
             }
         </div>

@@ -77,6 +77,15 @@ else
                             <span class="leader-badge">★ LEADER</span>
                         }
                     </div>
+                    @if (card.Tags.Count > 0)
+                    {
+                        <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                            @foreach (var t in card.Tags)
+                            {
+                                <TagChip Tag="@t" Compact="true" />
+                            }
+                        </div>
+                    }
                 </div>
             }
         </div>
@@ -96,7 +105,13 @@ else
                     {
                         var id = card.Id;
                         <li class="d-flex align-items-center gap-1 mb-1">
-                            <span class="flex-grow-1">@card.Name</span>
+                            <span class="flex-grow-1">
+                                @card.Name
+                                @foreach (var t in card.Tags)
+                                {
+                                    <TagChip Tag="@t" Compact="true" />
+                                }
+                            </span>
                             <button class="btn btn-outline-secondary btn-sm py-0" @onclick="() => Move(id, null)">Hand</button>
                             <button class="btn btn-outline-secondary btn-sm py-0" @onclick="() => Move(id, PlayPile.Discard)">Discard</button>
                             <button class="btn btn-outline-danger btn-sm py-0" @onclick="() => Move(id, PlayPile.Lost)">Lose</button>
@@ -119,7 +134,13 @@ else
                     {
                         var id = card.Id;
                         <li class="d-flex align-items-center gap-1 mb-1">
-                            <span class="flex-grow-1">@card.Name <span class="text-muted">@card.InitiativeDisplay</span></span>
+                            <span class="flex-grow-1">
+                                @card.Name <span class="text-muted">@card.InitiativeDisplay</span>
+                                @foreach (var t in card.Tags)
+                                {
+                                    <TagChip Tag="@t" Compact="true" />
+                                }
+                            </span>
                             <button class="btn btn-outline-secondary btn-sm py-0" @onclick="() => Move(id, null)">Hand</button>
                             <button class="btn btn-outline-success btn-sm py-0" @onclick="() => Move(id, PlayPile.Active)">Active</button>
                             <button class="btn btn-outline-danger btn-sm py-0" @onclick="() => Move(id, PlayPile.Lost)">Lose</button>
@@ -142,7 +163,13 @@ else
                     {
                         var id = card.Id;
                         <li class="d-flex align-items-center gap-1 mb-1">
-                            <span class="flex-grow-1">@card.Name</span>
+                            <span class="flex-grow-1">
+                                @card.Name
+                                @foreach (var t in card.Tags)
+                                {
+                                    <TagChip Tag="@t" Compact="true" />
+                                }
+                            </span>
                             <button class="btn btn-outline-secondary btn-sm py-0" @onclick="() => Move(id, null)">Hand</button>
                         </li>
                     }

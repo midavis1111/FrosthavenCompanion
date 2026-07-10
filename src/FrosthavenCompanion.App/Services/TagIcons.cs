@@ -55,4 +55,25 @@ public static class TagIcons
     /// <summary>Resolves a tag to its icon path (or null) and tooltip.</summary>
     public static (string? Icon, string Tip) Resolve(string tag) =>
         Map.TryGetValue(tag, out var v) ? v : (null, tag);
+
+    /// <summary>Non-condition icons (elements, keywords, actions) for the icon reference page.</summary>
+    public static readonly IReadOnlyList<(string Icon, string Name, string Description)> Extra =
+    [
+        ("icons/tags/xp.png", "XP", "Experience earned."),
+        ("icons/tags/heal.png", "Heal", "Restore hit points."),
+        ("icons/tags/loot.png", "Loot", "Collect loot within range."),
+        ("icons/tags/jump.png", "Jump", "Move, ignoring terrain and enemies."),
+        ("icons/tags/shield.png", "Shield", "Reduce incoming damage."),
+        ("icons/tags/damage.png", "Damage", "Deal damage."),
+        ("icons/tags/summon.png", "Summon", "Bring a summon into play."),
+        ("icons/tags/push.png", "Push", "Force an enemy away from you."),
+        ("icons/tags/pull.png", "Pull", "Draw an enemy toward you."),
+        ("icons/tags/pierce.png", "Pierce", "Ignore that much of the target's Shield."),
+        ("icons/tags/fire.png", "Fire", "Fire element (infuse / consume)."),
+        ("icons/tags/ice.png", "Ice / Water", "Ice element (infuse / consume)."),
+        ("icons/tags/air.png", "Air", "Air element (infuse / consume)."),
+        ("icons/tags/earth.png", "Earth", "Earth element (infuse / consume)."),
+        ("icons/game/move.png", "Move", "Move that many hexes."),
+        ("icons/game/time.png", "Time Token", "Blinkblade time token (hourglass)."),
+    ];
 }

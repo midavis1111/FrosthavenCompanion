@@ -1,9 +1,10 @@
 @page "/conditions"
+@page "/icons"
 
-<PageTitle>Conditions — Frosthaven Companion</PageTitle>
+<PageTitle>Icons — Frosthaven Companion</PageTitle>
 
-<h1>Conditions</h1>
-<p class="text-muted">Quick reference for the standard status conditions.</p>
+<h1>Icons</h1>
+<p class="text-muted">Quick reference for status conditions and the other card icons.</p>
 
 <div class="row">
     <div class="col-12 col-lg-6 mb-3">
@@ -31,6 +32,25 @@
                     <div>
                         <span class="fw-semibold">@c.Name</span>
                         <span class="small text-muted ms-1">@c.Description</span>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<h2 class="h5">Other icons</h2>
+<p class="text-muted small">Elements, keywords and actions used by the card effect tags.</p>
+<div class="row">
+    <div class="col-12 col-lg-6 mb-3">
+        <ul class="list-group">
+            @foreach (var (icon, name, desc) in TagIcons.Extra)
+            {
+                <li class="list-group-item d-flex align-items-start gap-2">
+                    <img src="@icon" alt="@name" style="height:1.6rem; width:auto; flex-shrink:0;" />
+                    <div>
+                        <span class="fw-semibold">@name</span>
+                        <span class="small text-muted ms-1">@desc</span>
                     </div>
                 </li>
             }
