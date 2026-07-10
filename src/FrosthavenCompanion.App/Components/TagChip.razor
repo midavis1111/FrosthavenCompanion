@@ -1,0 +1,25 @@
+@* One effect-tag chip: icon + tooltip (falls back to text when we have no icon). *@
+@{
+    var (icon, tip) = TagIcons.Resolve(Tag);
+}
+<span class="d-inline-flex align-items-center gap-1 border rounded px-2 @(Muted ? "opacity-50" : "")"
+      style="padding-block:.15rem" title="@tip">
+    @if (icon is not null)
+    {
+        <img src="@icon" alt="@tip" style="height:1.4rem; width:auto" />
+    }
+    else
+    {
+        <span class="small fw-semibold">@Tag</span>
+    }
+    @if (Count > 1)
+    {
+        <small class="fw-semibold">×@Count</small>
+    }
+</span>
+
+@code {
+    [Parameter] public string Tag { get; set; } = "";
+    [Parameter] public int Count { get; set; } = 1;
+    [Parameter] public bool Muted { get; set; }
+}

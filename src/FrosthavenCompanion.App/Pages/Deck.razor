@@ -63,10 +63,10 @@ else
                 }
                 else
                 {
-                    <div class="d-flex flex-wrap gap-1 mb-2">
+                    <div class="d-flex flex-wrap gap-2 mb-2">
                         @foreach (var (tag, count) in provided.OrderByDescending(t => t.Value).ThenBy(t => t.Key))
                         {
-                            <span class="badge text-bg-primary">@tag@(count > 1 ? $" ×{count}" : "")</span>
+                            <TagChip Tag="@tag" Count="@count" />
                         }
                     </div>
                 }
@@ -77,10 +77,10 @@ else
                 }
                 else
                 {
-                    <div class="d-flex flex-wrap gap-1">
+                    <div class="d-flex flex-wrap gap-2">
                         @foreach (var tag in available)
                         {
-                            <span class="badge text-bg-light border">@tag</span>
+                            <TagChip Tag="@tag" Muted="true" />
                         }
                     </div>
                 }
