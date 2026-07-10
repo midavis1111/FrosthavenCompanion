@@ -21,5 +21,19 @@
     "Potential Energy": [],
     "Breakneck Speed": [],
     "Flashing Flurry": ["XP", "Stun", "Time Token"]
+  },
+  "trapper": {
+    "Honeypot": ["Loot", "Heal"],
+    "Boar Catcher": ["Damage", "Jump", "XP"],
+    "Caltrops": ["Damage", "XP"],
+    "Enticing Bait": ["Heal", "Muddle", "XP"],
+    "Spike Pit": ["Damage", "Pin", "XP"],
+    "Electrified net": ["Damage", "XP", "Strengthen"],
+    "Exploding Decoy": ["Pull", "Damage"],
+    "Flurry of Nails": ["Push", "Jump"],
+    "Furry facade": ["Vanish", "Summon"],
+    "Spring Loaded": ["Jump", "XP"],
+    "Improvised Improvement": ["Damage", "Bleed", "Bless"],
+    "Dismantle": ["Damage"]
   }
 }

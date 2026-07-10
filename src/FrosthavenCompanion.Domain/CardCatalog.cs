@@ -89,9 +89,10 @@ public sealed class CardCatalog
         foreach (var (classSlug, byName) in tags)
         {
             if (!data.TryGetValue(classSlug, out var deck)) continue;
+            var lookup = new Dictionary<string, List<string>>(byName, StringComparer.OrdinalIgnoreCase);
             for (var i = 0; i < deck.Cards.Count; i++)
             {
-                if (byName.TryGetValue(deck.Cards[i].Name, out var cardTags))
+                if (lookup.TryGetValue(deck.Cards[i].Name, out var cardTags))
                     deck.Cards[i] = deck.Cards[i] with { Tags = cardTags };
             }
         }
