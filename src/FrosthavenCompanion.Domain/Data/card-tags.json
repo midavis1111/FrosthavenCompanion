@@ -20,7 +20,8 @@
     "Precision Timing": ["XP"],
     "Potential Energy": [],
     "Breakneck Speed": [],
-    "Flashing Flurry": ["XP", "Stun", "Time Token"]
+    "Flashing Flurry": ["XP", "Stun", "Time Token"],
+    "Stab Them All": ["XP", "Ward"]
   },
   "trapper": {
     "Honeypot": ["Loot", "Heal"],
