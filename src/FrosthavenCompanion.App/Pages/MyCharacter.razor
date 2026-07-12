@@ -202,54 +202,40 @@ else
                 }
             }
 
-            <h2 class="h6 mt-3">Ability cards</h2>
+            <h2 class="h6 mt-3">Deck</h2>
             @if (Cards.Has(c.ClassName))
             {
-                var deckCount = c.Cards.Count(kv => kv.Value == CardSlot.Deck);
+                var deckCards = Cards.For(c.ClassName)
+                    .Where(x => CampaignStore.CardSlotOf(c, x.Id) == CardSlot.Deck)
+                    .OrderBy(x => x.Initiative).ToList();
                 var handSize = Cards.HandSize(c.ClassName);
-                <div class="small mb-2">
-                    <div class="text-muted">
-                        Tap: — → <span class="text-secondary fw-semibold">Bench</span>
-                        → <span class="text-success fw-semibold">Deck</span> → —.
-                    </div>
-                    <div>
-                        Deck
-                        <strong class="@(deckCount > handSize ? "text-danger" : deckCount == handSize ? "text-success" : null)">@deckCount</strong>
-                        / @handSize
-                        @if (deckCount > handSize)
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="@(deckCards.Count > handSize ? "text-danger" : deckCards.Count == handSize ? "text-success" : null)">
+                        <strong>@deckCards.Count</strong> / @handSize cards
+                    </span>
+                    <a href="deck" class="btn btn-outline-primary btn-sm py-0">Manage deck →</a>
+                </div>
+                @if (deckCards.Count == 0)
+                {
+                    <p class="text-muted small mb-0">No cards selected — <a href="deck">build your deck →</a></p>
+                }
+                else
+                {
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var card in deckCards)
                         {
-                            <span class="text-danger fw-semibold ms-1">⚠ over hand size</span>
+                            @if (card.Image is not null)
+                            {
+                                <img src="icons/cards/@(PerkCatalog.Slugify(c.ClassName))/@(card.Image).png"
+                                     alt="@card.Name" title="@card.Name (@card.InitiativeDisplay)" loading="lazy"
+                                     style="width:70px; height:auto" class="border rounded" />
+                            }
+                            else
+                            {
+                                <span class="badge text-bg-light border">@card.Name</span>
+                            }
                         }
                     </div>
-                </div>
-                @foreach (var grp in Cards.For(c.ClassName).GroupBy(x => x.Level))
-                {
-                    <div class="text-muted small mt-2 fw-semibold">Level @grp.Key</div>
-                    @foreach (var card in grp)
-                    {
-                        var cardId = card.Id;
-                        var slot = CampaignStore.CardSlotOf(c, cardId);
-                        <div class="d-flex align-items-start gap-2 mb-1">
-                            <button type="button" class="btn btn-sm @CardBtnClass(slot) flex-shrink-0" style="min-width:3.6rem"
-                                    @onclick="() => CycleCardAsync(c, cardId)">@CardBtnLabel(slot)</button>
-                            <div class="flex-grow-1">
-                                @if (card.Image is not null)
-                                {
-                                    <details>
-                                        <summary class="small" style="cursor:pointer">@card.Name</summary>
-                                        <img src="icons/cards/@(PerkCatalog.Slugify(c.ClassName))/@(card.Image).png"
-                                             alt="@card.Name" loading="lazy"
-                                             class="img-fluid border rounded mt-1" style="max-width:320px" />
-                                    </details>
-                                }
-                                else
-                                {
-                                    <span class="small">@card.Name</span>
-                                }
-                            </div>
-                            <span class="text-muted small flex-shrink-0">@card.InitiativeDisplay</span>
-                        </div>
-                    }
                 }
             }
             else if (!string.IsNullOrWhiteSpace(c.ClassName))
@@ -368,23 +354,6 @@ else
         Store.CyclePerkAsync(c, perkIndex, boxIndex);
 
     private Task ToggleMasteryAsync(Character c, int index) => Store.ToggleMasteryAsync(c, index);
-
-    private Task CycleCardAsync(Character c, int cardId) => Store.CycleCardAsync(c, cardId);
-
-    private static string CardBtnClass(CardSlot? s) => s switch
-    {
-        CardSlot.Deck => "btn-success",
-        CardSlot.Bench => "btn-secondary",
-        _ => "btn-outline-secondary",
-    };
-
-    private static string CardBtnLabel(CardSlot? s) => s switch
-    {
-        CardSlot.Deck => "Deck",
-        CardSlot.Bench => "Bench",
-        _ => "—",
-    };
-
 
     private static string PerkBoxClass(PerkMark? s) => s switch
     {

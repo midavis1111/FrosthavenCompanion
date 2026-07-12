@@ -6,179 +6,160 @@
 
 <h1>Deck</h1>
 <p class="text-muted" style="max-width: 42rem">
-    Build your scenario hand: move cards between your deck and the bench. Set class/level on the
-    <a href="party">Party</a> page; full card management is on <a href="character">My Character</a>.
+    Build your scenario hand: tap a card to add it to your deck, tap a deck card to send it back to the bench.
+    Set class/level on <a href="party">Party</a>; run the deck in <a href="play">Play</a>.
 </p>
 
 @if (!loaded)
 {
     <p><em>Loading…</em></p>
 }
-else if (Me is null || !Cards.Has(Me.ClassName))
+else if (Me is null || Cards.For(Me.ClassName).Count == 0)
 {
     <p class="text-muted">No ability cards to show. Pick your class on the <a href="party">Party</a> page.</p>
 }
 else
 {
-    var deck = DeckCards();
-    var bench = BenchCards();
-    var unowned = UnownedCards();
+    var all = Cards.For(Me.ClassName);
     var hand = Cards.HandSize(Me.ClassName);
+    var deck = all.Where(InDeck).OrderBy(c => c.Initiative).ToList();
+    var bench = all.Where(c => !InDeck(c) && EffSlot(c) == CardSlot.Bench).ToList();
+    var acquire = all.Where(c => EffSlot(c) is null && LevelNum(c) <= CharLevel).ToList();
+    var locked = all.Where(c => EffSlot(c) is null && LevelNum(c) > CharLevel).ToList();
     var provided = TagCounts(deck);
     var available = AvailableTags(deck);
+    var full = deck.Count >= hand;
 
-    <div class="card mb-3">
+    <div class="card mb-3 sticky-top" style="top:0; z-index:5">
         <div class="card-body py-2">
-            <div class="d-flex flex-wrap gap-4">
+            <div class="d-flex flex-wrap gap-4 align-items-center mb-1">
                 <div>
-                    <div class="text-muted small">Deck size</div>
-                    <div class="h5 mb-0 @(deck.Count > hand ? "text-danger" : deck.Count == hand ? "text-success" : "")">
-                        @deck.Count / @hand
-                        @if (deck.Count > hand)
-                        {
-                            <span class="small">⚠ over hand size</span>
-                        }
-                    </div>
+                    <span class="text-muted small">Deck</span>
+                    <span class="h5 mb-0 ms-1 @(deck.Count > hand ? "text-danger" : deck.Count == hand ? "text-success" : "")">@deck.Count / @hand</span>
+                    @if (deck.Count > hand)
+                    {
+                        <span class="text-danger small">⚠ over hand size</span>
+                    }
                 </div>
-                <div>
-                    <div class="text-muted small">Levels</div>
-                    <div>@(deck.Count == 0 ? "—" : LevelMix(deck))</div>
-                </div>
-                <div>
-                    <div class="text-muted small">Initiative range</div>
-                    <div>@InitiativeRange(deck)</div>
-                </div>
+                <div><span class="text-muted small">Init</span> <span class="ms-1">@InitiativeRange(deck)</span></div>
             </div>
+            <div class="fw-semibold small">Provides</div>
+            @if (provided.Count == 0)
+            {
+                <span class="text-muted small">Nothing selected yet.</span>
+            }
+            else
+            {
+                <div class="d-flex flex-wrap gap-2 mb-1">
+                    @foreach (var (tag, count) in provided.OrderByDescending(t => t.Value).ThenBy(t => t.Key))
+                    {
+                        <TagChip Tag="@tag" Count="@count" />
+                    }
+                </div>
+            }
+            @if (available.Count > 0)
+            {
+                <div class="fw-semibold small">Available to add</div>
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach (var tag in available)
+                    {
+                        <TagChip Tag="@tag" Muted="true" />
+                    }
+                </div>
+            }
         </div>
     </div>
 
-    @if (provided.Count > 0 || available.Count > 0)
-    {
-        <div class="card mb-3">
-            <div class="card-body py-2">
-                <div class="fw-semibold small">Your deck provides</div>
-                @if (provided.Count == 0)
-                {
-                    <span class="text-muted small">No tagged effects in your deck yet.</span>
-                }
-                else
-                {
-                    <div class="d-flex flex-wrap gap-2 mb-2">
-                        @foreach (var (tag, count) in provided.OrderByDescending(t => t.Value).ThenBy(t => t.Key))
-                        {
-                            <TagChip Tag="@tag" Count="@count" />
-                        }
-                    </div>
-                }
-                <div class="fw-semibold small">Available on cards not in your deck</div>
-                @if (available.Count == 0)
-                {
-                    <span class="text-muted small">Nothing more to add (from tagged cards).</span>
-                }
-                else
-                {
-                    <div class="d-flex flex-wrap gap-2">
-                        @foreach (var tag in available)
-                        {
-                            <TagChip Tag="@tag" Muted="true" />
-                        }
-                    </div>
-                }
-            </div>
-        </div>
-    }
-
-    <h2 class="h5">Your deck (@deck.Count)</h2>
+    <h2 class="h5">Your deck (@deck.Count / @hand)</h2>
     @if (deck.Count == 0)
     {
-        <p class="text-muted">No cards in your deck yet — add some from the bench below.</p>
+        <p class="text-muted">No cards selected yet — tap cards below to add them.</p>
     }
     else
     {
-        <div class="d-flex flex-wrap gap-3 mb-3">
-            @foreach (var card in deck)
+        @foreach (var g in deck.GroupBy(c => c.Level).OrderBy(g => LevelSort(g.Key)))
+        {
+            <div class="text-muted small fw-semibold mt-2">Level @g.Key</div>
+            <div class="d-flex flex-wrap gap-3">
+                @foreach (var card in g)
+                {
+                    var c = card;
+                    <DeckCardTile Card="c" ClassSlug="@ClassSlug" Selected="true"
+                                  OnClick="() => RemoveFromDeck(c)" OnZoom="Zoom" />
+                }
+            </div>
+        }
+    }
+
+    <details class="mt-3" open="@(!full)">
+        <summary class="fw-semibold">
+            @(full ? $"Bench & available — deck full ({deck.Count}/{hand}); remove a card to swap" : "Add cards")
+        </summary>
+
+        @if (bench.Count > 0)
+        {
+            <h3 class="h6 mt-3">Bench <span class="text-muted fw-normal">(owned, not in deck)</span></h3>
+            @foreach (var g in bench.GroupBy(c => c.Level).OrderBy(g => LevelSort(g.Key)))
             {
-                var id = card.Id;
-                <div style="width: 150px">
-                    @if (card.Image is not null)
+                <div class="text-muted small fw-semibold mt-2">Level @g.Key</div>
+                <div class="d-flex flex-wrap gap-3">
+                    @foreach (var card in g)
                     {
-                        var imgSrc = $"icons/cards/{ClassSlug}/{card.Image}.png";
-                        <img src="@imgSrc" alt="@card.Name" loading="lazy"
-                             class="img-fluid border rounded" style="cursor: zoom-in"
-                             @onclick="() => lightbox?.Open(imgSrc, card.Name)" />
+                        var c = card;
+                        <DeckCardTile Card="c" ClassSlug="@ClassSlug"
+                                      ShowRemove="@(!AutoOwned(c))" OnRemove="() => UnOwn(c)"
+                                      OnClick="() => AddToDeck(c)" OnZoom="Zoom" />
                     }
-                    <div class="small fw-semibold mt-1">@card.Name</div>
-                    <div class="text-muted small">Init @card.InitiativeDisplay · @LevelLabel(card.Level)</div>
-                    <button class="btn btn-outline-secondary btn-sm mt-1 w-100" @onclick="() => Move(id, CardSlot.Bench)">
-                        → Bench
-                    </button>
                 </div>
             }
-        </div>
-    }
+        }
 
-    <h2 class="h5">Bench (@bench.Count)</h2>
-    @if (bench.Count == 0)
-    {
-        <p class="text-muted">Nothing benched.</p>
-    }
-    else
-    {
-        <ul class="list-group mb-3" style="max-width: 40rem">
-            @foreach (var card in bench)
+        @if (acquire.Count > 0)
+        {
+            <h3 class="h6 mt-3">Add to your collection <span class="text-muted fw-normal">(level 2+ — tap to mark as owned)</span></h3>
+            @foreach (var g in acquire.GroupBy(c => c.Level).OrderBy(g => LevelSort(g.Key)))
             {
-                var id = card.Id;
-                <li class="list-group-item d-flex align-items-center gap-2">
-                    <button class="btn btn-success btn-sm" @onclick="() => Move(id, CardSlot.Deck)">→ Deck</button>
-                    <div class="flex-grow-1">
-                        @if (card.Image is not null)
+                <div class="text-muted small fw-semibold mt-2">Level @g.Key</div>
+                <div class="d-flex flex-wrap gap-3">
+                    @foreach (var card in g)
+                    {
+                        var c = card;
+                        <DeckCardTile Card="c" ClassSlug="@ClassSlug" Dimmed="true"
+                                      OnClick="() => Acquire(c)" OnZoom="Zoom" />
+                    }
+                </div>
+            }
+        }
+
+        @if (locked.Count > 0)
+        {
+            <details class="mt-3">
+                <summary class="text-muted">Higher levels (unlock by leveling up)</summary>
+                @foreach (var g in locked.GroupBy(c => c.Level).OrderBy(g => LevelSort(g.Key)))
+                {
+                    <div class="text-muted small fw-semibold mt-2">Level @g.Key</div>
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach (var card in g)
                         {
-                            <details>
-                                <summary class="small">@card.Name</summary>
-                                <img src="icons/cards/@(ClassSlug)/@(card.Image).png" alt="@card.Name" loading="lazy"
-                                     class="img-fluid border rounded mt-1" style="max-width:300px" />
-                            </details>
-                        }
-                        else
-                        {
-                            <span class="small">@card.Name</span>
+                            var c = card;
+                            <DeckCardTile Card="c" ClassSlug="@ClassSlug" Locked="true" OnZoom="Zoom" />
                         }
                     </div>
-                    <span class="text-muted small">@card.InitiativeDisplay · @LevelLabel(card.Level)</span>
-                    <button class="btn btn-outline-secondary btn-sm" title="Remove from owned"
-                            @onclick="() => Move(id, null)">✕</button>
-                </li>
-            }
-        </ul>
-    }
-
-    @if (unowned.Count > 0)
-    {
-        <details>
-            <summary class="text-muted">Add cards you own (@unowned.Count not yet on deck or bench)</summary>
-            <ul class="list-group mt-2" style="max-width: 40rem">
-                @foreach (var card in unowned)
-                {
-                    var id = card.Id;
-                    <li class="list-group-item d-flex align-items-center gap-2">
-                        <button class="btn btn-outline-secondary btn-sm" @onclick="() => Move(id, CardSlot.Bench)">+ Bench</button>
-                        <span class="flex-grow-1 small">@card.Name</span>
-                        <span class="text-muted small">@card.InitiativeDisplay · @LevelLabel(card.Level)</span>
-                    </li>
                 }
-            </ul>
-        </details>
-    }
+            </details>
+        }
+    </details>
 }
 
 <CardLightbox @ref="lightbox" />
 
 @code {
-    private CardLightbox? lightbox;
     private bool loaded;
+    private CardLightbox? lightbox;
 
     private Character? Me => Store.MyCharacter;
     private string ClassSlug => Me is null ? "" : PerkCatalog.Slugify(Me.ClassName);
+    private int CharLevel => Me?.Level ?? 1;
 
     protected override async Task OnInitializedAsync()
     {
@@ -186,18 +167,36 @@ else
         loaded = true;
     }
 
-    private List<AbilityCard> InSlot(CardSlot? slot) => Me is null
-        ? []
-        : Cards.For(Me.ClassName)
-            .Where(card => CampaignStore.CardSlotOf(Me, card.Id) == slot)
-            .OrderBy(card => card.Initiative)
-            .ToList();
+    // Level 1 cards are always owned (your base hand); level X and 2+ must be acquired.
+    private static bool AutoOwned(AbilityCard c) => c.Level == "1";
 
-    private List<AbilityCard> DeckCards() => InSlot(CardSlot.Deck);
-    private List<AbilityCard> BenchCards() => InSlot(CardSlot.Bench);
-    private List<AbilityCard> UnownedCards() => InSlot(null);
+    // Effective ownership slot: stored value, or Bench for auto-owned level-1 cards, else null (unowned).
+    private CardSlot? EffSlot(AbilityCard c) =>
+        CampaignStore.CardSlotOf(Me!, c.Id) ?? (AutoOwned(c) ? CardSlot.Bench : null);
 
-    // Aggregate effect tags across the chosen deck (tag → how many deck cards provide it).
+    private bool InDeck(AbilityCard c) => CampaignStore.CardSlotOf(Me!, c.Id) == CardSlot.Deck;
+
+    // Level for gating (X cards are available from level 1).
+    private static int LevelNum(AbilityCard c) => c.Level switch
+    {
+        "1" or "X" => 1,
+        var l => int.TryParse(l, out var n) ? n : 99,
+    };
+
+    // Level for display order (1, X, 2..9).
+    private static int LevelSort(string level) => level switch
+    {
+        "1" => 0,
+        "X" => 1,
+        var l => int.TryParse(l, out var n) ? n : 99,
+    };
+
+    private Task AddToDeck(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Deck);
+    private Task RemoveFromDeck(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Bench);
+    private Task Acquire(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Bench);
+    private Task UnOwn(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, null);
+    private void Zoom(string src) => lightbox?.Open(src);
+
     private static Dictionary<string, int> TagCounts(IEnumerable<AbilityCard> cards)
     {
         var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -206,7 +205,6 @@ else
         return counts;
     }
 
-    // Tags found on this class's cards that are NOT in the deck yet (what you could still add).
     private List<string> AvailableTags(List<AbilityCard> deck)
     {
         if (Me is null) return [];
@@ -221,16 +219,6 @@ else
             .ToList();
     }
 
-    private Task Move(int cardId, CardSlot? slot) => Store.SetCardSlotAsync(Me!, cardId, slot);
-
-    private static string LevelLabel(string level) => level == "X" ? "X" : $"L{level}";
-
-    private static string LevelMix(IEnumerable<AbilityCard> cards) =>
-        string.Join(", ", cards
-            .GroupBy(c => c.Level)
-            .OrderBy(g => LevelOrder(g.Key))
-            .Select(g => $"{LevelLabel(g.Key)}×{g.Count()}"));
-
     private static string InitiativeRange(IReadOnlyList<AbilityCard> deck)
     {
         if (deck.Count == 0) return "—";
@@ -238,11 +226,4 @@ else
         var max = deck.MaxBy(c => c.Initiative)!;
         return min.Id == max.Id ? min.InitiativeDisplay : $"{min.InitiativeDisplay} – {max.InitiativeDisplay}";
     }
-
-    private static int LevelOrder(string level) => level switch
-    {
-        "1" => 0,
-        "X" => 1,
-        _ => int.TryParse(level, out var n) ? n : 99,
-    };
 }

@@ -1,0 +1,51 @@
+@* A selectable card tile: click toggles its state; the corner ⤢ opens the zoom. *@
+<div class="dt @(Locked ? "locked" : "") @(Dimmed && !Selected ? "dim" : "")"
+     style="width:120px" @onclick="HandleClick">
+    <div class="imgwrap">
+        @if (Card.Image is not null)
+        {
+            <img src="@Src" alt="@Card.Name" loading="lazy" class="img-fluid rounded @(Selected ? "sel" : "border")" />
+            @if (Selected)
+            {
+                <span class="check">✓</span>
+            }
+            <button type="button" class="zoom" title="Zoom" @onclick:stopPropagation="true"
+                    @onclick="() => OnZoom.InvokeAsync(Src)">⤢</button>
+            @if (ShowRemove)
+            {
+                <button type="button" class="rm" title="Remove from collection" @onclick:stopPropagation="true"
+                        @onclick="() => OnRemove.InvokeAsync()">✕</button>
+            }
+        }
+        else
+        {
+            <div class="text-muted small border rounded p-2">@Card.Name</div>
+        }
+    </div>
+    <div class="small fw-semibold mt-1">@Card.Name</div>
+    <div class="text-muted small">Init @Card.InitiativeDisplay</div>
+    @if (Card.Tags.Count > 0)
+    {
+        <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+            @foreach (var t in Card.Tags)
+            {
+                <TagChip Tag="@t" Compact="true" />
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public AbilityCard Card { get; set; } = default!;
+    [Parameter] public string ClassSlug { get; set; } = "";
+    [Parameter] public bool Selected { get; set; }
+    [Parameter] public bool Dimmed { get; set; }
+    [Parameter] public bool Locked { get; set; }
+    [Parameter] public bool ShowRemove { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public EventCallback OnRemove { get; set; }
+    [Parameter] public EventCallback<string> OnZoom { get; set; }
+
+    private string Src => $"icons/cards/{ClassSlug}/{Card.Image}.png";
+    private Task HandleClick() => Locked ? Task.CompletedTask : OnClick.InvokeAsync();
+}
