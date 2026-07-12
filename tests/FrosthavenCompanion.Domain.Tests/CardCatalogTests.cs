@@ -33,6 +33,7 @@ public class CardCatalogTests
     [InlineData("Geminate")]
     [InlineData("Trapper")]
     [InlineData("Pyroclast")]
+    [InlineData("Crashing Tide")]
     public void Authored_classes_load_cards_with_images(string className)
     {
         var catalog = CardCatalog.LoadEmbedded();
@@ -51,7 +52,7 @@ public class CardCatalogTests
             new HashSet<string>
             {
                 "blinkblade", "deathwalker", "geminate", "trapper", "pyroclast",
-                "banner-spear", "boneshaper", "drifter",
+                "banner-spear", "boneshaper", "drifter", "crashing-tide",
             },
             catalog.Classes.ToHashSet());
     }

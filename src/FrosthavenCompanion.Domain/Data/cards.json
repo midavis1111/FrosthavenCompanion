@@ -1725,5 +1725,227 @@
     "image": "everlasting"
    }
   ]
+ },
+ "crashing-tide": {
+  "handSize": 12,
+  "cards": [
+   {
+    "id": 484,
+    "name": "Mighty Claws",
+    "level": "1",
+    "initiative": 23,
+    "image": "mighty-claws"
+   },
+   {
+    "id": 477,
+    "name": "Sharp Chitin",
+    "level": "1",
+    "initiative": 25,
+    "image": "sharp-chitin"
+   },
+   {
+    "id": 483,
+    "name": "Crashing Surge",
+    "level": "1",
+    "initiative": 34,
+    "image": "crashing-surge"
+   },
+   {
+    "id": 479,
+    "name": "Pool of Power",
+    "level": "1",
+    "initiative": 41,
+    "image": "pool-of-power"
+   },
+   {
+    "id": 481,
+    "name": "Cleansing Swell",
+    "level": "1",
+    "initiative": 45,
+    "image": "cleansing-swell"
+   },
+   {
+    "id": 480,
+    "name": "Skitter",
+    "level": "1",
+    "initiative": 51,
+    "image": "skitter"
+   },
+   {
+    "id": 476,
+    "name": "Rancid Brine",
+    "level": "1",
+    "initiative": 62,
+    "image": "rancid-brine"
+   },
+   {
+    "id": 485,
+    "name": "Submerge",
+    "level": "1",
+    "initiative": 68,
+    "image": "submerge"
+   },
+   {
+    "id": 478,
+    "name": "Down to the Depths",
+    "level": "1",
+    "initiative": 74,
+    "image": "down-to-the-depths"
+   },
+   {
+    "id": 475,
+    "name": "Soft Flesh",
+    "level": "1",
+    "initiative": 75,
+    "image": "soft-flesh"
+   },
+   {
+    "id": 474,
+    "name": "Overwhelming Wave",
+    "level": "1",
+    "initiative": 86,
+    "image": "overwhelming-wave"
+   },
+   {
+    "id": 482,
+    "name": "Cresting Force",
+    "level": "1",
+    "initiative": 87,
+    "image": "cresting-force"
+   },
+   {
+    "id": 487,
+    "name": "Undertow",
+    "level": "X",
+    "initiative": 15,
+    "image": "undertow"
+   },
+   {
+    "id": 488,
+    "name": "Crush Armor",
+    "level": "X",
+    "initiative": 42,
+    "image": "crush-armor"
+   },
+   {
+    "id": 486,
+    "name": "Rising flood",
+    "level": "X",
+    "initiative": 49,
+    "image": "rising-flood"
+   },
+   {
+    "id": 490,
+    "name": "Blood in the Water",
+    "level": "2",
+    "initiative": 53,
+    "image": "blood-in-the-water"
+   },
+   {
+    "id": 489,
+    "name": "Smashing Torrent",
+    "level": "2",
+    "initiative": 79,
+    "image": "smashing-torrent"
+   },
+   {
+    "id": 491,
+    "name": "Shuck",
+    "level": "3",
+    "initiative": 55,
+    "image": "shuck"
+   },
+   {
+    "id": 492,
+    "name": "Powerful Pincer",
+    "level": "3",
+    "initiative": 70,
+    "image": "powerful-pincer"
+   },
+   {
+    "id": 493,
+    "name": "Chaotic Refraction",
+    "level": "4",
+    "initiative": 26,
+    "image": "chaotic-refraction"
+   },
+   {
+    "id": 494,
+    "name": "Clean Sweep",
+    "level": "4",
+    "initiative": 65,
+    "image": "clean-sweep"
+   },
+   {
+    "id": 496,
+    "name": "Sodden Soil",
+    "level": "5",
+    "initiative": 17,
+    "image": "sodden-soil"
+   },
+   {
+    "id": 495,
+    "name": "Tidal Blast",
+    "level": "5",
+    "initiative": 71,
+    "image": "tidal-blast"
+   },
+   {
+    "id": 497,
+    "name": "Endless Cycle",
+    "level": "6",
+    "initiative": 8,
+    "image": "endless-cycle"
+   },
+   {
+    "id": 498,
+    "name": "Twilight Grasp",
+    "level": "6",
+    "initiative": 33,
+    "image": "twilight-grasp"
+   },
+   {
+    "id": 500,
+    "name": "Drown beneath the Waves",
+    "level": "7",
+    "initiative": 9,
+    "image": "drown-beneath-the-waves"
+   },
+   {
+    "id": 499,
+    "name": "Dug In",
+    "level": "7",
+    "initiative": 76,
+    "image": "dug-in"
+   },
+   {
+    "id": 502,
+    "name": "Ebb and Flow",
+    "level": "8",
+    "initiative": 24,
+    "image": "ebb-and-flow"
+   },
+   {
+    "id": 501,
+    "name": "Death on All Sides",
+    "level": "8",
+    "initiative": 73,
+    "image": "death-on-all-sides"
+   },
+   {
+    "id": 504,
+    "name": "Low Tide",
+    "level": "9",
+    "initiative": 10,
+    "image": "low-tide"
+   },
+   {
+    "id": 503,
+    "name": "High Tide",
+    "level": "9",
+    "initiative": 90,
+    "image": "high-tide"
+   }
+  ]
  }
 }

@@ -418,5 +418,53 @@
    "End a scenario with your character tokens on the last slots of four persistent abilities",
    "Never perform a move ability or attack with a value less then 4, and perform at least one move or attack ability each round"
   ]
+ },
+ "crashing-tide": {
+  "perks": [
+   {
+    "text": "Replace one -1 card with two +0 {rolling} pierce 3 cards",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one -1 card with one +0 target 1 card",
+    "boxes": 2
+   },
+   {
+    "text": "Replace one +0 card with one +1 {rolling} shield 1 card",
+    "boxes": 2
+   },
+   {
+    "text": "Add two +1 coral cards",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +2 {muddle} card",
+    "boxes": 2
+   },
+   {
+    "text": "Add one +1 {disarm} card",
+    "boxes": 1
+   },
+   {
+    "text": "Add two +0 {rolling} heal 1 (self) cards",
+    "boxes": 2
+   },
+   {
+    "text": "ignoreNegativeItemFh, coral",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 1
+   },
+   {
+    "text": "(see your perk sheet)",
+    "boxes": 3
+   }
+  ],
+  "masteries": [
+   "(see mastery on your sheet)",
+   "(see mastery on your sheet)"
+  ]
  }
 }
