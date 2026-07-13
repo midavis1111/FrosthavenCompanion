@@ -1,0 +1,10 @@
+.deck-thumb {
+    width: 130px;
+    height: auto;
+}
+
+@media (min-width: 992px) {
+    .deck-thumb {
+        width: 195px;
+    }
+}
