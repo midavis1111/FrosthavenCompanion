@@ -40,19 +40,6 @@ else
         <div class="form-text">Switching keeps each class's full sheet — switch back anytime.</div>
     </div>
 
-    @if (Store.Progress.Party.Count > 1)
-    {
-        <div class="mb-3" style="max-width: 22rem">
-            <label class="form-label small text-muted">Which character is mine?</label>
-            <select class="form-select form-select-sm" value="@c.Id" @onchange="OnPickCharacter">
-                @foreach (var ch in Store.Progress.Party)
-                {
-                    <option value="@ch.Id">@(string.IsNullOrWhiteSpace(ch.Name) ? "Unnamed" : ch.Name) — @ch.ClassName</option>
-                }
-            </select>
-        </div>
-    }
-
     <div class="card">
         <div class="card-header">
             <span class="h5 mb-0">@(string.IsNullOrWhiteSpace(c.ClassName) ? "No class set" : c.ClassName)</span>
@@ -286,12 +273,6 @@ else
     }
 
     private Task SaveAsync() => Store.SaveAsync();
-
-    private async Task OnPickCharacter(ChangeEventArgs e)
-    {
-        if (e.Value?.ToString() is { } id)
-            await Store.SetMyCharacterAsync(id);
-    }
 
     private IEnumerable<string> ClassOptions(Character c) =>
         StartingClasses
