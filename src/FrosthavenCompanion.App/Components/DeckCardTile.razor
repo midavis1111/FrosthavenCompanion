@@ -1,9 +1,9 @@
 @* A selectable card tile: click toggles its state; the corner ⤢ opens the zoom. *@
-<div class="dt @(Locked ? "locked" : "") @(Dimmed && !Selected ? "dim" : "")" @onclick="HandleClick">
+<div class="dt @(Locked ? "locked" : "") @(Dimmed ? "dim" : "")" @onclick="HandleClick">
     <div class="imgwrap">
         @if (Card.Image is not null)
         {
-            <img src="@Src" alt="@Card.Name" loading="lazy" class="img-fluid rounded @(Selected ? "sel" : "border")" />
+            <img src="@Src" alt="@Card.Name" loading="lazy" class="img-fluid rounded border" />
             <button type="button" class="zoom" title="Zoom" @onclick:stopPropagation="true"
                     @onclick="() => OnZoom.InvokeAsync(Src)">⤢</button>
             @if (ShowRemove)
@@ -33,7 +33,6 @@
 @code {
     [Parameter, EditorRequired] public AbilityCard Card { get; set; } = default!;
     [Parameter] public string ClassSlug { get; set; } = "";
-    [Parameter] public bool Selected { get; set; }
     [Parameter] public bool Dimmed { get; set; }
     [Parameter] public bool Locked { get; set; }
     [Parameter] public bool ShowRemove { get; set; }

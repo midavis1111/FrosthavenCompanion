@@ -98,7 +98,7 @@ else
                 @foreach (var card in g)
                 {
                     var c = card;
-                    <DeckCardTile Card="c" ClassSlug="@ClassSlug" Selected="true"
+                    <DeckCardTile Card="c" ClassSlug="@ClassSlug"
                                   OnClick="() => RemoveFromDeck(c)" OnZoom="Zoom" />
                 }
             </div>

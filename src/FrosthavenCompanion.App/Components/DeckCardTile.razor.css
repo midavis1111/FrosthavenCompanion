@@ -23,11 +23,6 @@
     position: relative;
 }
 
-.imgwrap img.sel {
-    outline: 3px solid #198754;
-    outline-offset: -1px;
-}
-
 .zoom {
     position: absolute;
     bottom: 4px;
