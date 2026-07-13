@@ -58,6 +58,8 @@ else
             <span class="h5 mb-0">@(string.IsNullOrWhiteSpace(c.ClassName) ? "No class set" : c.ClassName)</span>
         </div>
         <div class="card-body">
+          <div class="row g-4">
+            <div class="col-12 col-lg-6">
             <div class="row g-3">
                 <div class="col-12 col-md-5">
                     <label class="form-label small">Name</label>
@@ -131,7 +133,9 @@ else
             <h2 class="h6">Notes</h2>
             <textarea class="form-control form-control-sm mb-3" rows="3" @bind="c.Notes" @bind:after="SaveAsync"
                       placeholder="Items, reminders, goals…"></textarea>
+            </div>
 
+            <div class="col-12 col-lg-6">
             <h2 class="h6">Perks</h2>
             @if (Perks.Has(c.ClassName))
             {
@@ -201,6 +205,10 @@ else
                     </div>
                 }
             }
+            </div>
+          </div>
+
+            <hr />
 
             <h2 class="h6 mt-3">Deck</h2>
             @if (Cards.Has(c.ClassName))
@@ -224,11 +232,12 @@ else
                     <div class="d-flex flex-wrap gap-2">
                         @foreach (var card in deckCards)
                         {
+                            var src = $"icons/cards/{PerkCatalog.Slugify(c.ClassName)}/{card.Image}.png";
                             @if (card.Image is not null)
                             {
-                                <img src="icons/cards/@(PerkCatalog.Slugify(c.ClassName))/@(card.Image).png"
-                                     alt="@card.Name" title="@card.Name (@card.InitiativeDisplay)" loading="lazy"
-                                     style="width:70px; height:auto" class="border rounded" />
+                                <img src="@src" alt="@card.Name" title="@card.Name (@card.InitiativeDisplay)" loading="lazy"
+                                     style="width:130px; height:auto; cursor:zoom-in" class="border rounded"
+                                     @onclick="() => lightbox?.Open(src, card.Name)" />
                             }
                             else
                             {
@@ -246,8 +255,11 @@ else
     </div>
 }
 
+<CardLightbox @ref="lightbox" />
+
 @code {
     private bool loaded;
+    private CardLightbox? lightbox;
 
     // Frosthaven XP thresholds for levels 1–9 (index = level-1).
     private static readonly int[] Thresholds = [0, 45, 95, 150, 210, 275, 345, 420, 500];

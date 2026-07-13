@@ -24,14 +24,28 @@ else
     var hand = Cards.HandSize(Me.ClassName);
     var deck = all.Where(InDeck).OrderBy(c => c.Initiative).ToList();
     var bench = all.Where(c => !InDeck(c) && EffSlot(c) == CardSlot.Bench).ToList();
-    var acquire = all.Where(c => EffSlot(c) is null && LevelNum(c) <= CharLevel).ToList();
-    var locked = all.Where(c => EffSlot(c) is null && LevelNum(c) > CharLevel).ToList();
+    var acquire = all.Where(c => EffSlot(c) is null && LevelNum(c) <= planLevel).ToList();
+    var locked = all.Where(c => EffSlot(c) is null && LevelNum(c) > planLevel).ToList();
     var provided = TagCounts(deck);
     var available = AvailableTags(deck);
     var full = deck.Count >= hand;
 
     <div class="card mb-3 sticky-top" style="top:0; z-index:5">
         <div class="card-body py-2">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                <span class="text-muted small">Planning level</span>
+                <button class="btn btn-outline-secondary btn-sm px-2" @onclick="() => SetPlan(planLevel - 1)" disabled="@(planLevel <= 1)">−</button>
+                <span class="fw-bold" style="min-width:1.2rem; text-align:center">@planLevel</span>
+                <button class="btn btn-outline-secondary btn-sm px-2" @onclick="() => SetPlan(planLevel + 1)" disabled="@(planLevel >= 9)">+</button>
+                @if (planLevel != CharLevel)
+                {
+                    <span class="text-muted small">planning ahead — you're level @CharLevel (this doesn't change your character)</span>
+                }
+                else
+                {
+                    <span class="text-muted small">bump this to plan a future level; it won't change your character</span>
+                }
+            </div>
             <div class="d-flex flex-wrap gap-4 align-items-center mb-1">
                 <div>
                     <span class="text-muted small">Deck</span>
@@ -157,6 +171,10 @@ else
     private bool loaded;
     private CardLightbox? lightbox;
 
+    // Level to plan the deck around — starts at the character's real level but can be
+    // bumped to plan a future level. Does NOT change the character (page-local only).
+    private int planLevel = 1;
+
     private Character? Me => Store.MyCharacter;
     private string ClassSlug => Me is null ? "" : PerkCatalog.Slugify(Me.ClassName);
     private int CharLevel => Me?.Level ?? 1;
@@ -164,8 +182,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         await Store.LoadAsync();
+        planLevel = CharLevel;
         loaded = true;
     }
+
+    private void SetPlan(int level) => planLevel = Math.Clamp(level, 1, 9);
 
     // Level 1 cards are always owned (your base hand); level X and 2+ must be acquired.
     private static bool AutoOwned(AbilityCard c) => c.Level == "1";
@@ -211,7 +232,7 @@ else
         var inDeck = deck.SelectMany(c => c.Tags).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var deckIds = deck.Select(c => c.Id).ToHashSet();
         return Cards.For(Me.ClassName)
-            .Where(c => !deckIds.Contains(c.Id))
+            .Where(c => !deckIds.Contains(c.Id) && LevelNum(c) <= planLevel)
             .SelectMany(c => c.Tags)
             .Where(t => !inDeck.Contains(t))
             .Distinct(StringComparer.OrdinalIgnoreCase)
