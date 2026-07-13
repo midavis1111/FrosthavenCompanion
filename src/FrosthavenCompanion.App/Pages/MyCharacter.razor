@@ -204,6 +204,10 @@ else
                     .Where(x => CampaignStore.CardSlotOf(c, x.Id) == CardSlot.Deck)
                     .OrderBy(x => x.Initiative).ToList();
                 var handSize = Cards.HandSize(c.ClassName);
+                var provides = deckCards.SelectMany(x => x.Tags)
+                    .GroupBy(t => t, StringComparer.OrdinalIgnoreCase)
+                    .Select(g => (Tag: g.Key, Count: g.Count()))
+                    .OrderByDescending(x => x.Count).ThenBy(x => x.Tag).ToList();
                 <div class="d-flex align-items-center gap-2 mb-2">
                     <span class="@(deckCards.Count > handSize ? "text-danger" : deckCards.Count == handSize ? "text-success" : null)">
                         <strong>@deckCards.Count</strong> / @handSize cards
@@ -216,20 +220,41 @@ else
                 }
                 else
                 {
-                    <div class="d-flex flex-wrap gap-2">
+                    @if (provides.Count > 0)
+                    {
+                        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                            <span class="fw-semibold small">Provides</span>
+                            @foreach (var (tag, count) in provides)
+                            {
+                                <TagChip Tag="@tag" Count="@count" />
+                            }
+                        </div>
+                    }
+                    <div class="d-flex flex-wrap gap-3">
                         @foreach (var card in deckCards)
                         {
                             var src = $"icons/cards/{PerkCatalog.Slugify(c.ClassName)}/{card.Image}.png";
-                            @if (card.Image is not null)
-                            {
-                                <img src="@src" alt="@card.Name" title="@card.Name (@card.InitiativeDisplay)" loading="lazy"
-                                     class="border rounded" style="width:200px; height:auto; cursor:zoom-in"
-                                     @onclick="() => lightbox?.Open(src, card.Name)" />
-                            }
-                            else
-                            {
-                                <span class="badge text-bg-light border">@card.Name</span>
-                            }
+                            <div style="width:200px">
+                                @if (card.Image is not null)
+                                {
+                                    <img src="@src" alt="@card.Name" title="@card.Name (@card.InitiativeDisplay)" loading="lazy"
+                                         class="border rounded" style="width:200px; height:auto; cursor:zoom-in"
+                                         @onclick="() => lightbox?.Open(src, card.Name)" />
+                                }
+                                else
+                                {
+                                    <span class="badge text-bg-light border">@card.Name</span>
+                                }
+                                @if (card.Tags.Count > 0)
+                                {
+                                    <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                                        @foreach (var t in card.Tags)
+                                        {
+                                            <TagChip Tag="@t" Compact="true" />
+                                        }
+                                    </div>
+                                }
+                            </div>
                         }
                     </div>
                 }
