@@ -130,7 +130,7 @@ else
 
         @if (acquire.Count > 0)
         {
-            <h3 class="h6 mt-3">Add to your collection <span class="text-muted fw-normal">(level 2+ — tap to mark as owned)</span></h3>
+            <h3 class="h6 mt-3">More cards <span class="text-muted fw-normal">(level 2+, up to your planning level — tap to add to deck)</span></h3>
             @foreach (var g in acquire.GroupBy(c => c.Level).OrderBy(g => LevelSort(g.Key)))
             {
                 <div class="text-muted small fw-semibold mt-2">Level @g.Key</div>
@@ -139,7 +139,7 @@ else
                     {
                         var c = card;
                         <DeckCardTile Card="c" ClassSlug="@ClassSlug" Dimmed="true"
-                                      OnClick="() => Acquire(c)" OnZoom="Zoom" />
+                                      OnClick="() => AddToDeck(c)" OnZoom="Zoom" />
                     }
                 </div>
             }
@@ -214,7 +214,6 @@ else
 
     private Task AddToDeck(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Deck);
     private Task RemoveFromDeck(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Bench);
-    private Task Acquire(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Bench);
     private Task UnOwn(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, null);
     private void Zoom(string src) => lightbox?.Open(src);
 
