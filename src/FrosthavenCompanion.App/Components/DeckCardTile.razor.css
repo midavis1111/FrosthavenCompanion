@@ -1,5 +1,12 @@
 .dt {
     cursor: pointer;
+    width: 120px;
+}
+
+@media (min-width: 992px) {
+    .dt {
+        width: 168px;
+    }
 }
 
 .dt.locked {

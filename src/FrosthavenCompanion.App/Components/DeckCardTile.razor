@@ -1,6 +1,5 @@
 @* A selectable card tile: click toggles its state; the corner ⤢ opens the zoom. *@
-<div class="dt @(Locked ? "locked" : "") @(Dimmed && !Selected ? "dim" : "")"
-     style="width:120px" @onclick="HandleClick">
+<div class="dt @(Locked ? "locked" : "") @(Dimmed && !Selected ? "dim" : "")" @onclick="HandleClick">
     <div class="imgwrap">
         @if (Card.Image is not null)
         {
