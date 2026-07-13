@@ -4,10 +4,6 @@
         @if (Card.Image is not null)
         {
             <img src="@Src" alt="@Card.Name" loading="lazy" class="img-fluid rounded @(Selected ? "sel" : "border")" />
-            @if (Selected)
-            {
-                <span class="check">✓</span>
-            }
             <button type="button" class="zoom" title="Zoom" @onclick:stopPropagation="true"
                     @onclick="() => OnZoom.InvokeAsync(Src)">⤢</button>
             @if (ShowRemove)
