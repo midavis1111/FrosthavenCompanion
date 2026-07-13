@@ -223,7 +223,7 @@ else
                             @if (card.Image is not null)
                             {
                                 <img src="@src" alt="@card.Name" title="@card.Name (@card.InitiativeDisplay)" loading="lazy"
-                                     class="deck-thumb border rounded" style="cursor:zoom-in"
+                                     class="border rounded" style="width:150px; height:auto; cursor:zoom-in"
                                      @onclick="() => lightbox?.Open(src, card.Name)" />
                             }
                             else
