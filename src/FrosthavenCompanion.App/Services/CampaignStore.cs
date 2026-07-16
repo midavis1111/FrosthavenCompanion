@@ -303,6 +303,31 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
         await SaveAsync();
     }
 
+    /// <summary>Saves a named deck set (loadout) from the given card ids.</summary>
+    public async Task AddCardSetAsync(Character c, string name, IEnumerable<int> cardIds)
+    {
+        c.CardSets.Add(new CardSet { Name = name.Trim(), CardIds = cardIds.Distinct().ToList() });
+        await SaveAsync();
+    }
+
+    public async Task DeleteCardSetAsync(Character c, CardSet set)
+    {
+        c.CardSets.Remove(set);
+        await SaveAsync();
+    }
+
+    /// <summary>Replaces the active deck with a set: its cards → Deck, any other deck cards → Bench.</summary>
+    public async Task ApplyCardSetAsync(Character c, IEnumerable<int> cardIds)
+    {
+        var target = cardIds.ToHashSet();
+        foreach (var id in c.Cards.Where(kv => kv.Value == CardSlot.Deck && !target.Contains(kv.Key))
+                     .Select(kv => kv.Key).ToList())
+            c.Cards[id] = CardSlot.Bench;
+        foreach (var id in target)
+            c.Cards[id] = CardSlot.Deck;
+        await SaveAsync();
+    }
+
     /// <summary>Cycles an ability card: unowned → Bench → Deck → unowned.</summary>
     public async Task CycleCardAsync(Character c, int cardId)
     {

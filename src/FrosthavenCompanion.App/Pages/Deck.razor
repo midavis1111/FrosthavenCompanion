@@ -84,6 +84,68 @@ else
         </div>
     </div>
 
+    <details class="mb-3">
+        <summary class="fw-semibold">Saved sets (@Me.CardSets.Count)</summary>
+
+        <div class="mt-2 d-flex flex-wrap align-items-end gap-2">
+            <div>
+                <label class="form-label small mb-0">Save current deck as a set</label>
+                <input class="form-control form-control-sm" style="max-width:16rem" placeholder="Set name" @bind="newSetName" />
+            </div>
+            <button class="btn btn-primary btn-sm" disabled="@(deck.Count == 0 || string.IsNullOrWhiteSpace(newSetName))"
+                    @onclick="() => SaveCurrentDeck(deck)">Save</button>
+        </div>
+
+        <details class="mt-2">
+            <summary class="small text-muted">Create from a pasted list of card names</summary>
+            <div class="mt-2" style="max-width:28rem">
+                <input class="form-control form-control-sm mb-1" placeholder="Set name" @bind="pasteName" />
+                <textarea class="form-control form-control-sm mb-1" rows="4" placeholder="One card name per line" @bind="pasteText"></textarea>
+                <button class="btn btn-primary btn-sm" disabled="@(string.IsNullOrWhiteSpace(pasteName))" @onclick="() => CreateFromPaste(all)">Create set</button>
+                @if (pasteMessage is not null)
+                {
+                    <div class="small mt-1 @(pasteUnmatched.Count > 0 ? "text-danger" : "text-success")">@pasteMessage</div>
+                }
+            </div>
+        </details>
+
+        @if (Me.CardSets.Count == 0)
+        {
+            <p class="text-muted small mt-2 mb-0">No saved sets yet — build a deck and save it above.</p>
+        }
+        else
+        {
+            <ul class="list-group mt-2">
+                @foreach (var set in Me.CardSets)
+                {
+                    var s = set;
+                    var setCards = s.CardIds.Select(id => all.FirstOrDefault(x => x.Id == id)).Where(x => x is not null).Select(x => x!).ToList();
+                    var setProvides = setCards.SelectMany(x => x.Tags)
+                        .GroupBy(t => t, StringComparer.OrdinalIgnoreCase)
+                        .Select(g => (Tag: g.Key, Count: g.Count()))
+                        .OrderByDescending(x => x.Count).ThenBy(x => x.Tag).ToList();
+                    <li class="list-group-item">
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <input class="form-control form-control-sm" style="max-width:14rem" @bind="s.Name" @bind:after="Save" />
+                            <span class="text-muted small">@setCards.Count cards</span>
+                            <button class="btn btn-success btn-sm" @onclick="() => ApplySet(s)">Apply</button>
+                            <button class="btn btn-outline-danger btn-sm" @onclick="() => DeleteSet(s)">Delete</button>
+                        </div>
+                        @if (setProvides.Count > 0)
+                        {
+                            <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                                @foreach (var (tag, count) in setProvides)
+                                {
+                                    <TagChip Tag="@tag" Count="@count" />
+                                }
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+    </details>
+
     <h2 class="h5">Your deck (@deck.Count / @hand)</h2>
     @if (deck.Count == 0)
     {
@@ -216,6 +278,42 @@ else
     private Task RemoveFromDeck(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, CardSlot.Bench);
     private Task UnOwn(AbilityCard c) => Store.SetCardSlotAsync(Me!, c.Id, null);
     private void Zoom(string src) => lightbox?.Open(src);
+
+    // Saved deck sets (loadouts).
+    private string newSetName = "";
+    private string pasteName = "";
+    private string pasteText = "";
+    private string? pasteMessage;
+    private List<string> pasteUnmatched = [];
+
+    private Task Save() => Store.SaveAsync();
+
+    private async Task SaveCurrentDeck(List<AbilityCard> deck)
+    {
+        await Store.AddCardSetAsync(Me!, newSetName, deck.Select(c => c.Id));
+        newSetName = "";
+    }
+
+    private async Task CreateFromPaste(IReadOnlyList<AbilityCard> all)
+    {
+        var bySlug = all.GroupBy(c => PerkCatalog.Slugify(c.Name))
+            .ToDictionary(g => g.Key, g => g.First().Id);
+        var matched = new List<int>();
+        pasteUnmatched = [];
+        foreach (var line in pasteText.Split(['\n', '\r', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            if (bySlug.TryGetValue(PerkCatalog.Slugify(line), out var id)) matched.Add(id);
+            else pasteUnmatched.Add(line);
+        }
+        if (matched.Count > 0)
+            await Store.AddCardSetAsync(Me!, pasteName, matched);
+        pasteMessage = $"Matched {matched.Count} card(s)."
+            + (pasteUnmatched.Count > 0 ? $" Couldn't match: {string.Join(", ", pasteUnmatched)}" : "");
+        if (matched.Count > 0) { pasteName = ""; pasteText = ""; }
+    }
+
+    private Task ApplySet(CardSet set) => Store.ApplyCardSetAsync(Me!, set.CardIds);
+    private Task DeleteSet(CardSet set) => Store.DeleteCardSetAsync(Me!, set);
 
     private static Dictionary<string, int> TagCounts(IEnumerable<AbilityCard> cards)
     {

@@ -80,4 +80,14 @@ public sealed class Character
 
     /// <summary>Blinkblade hourglass / time tokens currently held (normally 0–2).</summary>
     public int TimeTokens { get; set; }
+
+    /// <summary>Saved deck loadouts (named lists of card ids) the player can apply per scenario.</summary>
+    public List<CardSet> CardSets { get; set; } = [];
+}
+
+/// <summary>A named deck loadout — a saved set of ability-card ids.</summary>
+public sealed class CardSet
+{
+    public string Name { get; set; } = "";
+    public List<int> CardIds { get; set; } = [];
 }
