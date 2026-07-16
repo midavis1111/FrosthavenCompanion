@@ -89,5 +89,9 @@ public sealed class Character
 public sealed class CardSet
 {
     public string Name { get; set; } = "";
+
+    /// <summary>Optional free-text note about when/why to run this set.</summary>
+    public string Description { get; set; } = "";
+
     public List<int> CardIds { get; set; } = [];
 }

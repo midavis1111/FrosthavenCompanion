@@ -304,9 +304,14 @@ public sealed class CampaignStore(CampaignEngine engine, GistSyncService sync, I
     }
 
     /// <summary>Saves a named deck set (loadout) from the given card ids.</summary>
-    public async Task AddCardSetAsync(Character c, string name, IEnumerable<int> cardIds)
+    public async Task AddCardSetAsync(Character c, string name, IEnumerable<int> cardIds, string? description = null)
     {
-        c.CardSets.Add(new CardSet { Name = name.Trim(), CardIds = cardIds.Distinct().ToList() });
+        c.CardSets.Add(new CardSet
+        {
+            Name = name.Trim(),
+            Description = (description ?? "").Trim(),
+            CardIds = cardIds.Distinct().ToList(),
+        });
         await SaveAsync();
     }
 
