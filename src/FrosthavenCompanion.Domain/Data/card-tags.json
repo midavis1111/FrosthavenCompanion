@@ -34,7 +34,7 @@
     "Flurry of Nails": ["Push", "Jump"],
     "Furry facade": ["Vanish", "Summon"],
     "Spring Loaded": ["Move", "Jump", "XP"],
-    "Improvised Improvement": ["Trap", "Damage", "Bleed", "Bless"],
+    "Improvised Improvement": ["Trap", "Damage", "Bleed", "XP", "Bless"],
     "Dismantle": [],
     "Path of Pain": ["Push", "Bleed"],
     "Unavoidable Outcome": [],
